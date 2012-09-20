@@ -1,0 +1,183 @@
+/* ------------ Page Headings ------------------- */
+h1 
+{
+	font-family: Arial, Verdana, Serif;
+	color: #999900;
+	font-size: x-large; 
+	text-align: center
+}
+
+h1.left
+{
+	font-family: Arial, Verdana, Serif;
+	color: #999900;
+	font-size: x-large; 
+	text-align: left
+}
+
+/* ----------- Sections (within a page) ------------*/
+h2
+{
+	font-family: Arial, Verdana, Serif;
+	color: #009999;
+	font-size: medium
+}
+
+/* ----------- Sections (within a page) ------------*/
+h2.center
+{
+	font-family: Arial, Verdana, Serif;
+	color: #009999;
+	font-size: medium;
+	text-align: center
+}
+
+/* ----------- Sub Sections (within Sections) ---------*/
+h3
+{
+	font-family: Arial, Helvetica, Verdana, Serif;
+	color: #990099;
+	font-size: small
+}
+
+h3.white
+{
+	color:white
+}
+
+h4
+{
+	font-family: Arial, Helvetica, Verdana, Serif;
+	color: #000000;
+	font-size: 10pt;
+	font-weight: bold
+}
+
+h4.white
+{
+	color: white
+}
+
+h4.center
+{
+	text-align: center
+}
+
+/* ---------------- A Style for questions ---------------- */
+.question
+{
+	font-weight: bold;
+}
+
+ol.question
+{
+	font-weight: bold;
+	font-size: 10pt;
+	font-family: Arial, Helvetica, Verdana, Serif;
+}
+
+/* ------------- Font for Paragraphs --------------- */
+p
+{
+	font-family: Arial, Helvetica, Verdana, Serif;
+	font-size: 10pt;
+	color: #000000;
+	font-weight: normal;
+}
+/* ------------ Special Paragraphs that start with a different first letter ----------*/
+p.fletter:first-letter
+{
+	font-size: large;
+}
+
+p.white
+{
+	color: #ffffff;
+}
+
+p.largewhite
+{
+	font-size: 12pt;
+	color: #ffffff;
+	font-weight: bold;
+}
+
+p.signature
+{
+	font-family: Arial, Helvetica, Verdana, Serif;
+	font-size: x-small;
+	color: #000000;
+	text-align: center;
+	font-style: italic
+}
+
+p.caption
+{
+	font-weight: bold;
+	text-align: center
+}
+
+/* ------------- Numbered Lists ---------------- */
+ol.h4size
+{
+	font-size: x-small;
+}
+
+/* ----------- First line on a page (on top of the title) -------------*/
+hr.bottomline, hr.titletop
+{
+	width: 80%;
+	align: center;
+}
+
+/* ----------- Bottom Line of the title --*/
+hr.titlebottom
+{
+	width: 70%;
+	align: center;
+}
+
+/* ----------- Address Tag ----------------*/
+address
+{
+	font-family: Arial, Helvetica, Verdana, Serif;
+	font-size: 10pt;
+	color: #000000;
+}
+
+table.bluenote
+{
+	float: right;
+	width: 20%;
+	background-color: #009999;
+	table-layout: auto;
+	border: thin #00bbbb solid
+}
+
+/* --- The Default color patterns for links -----------------*/
+a:link { color: blue}
+a:visited { color: red}
+a:hover { color: green}
+a:active { color: black}
+
+/* The Color pattern for links which are white in color ----*/
+a.white:link { color: white}
+a.white:visited { color: white}
+a.white:hover { color: #ff00ff }
+a.white:active { color: white}
+
+/* ------- Code Listings ------- */
+code.latex
+{
+	font-family: Verdana, Courier, Arial, Serif;
+	font-size: 10pt;
+	color: #0000aa;
+}
+
+code.shell
+{
+	font-family: Verdana, Courier, Arial, Serif;
+	font-size: 10pt;
+	color: #000000;
+	font-weight: bold;
+}

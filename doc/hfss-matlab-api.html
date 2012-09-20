@@ -1,0 +1,150 @@
+<html>
+
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="Author" content="Vijaya Chandran">
+   <meta name="GENERATOR" content="Vim-Editor">
+   <meta name="description" content="A HFSS Script generator in MATLAB to automate HFSS tasks">
+   <meta name="title" content="HFSS-MATLAB-API: HFSS Script Generation using MATLAB">
+   <meta name="keywords" content="HFSS, MATLAB, Scripting, VB Script, JavaScript">
+   <title>HFSS-MATLAB-API: HFSS Script Generation using MATLAB</title>
+   <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+
+<body>
+
+<hr SIZE=1 class=titletop align=center>
+<h1>HFSS-MATLAB-Scripting-API</h1>
+<hr SIZE=1 class=titlebottom align=center>
+
+<h2>About</h2>
+<p>HFSS-MATLAB-API is a library toolbox to control Ansoft HFSS from MATLAB using the HFSS Scripting Interface. This tool provides a set of MATLAB functions to create 3D objects in HFSS by generating the required HFSS Scripts. Basically, anything that can be done in HFSS user interface and the 3D Modeler can be done with this library of functions. Once a script is generated in this manner, it can be run in HFSS to generate the 3D model, solve it and export the data. You create your entire design in MATLAB and basically use HFSS to solve it. </p>
+
+<p>I wrote this scripting interface out of necessity. There is really no other easy way to design Tapered Slot antennas or other complex antenna structures (that can otherwise be represented easily using mathematical equations) directly using the HFSS 3D Modeler user interface</p>
+
+<p>If you are already well familiar with HFSS and MATLAB and wish to skip the following description, you are welcome to take a look the this <a href="../examples/dipole_example.m">example of dipole antenna design</a> as a demonstration.</p>
+
+<hr SIZE=1 class=titletop align=center>
+
+<h2>Status</h2>
+<h3>Update (03/29/05)</h3>
+<ul>
+	<li><p>Added a function <em>hfssSetColor</em></p></li>.
+	<li><p>Added an example script to create a MxN microstrip patch array</p></li>.
+</ul>
+<p><a href="mailto:jlm88byu@gmail.com">James McDonald</a> contributed the following functions. They are present in the "contrib/" directory.
+<ul>
+	<li><p><em>hfssVariableChange</em> and <em>hfssSetDesign</em></p></li>
+</ul>
+
+<h3>Update (03/15/05)</h3>
+<p>I recently made the following additions to the package. You can download it from <a href="#download">here</a>.</p>
+<ul>
+	<li><p>Added the following functions:</p></li>
+	<ul>
+		<li><p><em>hfssSweepAlongAxis(...)</em></p></li>
+		<li><p><em>hfssSetTransparency(...)</em></p></li>
+	</ul>
+	<li><p>Added a folded dipole example M-file in the examples directory.</p></li>
+</ul>
+
+<h3>Release</h3>
+<p>The current status is version 0.1. Only minimal error checking is implemented and hence read the help carefully before you use the provided functions (detailed help is provided for each function, use help [function name] in MATLAB to access it). The current version is released under the GNU GPL and can be downloaded from <a href="#download">here</a>.</p>
+
+<p>Most of the functions (not related to the 3D modeler) work only with the "Driven Modal" solution type. There are a lot of features in the HFSS scripting interface that I haven't "wrapped" yet into MATLAB, simply because there are so many of them ! But, right now, the most important advantage of using MATLAB for this purpose is the use of scripting for modelling complex 3D objects, and creating resuable and modular script-based geometric objects, which is well-supported by the current version of the API. </p>
+
+<hr SIZE=1 class=titletop align=center>
+
+<h2>Description</h2>
+<p>If you are feeling confused after reading the "About" section, you are most probably wondering 'why in the world would I need something this this ?'. Yes, you can directly open HFSS, use its 3D Modeler to draw stuff, add variables to parameterize your design and then solve it. A major problem with is approach is the amount of time that you spend creating the design in HFSS from the basic 3D Objects that the HFSS toolbar provides. For example, to create a co-axial cable, you have to do the following:</p>
+<ul>
+	<li><p>first create the outer cylinder, </p></li>
+	<li><p>then subtract a cylinder whose radius is equal to the center cylinder radius,  </p></li>
+	<li><p>then create the center cylinder, </p></li>
+	<li><p>then subtract a cylinder whose radius is equal to the inner cylinder radius, </p></li>
+	<li><p>finally, create the inner cylinder. </p></li>
+ </ul>
+
+<p>Imagine the amount of time you would spend making, say, 5 different co-axial cables. Hence, some form of automation is required as your designs get complicated. That is why Ansoft has provided us with a (rather powerful but less known) scripting interface where you can create scripts that contain commands to create 3D objects, add new designs, add solutions, export data etc., These scripts can be written either in VBScript or JavaScript. But the problem with VBScript or JavaScript is that if you are an Electrical Engineer, you most probably wouldn't have used any of these scripting languages before in your life. Also, the scripting conventions used by the HFSS scripting interface are very cryptic, unintuitive,  and difficult to use directly without using automated script generating interfaces. But you most probably know MATLAB and use it for modeling, data analysis etc.,  That is where HFSS-MATLAB-API comes into picture. It provides the following:</p>
+<ul>
+	<li><p>A connection between MATLAB and HFSS in-terms for MATLAB functions. These functions directly generate the VBScripts necessary to create 2D and 3D Objects in the HFSS 3D Modeller.</p></li>
+	<li><p>Using a basic set of functions to create basic 3D objects the modeler, provide functions to create more complex objects such as Coaxial cables, SMA connectors, antenna arrays, etc., using simple MATLAB function interfaces</p></li>
+</ul>
+
+<p>To better explain the utility of this library. Consider the example code below to generate a wire connection from point A to point B using a set of cylinders that are aligned at right angles to each other and with spheres that "pad" the connections between the cylinders so that the result looks like a proper wire connection. This example was used to model a balun wire that starts from the center conductor of the co-axial feed cable to the antenna and is soldered to the other arm of the dipole antenna. More importantly, note that we are using the absolute <em>minimal</em> geometric information required to model the given geometry.</p>
+
+<table border=0 width=90% align=center>
+	<tr>
+		
+		<td width=50% align=left>
+		<code>
+		% Wire Height and Starting Location<br>
+		wireHeight = 0.1; % 1/10th of an inch.<br>
+		wireStart = [cxCenterA(1), cxCenterA(2), 0];<br>
+		<br>
+		% Differential Length Values.<br>
+		lValues(1) = wireHeight;<br>
+		lValues(2) = -bpHgtBalun - (balGap - 2*bpHgtBalun);<br>
+		lValues(3) = -(bpWidBalun/2 + bpWidBalun/8);<br>
+		lValues(4) = -wireHeight;<br>
+		<br>
+		% Rotation Axes.<br>
+		Axes = ['Z', 'X', 'Y', 'Z'];<br>
+		<br>
+		% Radius<br>
+		Radius = 0.02;<br>
+		<br>
+		% Create An HFSS Wire Connection with "Sphere" padding to smoothen the edges.<br>
+		hfssWireConnection(fid, 'BalunWire', wireStart, Radius, lValues, Axes, 'in', 's');<br>
+		</code>
+		</td>
+		
+		<td width=50% align=center>
+		<img src=dipole_balun.jpg></img>
+		</td>
+		
+	</tr>
+</table>
+
+<h3>Batch Solving using HFSS</h3>
+<p>This toolbox also provides functions to setup solutions and sweeps and to export data in HFSS. This is extremely useful if you wish to create the design, run HFSS to solve the design, export the data, and analyze the data - all within MATLAB.  HFSS provides 'RunAndExit', 'BatchSolve' and 'RunScript' option that allows a user to start HFSS, run a script, solve the design and exit. Since, you have the powerful numerical analysis capabilities of MATLAB at your disposal, you can analyze the data, perform online optimization of your design, ie., change the design parameters and repeat the procedure all over again until you reach a specified goal. For example, if you wish to optimize a dipole antenna to resonate at a specified frequency, you can do so by writing a MATLAB program to create the antenna design, use MATLAB dos() or shell() commands to run HFSS in 'RunAndExit' mode to load and solve the design (with proper scripts added to export the results), analyze the exported results using MATLAB's numerical analysis capabilities, change the antenna parameters (such as its length), and then repeat all the steps until your goal is reached.</p>
+
+<p>I have provided couple of example MATLAB programs with the library that you can use as a guide to your own design.</p>
+
+<h3>How to run simple scripts in HFSS ?</h3>
+<p>Now, to the most important question. How do you use this scripting interface to create and run VBScripts ? You can run HFSS scripts using two different ways:</p>
+<ul>
+	<li><p>You can create a VBScript file using a m-file that describes your design geometry (that calls the HFSS-MATLAB Scripting functions). You can then call the VBScript in HFSS using the "Run Script" option in the "Tools" menu. Here is a sketch of how a typical script-generation m-file would look like:</p>
+	<code>
+	% Create a text file with a .vbs extension.<br>
+	fid = fopen('myVBscript.vbs', 'wt');<br>
+	<br>
+	%   ...<br>
+	% Use MATLAB scripting functions to write scripts into<br>
+	% the file represented using the 'fid' handle. Use <br>
+	% help [function name] for more information.<br>
+	%   ...<br>
+	<br>
+	% close the file.<br>
+	fclose(fid);<br>
+	</code>
+	</li>
+	<li><p>You can use the hfssExecuteScript() function available in the API to directly call HFSS and run the script. It has options for using the "Iconic" mode and also the "RunAndExit" mode (for batch solving). But make sure to run the script once with runAndExit set to 'false' before using the [runAndExit = true] (the default) option. This is because, HFSS will exit immediately if there are script errors and the '/RunScriptAndExit' command-line option is set (and there will be no way to know if the script ran properly or not).</p></li>
+</ul>
+
+
+<hr SIZE=1 class=titletop align=center>
+
+<a name="download"></a>
+<h2>Download</h2>
+<p>HFSS-MATLAB-API is released under the GNU Public License (GPL). You are free to modify the source code and re-distribute it (non-commercially) as long you maintain the license notice at the beginning of each m-file and provide credit (by mentioning this page and providing a link to it).</p>
+
+<p>Latest Version: <a href="../../hfssapi-0.11.tar.gz">hfssapi-0.12.tar.gz</a></p>
+
+<p>If you wish to add your own functions to this distribution, please <a href="mailto:rvc@ieee.org">let me know</a>. I will add you as a contributer in this page. Also, please let me know if you encounter any bugs. I will try my best to correct them as soon as possible (please provide as much information as you can about the error (error messages in the MATLAB command window and/or HFSS error dialog boxes etc., ))</p>
+
+<hr class=bottomline align=center>
+<p class=signature>Return to <a href="../../../index.html">Home Page</a>. Please write comments and suggestions to <a href="mailto:rvc@ieee.org">rvc@ieee.org</a></p>.
+
+</body>
+</html>

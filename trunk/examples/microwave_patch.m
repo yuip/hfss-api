@@ -105,6 +105,6 @@ hfssAssignPE(fid, 'GND', {'GroundPlane'});
 % insert solution and sweep.
 hfssInsertSolution(fid, 'Setup3_75GHz', fC/1e9);
 hfssInterpolatingSweep(fid, 'Sweep3to4_5GHz', 'Setup3_75GHz', fStart, fStop, 1001);
-hfssSaveProject(fid, 'C:\Temp\tmpMicrowavePatch.hfss', true);
+hfssSaveProject(fid, 'D:\HFSSProjects\tmpMicrowavePatch.hfss', true);
 
 fclose(fid);

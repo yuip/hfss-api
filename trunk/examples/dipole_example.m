@@ -6,7 +6,7 @@
 % so that the simulated resonance frequency and the desired resonance 
 % frequency are close.
 
-clear all;
+clear all;close all;
 
 % add paths to the required m-files.
 addpath('../3dmodeler/');
@@ -33,12 +33,12 @@ AirZ = Wv/2;
 
 % Temporary Files. These files can be deleted after the optimization
 % is complete. We have to specify the complete path for all of them.
-tmpPrjFile = 'C:\temp\tmpDipole.hfss';
-tmpDataFile = 'C:\temp\tmpData.m';
-tmpScriptFile = 'C:\temp\dipole_example.vbs';
+tmpPrjFile = 'D:\tmpDipole.hfss';
+tmpDataFile = 'D:\tmpData.m';
+tmpScriptFile = 'D:\dipole_example.vbs';
 
 % HFSS Executable Path.
-hfssExePath = 'C:\"Program Files"\Ansoft\HFSS9\hfss.exe';
+hfssExePath = 'C:\Recursos\HFSSv13\HFSS13.0\hfss.exe';
 
 % Plot Colors.
 pltCols = ['b', 'r', 'k', 'g', 'm', 'c', 'y'];
@@ -99,6 +99,7 @@ for iIters = 1:maxIters,
 
 	% Load the data by running the exported matlab file.
 	run(tmpDataFile);
+    tmpDataFile = ['D:\tmpData', num2str(iIters), '.m'];
 
 	% The data items are in the f, S, Z variables now. 
 	% Plot the data.

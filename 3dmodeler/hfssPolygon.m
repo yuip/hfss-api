@@ -1,5 +1,5 @@
 % -------------------------------------------------------------------------- %
-% function hfssPolygon(fid, Name, Points, [Circle], [Radius], [Axis], ...
+% function hfssPolygon(fid, Name, Points, Units, [Circle], [Radius], [Axis], ...
 %
 % Description:
 % ------------
@@ -94,8 +94,8 @@ fprintf(fid, '"NoOfPoints:=", 2))), _\n');
 fprintf(fid, 'Array("NAME:Attributes", _\n');
 fprintf(fid, '"Name:=", "%s", _\n', Name);
 fprintf(fid, '"Flags:=", "", _\n');
-fprintf(fid, '"Color:=", "(255 0 0)", _\n');
-fprintf(fid, '"Transparency:=", 0, _\n');
+fprintf(fid, '"Color:=", "(132 132 193)", _\n');
+fprintf(fid, '"Transparency:=", 0.75, _\n');
 fprintf(fid, '"PartCoordinateSystem:=", "Global", _\n');
 fprintf(fid, '"MaterialName:=", "vacuum", _\n');
 fprintf(fid, '"SolveInside:=", true)\n');

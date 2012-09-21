@@ -57,7 +57,7 @@
 % and so on ...
 function hfssRectangle(fid, Name, Axis, Start, Width, Height, Units)
 
-Transparency = 0.5;
+Transparency = 0.75;
 
 % Preamble.
 fprintf(fid, '\n');

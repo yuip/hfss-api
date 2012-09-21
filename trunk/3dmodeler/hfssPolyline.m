@@ -1,5 +1,5 @@
 % -------------------------------------------------------------------------- %
-% function hfssPolyline(fid, Name, Points)
+% function hfssPolyline(fid, Name, Points, Units)
 % Description:
 % ------------
 %

@@ -38,7 +38,7 @@
 %
 % Copyright 2004, Vijay Ramasami (rvc@ku.edu)
 % ----------------------------------------------------------------------------
-function hfssPolygon(fid, Name, Points, Units, segmentType, Color, ...
+function hfssPolyline(fid, Name, Points, Units, segmentType, Color, ...
                      Transparency)
 
 if (nargin < 5)

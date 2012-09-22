@@ -25,6 +25,13 @@
 % ----------------------------------------------------------------------------
 
 % ----------------------------------------------------------------------------
+% CHANGELOG
+%
+% ??-????-????: *Initial release.
+% 22-Sept-2012: *Added warning and fix OR operator.
+% ----------------------------------------------------------------------------
+
+% ----------------------------------------------------------------------------
 % This file is part of HFSS-MATLAB-API.
 %
 % HFSS-MATLAB-API is free software; you can redistribute it and/or modify it 
@@ -54,8 +61,11 @@ fprintf(fid, '\t\t"MaterialName:=", "%s", _\n', Material);
 
 % if the material is copper, we should set solve inside to be false and for
 % other materials (in general) is should be true.
-if (strcmp(Material, 'copper') | strcmp(Material, 'pec'))
+if (strcmp(Material, 'copper') || strcmp(Material, 'pec'))
 	fprintf(fid, '\t\t"SolveInside:=", false)\n');
-else	
+    msg = ['A warning might appear in HFSS due to material assigment ',...
+           'change for object ', Name];
+    warning('hfssAPI:hfssAssignMaterial', msg);
+else
 	fprintf(fid, '\t\t"SolveInside:=", true)\n');
-end;
+end

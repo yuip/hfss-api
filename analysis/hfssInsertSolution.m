@@ -1,6 +1,7 @@
 % ----------------------------------------------------------------------------
 % function hfssInsertSolution(fid, Name, fGHz, [maxDeltaS = 0.02], 
-%                             [maxPass = 25])
+%                             [maxPass = 25], [minPass = 1],
+%                             [minConvPass = 1], [MaxRef = 20])
 % 
 % Description :
 % -------------
@@ -8,13 +9,19 @@
 %
 % Parameters :
 % ------------
-% fid       - file identifier of the HFSS script file.
-% Name      - name of the solution setup.
-% fGHz      - solution frequency (in GHz).
-% maxError  - maximum error that can be tolerated (should be between 0 and 1,
-%             default is 0.02).
-% maxPasses - max # of passes to be run before the simulation is declared
-%             as 'did not converge' (default is 25).
+% fid         - file identifier of the HFSS script file.
+% Name        - name of the solution setup.
+% fGHz        - solution frequency (in GHz).
+% maxDeltaS   - maximum error that can be tolerated (should be between 0 and 1,
+%               default is 0.02).
+% maxPass     - max # of passes to be run before the simulation is declared
+%               as 'did not converge' (default is 25).
+% minPass     - min # of passes before finishing the simulation
+%               (default 1).
+% minConvPass - min # of converged passes before finishing the simulation
+%               (default 1).
+% MaxRef      - Maximum refinement per pass in percentage to apply to the
+%               mesh (default 20[%]).
 % 
 % Note :
 % ------
@@ -23,7 +30,14 @@
 % ---------
 % fid = fopen('myantenna.vbs', 'wt');
 % ... 
-% hfssInsertSolution(fid, 'Setup750MHz', 0.75, 0.01, 100);
+% hfssInsertSolution(fid, 'Setup750MHz', 0.75, 0.01, 100, 3, 2, 33);
+% ----------------------------------------------------------------------------
+
+% ----------------------------------------------------------------------------
+% CHANGELOG
+% 
+% ??-????-????: *Initial release.
+% 22-Sept-2012: *Added a few optional parameters (minPass, minConvPass, MaxRef)
 % ----------------------------------------------------------------------------
 
 % ----------------------------------------------------------------------------
@@ -45,7 +59,8 @@
 %
 % Copyright 2004, Vijay Ramasami (rvc@ku.edu)
 % ----------------------------------------------------------------------------
-function hfssInsertSolution(fid, Name, fGHz, maxDeltaS, maxPass)
+function hfssInsertSolution(fid, Name, fGHz, maxDeltaS, maxPass, minPass,...
+                            minConvPass, MaxRef)
 
 % arguments processor.
 if (nargin < 3)
@@ -53,17 +68,41 @@ if (nargin < 3)
 elseif (nargin < 4)
 	maxDeltaS = [];
 	maxPass = [];
+    minPass = [];
+    minConvPass = [];
+    MaxRef = [];
 elseif (nargin < 5)
 	maxPass = [];
-end;
+    minPass = [];
+    minConvPass = [];
+    MaxRef = [];
+elseif (nargin < 6)
+    minPass = [];
+    minConvPass = [];
+    MaxRef = [];
+elseif (nargin < 7)
+    minConvPass = [];
+    MaxRef = [];
+elseif (nargin < 8)
+    MaxRef = [];
+end
 
 % defaults processing.
 if isempty(maxDeltaS)
 	maxDeltaS = 0.02;
-end;
+end
 if isempty(maxPass)
 	maxPass = 25;
-end;
+end
+if isempty(minPass)
+    minPass = 1;
+end
+if isempty(minConvPass)
+    minConvPass = 1;
+end
+if isempty(MaxRef)
+    MaxRef = 20;
+end
 
 % create the necessary script.
 fprintf(fid, '\n');
@@ -75,9 +114,9 @@ fprintf(fid, '"PortsOnly:=", false, _\n');
 fprintf(fid, '"maxDeltaS:=", %f, _\n', maxDeltaS);
 fprintf(fid, '"UseMatrixConv:=", false, _\n');
 fprintf(fid, '"MaximumPasses:=", %d, _\n', maxPass);
-fprintf(fid, '"MinimumPasses:=", 1, _\n');
-fprintf(fid, '"MinimumConvergedPasses:=", 1, _\n');
-fprintf(fid, '"PercentRefinement:=", 20, _\n');
+fprintf(fid, '"MinimumPasses:=", %d, _\n', minPass);
+fprintf(fid, '"MinimumConvergedPasses:=", %d, _\n', minConvPass);
+fprintf(fid, '"PercentRefinement:=", %d, _\n', MaxRef);
 fprintf(fid, '"ReducedSolutionBasis:=", false, _\n');
 fprintf(fid, '"DoLambdaRefine:=", true, _\n');
 fprintf(fid, '"DoMaterialLambda:=", true, _\n');

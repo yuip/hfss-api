@@ -76,12 +76,19 @@
 % hfssCreateReport(fid, 'H Plane Cut (cart.)', 5, 1, 'Solution',...
 %                  'HPlaneCutSphere', [], {'Phi', 'Theta', 'Freq'},...
 %                  {'Phi', 'dB(DirTotal)'});
+% hfssCreateReport(fid, '3D Diagram Cart.', 5, 6, 'Solution',...
+%                  'Diagram3D', [], {'Theta', 'Phi', 'Freq'},...
+%                  {'Theta', 'Phi', 'dB(DirTotal)'});
+% hfssCreateReport(fid, '3D Diagram Polar', 5, 7, 'Solution',...
+%                  'Diagram3D', [], {'Phi', 'Theta', 'Freq'},...
+%                  {'Phi', 'Theta', 'dB(DirTotal)'});
 % ----------------------------------------------------------------------------
 
 % ----------------------------------------------------------------------------
 % CHANGELOG
 %
 % 25-Sept-2012: *Initial release.
+% 29-Sept-2012: *Added 3D Radiation Patterns.
 % ----------------------------------------------------------------------------
 
 % ----------------------------------------------------------------------------
@@ -171,9 +178,13 @@ elseif Display == 4 % Smith Chart
 elseif Display == 5 % Data Table
     error('Error in hfssCreateReport: display not supported');
 elseif Display == 6 % 3D Rectangular Plot
-    error('Error in hfssCreateReport: display not supported');
+    fprintf(fid, '"X Component:=", "%s", _\n', DataObj{1});
+    fprintf(fid, '"Y Component:=", "%s", _\n', DataObj{2});
+    fprintf(fid, '"Z Component:=", Array("%s")), _\n', DataObj{3});
 elseif Display == 7 % 3D Polar Plot
-    error('Error in hfssCreateReport: display not supported');
+    fprintf(fid, '"Phi Component:=", "%s", _\n', DataObj{1});
+    fprintf(fid, '"Theta Component:=", "%s", _\n', DataObj{2});
+    fprintf(fid, '"Mag Component:=", Array("%s")), _\n', DataObj{3});
 else
     error('Error in hfssCreateReport: Display = wrong value');
 end

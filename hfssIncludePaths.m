@@ -27,7 +27,7 @@
 % ----------------------------------------------------------------------------
 % Written by Daniel R. Prado
 % danysan@gmail.com / drprado@tsc.uniovi.es
-% 29 September 2012
+% 30 September 2012
 % ----------------------------------------------------------------------------
 function hfssIncludePaths()
 

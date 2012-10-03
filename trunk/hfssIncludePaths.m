@@ -37,3 +37,4 @@ addpath('analysis/');
 addpath('general/');
 addpath('radiation/');
 addpath('reporter/');
+addpath('fieldsCalculator/');

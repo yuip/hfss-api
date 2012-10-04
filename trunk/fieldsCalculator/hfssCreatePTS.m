@@ -4,7 +4,8 @@
 % Description :
 % -------------
 % Creates a .pts file which defines the grid in which the field will be
-% exported by the fields calculator.
+% exported by the fields calculator. Start coordinates must be smaller or
+% equal than Stop coordinates.
 %
 % Parameters :
 % ------------
@@ -43,6 +44,12 @@ function hfssCreatePTS(Name, Start, Stop, Spacing, Units)
 % Arguments processor.
 if (nargin < 5)
 	error('Insufficient # of arguments !');
+end
+
+% Error check
+if ~prod(double(Start <= Stop))
+    error(['Error in hfssCreatePTS: Start coord. must be smaller or ',...
+           'equal than Stop coord.']);
 end
 
 % Preamble

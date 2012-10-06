@@ -52,6 +52,9 @@ if ~prod(double(Start <= Stop))
            'equal than Stop coord.']);
 end
 
+% Prevent malformed PTS due to 0 spacing
+Spacing(Spacing == 0) = 0.1;
+
 % Preamble
 fid = fopen([Name, '.pts'], 'w');
 fprintf(fid, 'Unit=%s\n', Units);

@@ -1,23 +1,22 @@
 % ----------------------------------------------------------------------------
-% function hfssEnterQty(fid, Qty)
+% function hfssCalcOp(fid, Op)
 % 
 % Description :
 % -------------
-% Adds a field quantity to the fields calculator's stack.
+% Performs a calculator operation.
 %
 % Parameters :
 % ------------
 % fid - file identifier of the HFSS script file.
-% Qty - field quantity to be entered onto the stack.
+% Op  - operation to be performed.
 % 
 % Note :
 % ------
 %
 % Example :
 % ---------
-% hfssEnterQty(fid, 'E');
-% hfssEnterQty(fid, 'H');
-% 
+% hfssCalcOp(fid, 'Smooth');
+%
 % ----------------------------------------------------------------------------
 
 % ----------------------------------------------------------------------------
@@ -31,7 +30,7 @@
 % danysan@gmail.com / drprado@tsc.uniovi.es
 % 06 October 2012
 % ----------------------------------------------------------------------------
-function hfssEnterQty(fid, Qty)
+function hfssCalcOp(fid, Op)
 
 % Arguments processor.
 if (nargin < 2)
@@ -43,4 +42,4 @@ fprintf(fid, '\n');
 fprintf(fid, 'Set oModule = oDesign.GetModule("FieldsReporter")\n');
 
 % Command
-fprintf(fid, 'oModule.EnterQty "%s"\n', Qty);
+fprintf(fid, 'oModule.CalcOp "%s"\n', Op);

@@ -1,5 +1,5 @@
 % ----------------------------------------------------------------------------
-% function hfssExportToFileFC(fid, Name, PTS, Solution, Freq)
+% function hfssExportToFileFC(fid, Name, PTS, Solution, Freq, [Phase = 0])
 % 
 % Description :
 % -------------
@@ -13,6 +13,7 @@
 % PTS      - name of the PTS file containing the grid (with extension).
 % Solution - solution being resolved.
 % Freq     - frequency of the solution.
+% Phase    - phase of the field in degrees.
 % 
 % Note :
 % ------
@@ -39,11 +40,18 @@
 % danysan@gmail.com / drprado@tsc.uniovi.es
 % 06 October 2012
 % ----------------------------------------------------------------------------
-function hfssExportToFileFC(fid, Name, PTS, Solution, Freq)
+function hfssExportToFileFC(fid, Name, PTS, Solution, Freq, Phase)
 
 % Arguments processor.
-if (nargin < 3)
+if (nargin < 5)
 	error('Insufficient # of arguments !');
+elseif (nargin < 6)
+    Phase = [];
+end
+
+% Setup default arguments
+if isempty(Phase)
+    Phase = 0;
 end
 
 % Preamble
@@ -55,4 +63,4 @@ fprintf(fid, 'oModule.ExportToFile "%s.fld", _\n', Name);
 fprintf(fid, '"%s", _\n', PTS);
 fprintf(fid, '"%s : LastAdaptive", _\n', Solution);
 fprintf(fid, 'Array("Freq:=", "%fGHz", _\n', Freq);
-fprintf(fid, '"Phase:=", "0deg"), true\n');
+fprintf(fid, '"Phase:=", "%fdeg"), true\n', Phase);

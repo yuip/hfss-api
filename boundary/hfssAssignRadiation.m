@@ -1,5 +1,5 @@
 % ----------------------------------------------------------------------------
-% function hfssAssignRadiation(fid, Name, Object)
+% function hfssAssignRadiation(fid, Name, Object, [UseIE = false])
 % 
 % Description :
 % -------------
@@ -12,6 +12,7 @@
 % Name    - name of the radiation boundary condition (under HFSS).
 % Object  - object to which the radiation boundary conditions needs to be 
 %           applied.
+% UseIE   - activates the IE Radiation Boundary (only in v13-14).
 % 
 % Note :
 % ------
@@ -23,6 +24,14 @@
 % fid = fopen('myantenna.vbs', 'wt');
 % ... 
 % hfssAssignRadiation(fid, 'ABC', 'AirBox');
+% hfssAssignRadiation(fid, 'IERad', 'AirBox', true);
+% ----------------------------------------------------------------------------
+
+% ----------------------------------------------------------------------------
+% CHANGELOG
+% 
+% ??-????-????: *Initial release.
+% 31-Octo-2012: *Add Use Adaptative IE option.
 % ----------------------------------------------------------------------------
 
 % ----------------------------------------------------------------------------
@@ -44,11 +53,24 @@
 %
 % Copyright 2004, Vijay Ramasami (rvc@ku.edu)
 % ----------------------------------------------------------------------------
+function hfssAssignRadiation(fid, Name, BoxObject, UseIE)
 
+% arguments processor.
+if (nargin < 3)
+	error('Insufficient number of arguments!');
+elseif (nargin < 4)
+	UseIE = false;
+end
 
-function hfssAssignRadiation(fid, Name, BoxObject)
+% process UseIE
+if UseIE
+    UseIE = 'true';
+else
+    UseIE = 'false';
+end
 
 fprintf(fid, 'Set oModule = oDesign.GetModule("BoundarySetup")\n');
 fprintf(fid, 'oModule.AssignRadiation _\n');
 fprintf(fid, 'Array("NAME:%s", _\n', Name);
-fprintf(fid, '"Objects:=", Array("%s"))\n', BoxObject);
+fprintf(fid, '"Objects:=", Array("%s"), _\n', BoxObject);
+fprintf(fid, '"UseAdaptiveIE:=", %s)\n', UseIE);

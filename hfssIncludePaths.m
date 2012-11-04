@@ -22,6 +22,8 @@
 % CHANGELOG
 %
 % 30-Sept-2012: *Initial release.
+% 03-Octo-2012: *Add 'fieldsCalculator/' path.
+% 04-Nove-2012: *Add 'mesh/' path.
 % ----------------------------------------------------------------------------
 
 % ----------------------------------------------------------------------------
@@ -38,3 +40,4 @@ addpath('general/');
 addpath('radiation/');
 addpath('reporter/');
 addpath('fieldsCalculator/');
+addpath('mesh/');

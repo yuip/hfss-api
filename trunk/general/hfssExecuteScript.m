@@ -1,6 +1,6 @@
 % ----------------------------------------------------------------------------
-% function hfssExecuteScript(hfssExePath, ScriptFile, [iconOpt = true], 
-%                            [runAndExit = true])
+% function Status = hfssExecuteScript(hfssExePath, ScriptFile, 
+%                            [iconOpt = true], [runAndExit = true])
 % 
 % Description :
 % -------------
@@ -17,6 +17,8 @@
 % [runAndExit] - (optional) if set to true, HFSS will run the given script
 %                and exit, else if set to false, HFSS will run and script
 %                and wait for user input.
+% Status      - returns the status of the HFSS execution, in case it
+%               when wrong to exit the script gracefully.
 % 
 % Note :
 % ------
@@ -69,7 +71,8 @@
 % Copyright 2004, Vijay Ramasami (rvc@ku.edu)
 % ----------------------------------------------------------------------------
 
-function hfssExecuteScript(hfssExePath, ScriptFile, iconMode, runAndExit)
+function Status = hfssExecuteScript(hfssExePath, ScriptFile, iconMode,...
+    runAndExit)
 
 % arguments processor.
 if (nargin < 2)
@@ -108,7 +111,11 @@ cmdHFSS = [hfssExePath, ' ', iconStr, ' ', runStr, ' ' ,  ...
 % Execute the Command.
 fprintf('Running HFSS usign:\n');
 fprintf('\t%s\n', cmdHFSS);
-[Status, Result] = system(cmdHFSS);
+[Status, ~] = system(cmdHFSS);
+
+% Check for execution errors
 if (Status ~= 0)
-	warning('HFSS Execution returned an error status!');
-end;
+    msg = 'HFSS Execution returned an error status!';
+	warning('hfssAPI:hfssExecuteScript', msg);
+    fprintf('\n');
+end

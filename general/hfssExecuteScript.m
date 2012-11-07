@@ -106,8 +106,9 @@ cmdHFSS = [hfssExePath, ' ', iconStr, ' ', runStr, ' ' ,  ...
            ScriptFile];
 
 % Execute the Command.
-disp(sprintf('    Running HFSS using %s ...\n', cmdHFSS));
+fprintf('Running HFSS usign:\n');
+fprintf('\t%s\n', cmdHFSS);
 [Status, Result] = system(cmdHFSS);
 if (Status ~= 0)
-	warning('HFSS Execution returned an error status !');
+	warning('HFSS Execution returned an error status!');
 end;

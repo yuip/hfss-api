@@ -66,6 +66,7 @@ if (strcmp(Material, 'copper') || strcmp(Material, 'pec'))
     msg = ['A warning might appear in HFSS due to material assigment ',...
            'change for object ', Name];
     warning('hfssAPI:hfssAssignMaterial', msg);
+    fprintf('\n');
 else
 	fprintf(fid, '\t\t"SolveInside:=", true)\n');
 end

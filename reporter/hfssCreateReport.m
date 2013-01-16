@@ -1,6 +1,6 @@
 % ----------------------------------------------------------------------------
 % function hfssCreateReport(fid, ReportName, Type, Display, Solution,...
-%                           Context, Domain, VarObj, DataObj)
+%                           Sweep, Context, Domain, VarObj, DataObj)
 % 
 % Description :
 % -------------
@@ -43,6 +43,9 @@
 %                1: "Rectangular Plot"
 %                5: "Data Table"
 % Solution   - name of the solution given to hfssInsertSolution.
+% Sweep      - name of the frequency sweep given to hfssInterpolatingSweep.
+%              This can be an empty string, in which case it will be
+%              used LastAdaptive instead.
 % Context    - context for which the expression is being evaluated. This
 %              can be an empty string if there is no context.
 %              e.g. "Infinite Sphere", "Sphere", "Polyline"
@@ -89,6 +92,9 @@
 %
 % 25-Sept-2012: *Initial release.
 % 29-Sept-2012: *Added 3D Radiation Patterns.
+% 16-Janu-2013: *Fixed a bug when VarObj had only one item and wasn't
+%                added to the script.
+%               *Added Sweep param.
 % ----------------------------------------------------------------------------
 
 % ----------------------------------------------------------------------------
@@ -97,10 +103,10 @@
 % 23 September 2012
 % ----------------------------------------------------------------------------
 function hfssCreateReport(fid, ReportName, Type, Display, Solution,...
-                          Context, Domain, VarObj, DataObj)
+                          Sweep, Context, Domain, VarObj, DataObj)
 
 % Arguments processor.
-if (nargin < 9)
+if (nargin < 10)
 	error('Insufficient # of arguments !');
 end
 
@@ -109,6 +115,11 @@ ReportType = {'Modal S Parameter', 'Terminal S Parameters',...
               'Eigenmode Parameters', 'Fields', 'Far Fields',...
               'Near Fields', 'Emission Test'};
 ReportType = ReportType{Type};
+
+% Check Sweep name, if empty it will be LastAdaptive
+if isempty(Sweep)
+    Sweep = 'LastAdaptive';
+end
 
 % Check for type and display inconsistencies
 if Type == 4 && (Display == 4 || Display == 7)
@@ -138,7 +149,7 @@ fprintf(fid, 'Set oModule = oDesign.GetModule("ReportSetup")\n');
 fprintf(fid, 'oModule.CreateReport "%s", _\n', ReportName);
 fprintf(fid, '"%s", _\n', ReportType);
 fprintf(fid, '"%s", _\n', DisplayType);
-fprintf(fid, '"%s : LastAdaptive", _\n', Solution); % TODO: sweep.
+fprintf(fid, '"%s : %s", _\n', Solution, Sweep);
 
 % Context parameters
 fprintf(fid, 'Array(');
@@ -157,10 +168,14 @@ fprintf(fid, '), _\n');
 
 % Families array parameters
 fprintf(fid, 'Array('); % TODO: apart from "All", allow other values.
-for i = 1:numel(VarObj)-1
-    fprintf(fid, '"%s:=", Array("All"), _\n', VarObj{i});
+if numel(VarObj) > 1
+    for i = 1:numel(VarObj)-1
+        fprintf(fid, '"%s:=", Array("All"), _\n', VarObj{i});
+    end
+    fprintf(fid, '"%s:=", Array("All")), _\n', VarObj{i+1});
+else
+    fprintf(fid, '"%s:=", Array("All")), _\n', VarObj{1});
 end
-fprintf(fid, '"%s:=", Array("All")), _\n', VarObj{i+1});
 
 % Report data array parameters.
 % Depending on the Report Type, the syntax changes.

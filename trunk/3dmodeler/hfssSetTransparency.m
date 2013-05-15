@@ -18,6 +18,13 @@
 % ----------------------------------------------------------------------------
 
 % ----------------------------------------------------------------------------
+% CHANGELOG
+%
+% ??-????-????: *Initial release.
+% 15-May-2013 : *Fix a bug when setting transparency to multiple objects.
+% ----------------------------------------------------------------------------
+
+% ----------------------------------------------------------------------------
 % This file is part of HFSS-MATLAB-API.
 %
 % HFSS-MATLAB-API is free software; you can redistribute it and/or modify it 
@@ -44,7 +51,7 @@ if (nargin < 3)
 	erro('non-enough arguments !');
 end;
 
-if ((Value < 0) | (Value > 1))
+if ((Value < 0) || (Value > 1))
 	error('transparency must be between 0 and 1!');
 end;
 
@@ -60,7 +67,7 @@ fprintf(fid, 'Array("NAME:AllTabs", _\n');
 fprintf(fid, '\tArray("NAME:Geometry3DAttributeTab", _\n');
 fprintf(fid, '\t\tArray("NAME:PropServers",');
 for iO = 1:nObj-1,
-	fprintf(fid, '"%s", ', ObjectList{i});
+	fprintf(fid, '"%s", ', ObjectList{iO});
 end;
 fprintf(fid, '"%s"), _\n', ObjectList{nObj});
 fprintf(fid, '\t\tArray("NAME:ChangedProps", _\n');

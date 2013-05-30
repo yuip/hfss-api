@@ -9,16 +9,16 @@
 %
 % Parameters :
 % ------------
-% hfssExePath - the complete HFSS Executable path (see note for more info).
-% ScriptFile  - the complete path of the VB Script file to be executed by
-%               HFSS.
-% [iconOpt]   - (optional) if set to false, HFSS will run in the normal mode,
-%               else it will run in the "iconized" mode.
+% hfssExePath  - the complete HFSS Executable path (see note for more info).
+% ScriptFile   - the complete path of the VB Script file to be executed by
+%                HFSS.
+% [iconOpt]    - (optional) if set to false, HFSS will run in the normal mode,
+%                else it will run in the "iconized" mode.
 % [runAndExit] - (optional) if set to true, HFSS will run the given script
 %                and exit, else if set to false, HFSS will run and script
 %                and wait for user input.
-% Status      - returns the status of the HFSS execution, in case it
-%               when wrong to exit the script gracefully.
+% Status       - returns the status of the HFSS execution, in case it
+%                when wrong to exit the script gracefully.
 % 
 % Note :
 % ------
@@ -52,6 +52,13 @@
 % ----------------------------------------------------------------------------
 
 % ----------------------------------------------------------------------------
+% CHANGELOG
+%
+% ??-????-????: *Initial release.
+% 30-May -2013: *Fix typo.
+% ----------------------------------------------------------------------------
+
+% ----------------------------------------------------------------------------
 % This file is part of HFSS-MATLAB-API.
 %
 % HFSS-MATLAB-API is free software; you can redistribute it and/or modify it 
@@ -70,7 +77,6 @@
 %
 % Copyright 2004, Vijay Ramasami (rvc@ku.edu)
 % ----------------------------------------------------------------------------
-
 function Status = hfssExecuteScript(hfssExePath, ScriptFile, iconMode,...
     runAndExit)
 
@@ -109,7 +115,7 @@ cmdHFSS = [hfssExePath, ' ', iconStr, ' ', runStr, ' ' ,  ...
            ScriptFile];
 
 % Execute the Command.
-fprintf('Running HFSS usign:\n');
+fprintf('Running HFSS using:\n');
 fprintf('\t%s\n', cmdHFSS);
 [Status, ~] = system(cmdHFSS);
 

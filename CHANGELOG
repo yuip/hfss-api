@@ -1,0 +1,23 @@
+v0.3 (??-????-????)
+[Not yet published]
+	- Added the following functions to boundary/ (thanks Pablo):
+		hfssAssignMaster(...)
+		hfssAssignSlave(...)
+		hfssAssignFloquetPort(...)
+	- Created global CHANGELOG file.
+	- Added long-missing function hfssCalcStack(...) to fieldsCalculator/.
+
+v0.2 (28-May-2013)
+[This is the first version with public download. Sorry for the cryptic changelog.
+If you want to see the exact changes, please check the code until revision 32 at
+http://code.google.com/p/hfss-api/source/list]
+	- Added a bunch of new functions.
+	- Fixed a few bugs.
+
+v0.12 (15-March-2005)
+[Original version taken from:
+https://www.cresis.ku.edu/~rvc/projects/hfssapi/doc/hfss-matlab-api.html]
+	- Added the following functions:
+		hfssSweepAlongAxis(...)
+		hfssSetTransparency(...)
+	- Added a folded dipole example M-file in the examples directory.

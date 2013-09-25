@@ -1,3 +1,7 @@
+vX.X (XX-XXXX-XXXX)
+[--]
+    - Added hfssAssignLumpedRLC to boundary/ (thanks Pablo).
+
 v0.3 (17-September-2013)
 [Better late than never]
 	- Added the following functions to boundary/ (thanks Pablo):

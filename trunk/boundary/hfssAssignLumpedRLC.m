@@ -53,6 +53,7 @@
 % CHANGELOG
 %
 % 25-Sep-2013: *Initial release.
+% 12-Nov-2013: *Fixed crash when not defining a capacitance
 % ----------------------------------------------------------------------------
 
 % ----------------------------------------------------------------------------
@@ -99,15 +100,17 @@ fprintf(fid, '\t\t"End:=", Array("%.4f%s", "%.4f%s", "%.4f%s") _\n', ...
         iEnd(1), Units{4}, iEnd(2), Units{4}, iEnd(3), Units{4});
 fprintf(fid, '\t\t), _\n');
 fprintf(fid, '\t"UseResist:=", %s, _\n',UseResistString);
-fprintf(fid, '\t"UseInduct:=", %s, _\n',UseInductString);
-fprintf(fid, '\t"UseCap:=", %s, _\n',UseCapString);
 if UseResist
     fprintf(fid, '\t"Resistance:=", "%.4f%s", _\n', Resist, Units{1});
 end
+fprintf(fid, '\t"UseInduct:=", %s, _\n',UseInductString);
 if UseInduct
     fprintf(fid, '\t"Inductance:=", "%.4f%s", _\n', Induct, Units{2});
 end
 if UseCap
+    fprintf(fid, '\t"UseCap:=", %s, _\n',UseCapString);
     fprintf(fid, '\t"Capacitance:=", "%.4f%s" _\n', Cap, Units{3});
+else
+    fprintf(fid, '\t"UseCap:=", %s _\n',UseCapString);
 end
 fprintf(fid, '\t)');

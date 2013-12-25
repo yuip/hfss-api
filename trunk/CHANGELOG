@@ -1,6 +1,7 @@
 vX.X (XX-XXXX-XXXX)
 [--]
     - Added hfssAssignLumpedRLC to boundary/ (thanks Pablo).
+    - Fixed crash in hfssAssignLumpedRLC (thanks Pablo).
 
 v0.3 (17-September-2013)
 [Better late than never]

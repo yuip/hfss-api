@@ -39,8 +39,30 @@
 %
 % Copyright 2004, Vijay Ramasami (rvc@ku.edu)
 % ----------------------------------------------------------------------------
+
+% ----------------------------------------------------------------------------
+% CHANGELOG
+%
+% ??-????-2014: *Initial release (VR).
+% 07-Augu-2014: *Added option to clone parts (DRP).
+% ----------------------------------------------------------------------------
+
+% ----------------------------------------------------------------------------
+% Modified by Daniel Rodriguez Prado
+% danysan@gmail.com / drprado@tsc.uniovi.es
+% 07 August 2014
+% ----------------------------------------------------------------------------
+
 % Will result in blankParts - toolParts.
-function hfssSubtract(fid, blankParts, toolParts)
+function hfssSubtract(fid, blankParts, toolParts, Clone)
+
+if (nargin < 4)
+    Clone = [];
+end
+
+if isempty(Clone)
+    Clone = 'false';
+end
 
 % Preamble.
 fprintf(fid, '\n');
@@ -75,4 +97,4 @@ end;
 
 % Post-Amble.
 fprintf(fid, 'Array("NAME:SubtractParameters", _\n');
-fprintf(fid, '"KeepOriginals:=", false) \n');
+fprintf(fid, '"KeepOriginals:=", %s) \n', Clone);

@@ -1,7 +1,11 @@
-vX.X (XX-XXXX-XXXX)
-[--]
+v0.4 (06-October-2014)
+[Nothing lasts forever]
+    - Added new function hfssSweepAlongVector.
     - Added hfssAssignLumpedRLC to boundary/ (thanks Pablo).
+    - Added option to clone parts in hfssSubstract.
+    - Added option for closed polylines.
     - Fixed crash in hfssAssignLumpedRLC (thanks Pablo).
+    - Fixed representation of polylines.
 
 v0.3 (17-September-2013)
 [Better late than never]

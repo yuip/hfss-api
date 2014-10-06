@@ -32,6 +32,7 @@
 % CHANGELOG
 %
 % 03-Oct-2012: *Initial release.
+% 11-Aug-2014: *Faster way of creating grid.
 % ----------------------------------------------------------------------------
 
 % ----------------------------------------------------------------------------
@@ -59,14 +60,24 @@ Spacing(Spacing == 0) = 0.1;
 fid = fopen([Name, '.pts'], 'w');
 fprintf(fid, 'Unit=%s\n', Units);
 
-% Generating the grid...
-for i = Start(1):Spacing(1):Stop(1)
-    for j = Start(2):Spacing(2):Stop(2)
-        for k = Start(3):Spacing(3):Stop(3)
-            fprintf(fid, '%14.6f%14.6f%14.6f\n', i, j, k);
-        end
-    end
-end
+% Faster way of computing the grid (needs plenty of testing).
+i = Start(1):Spacing(1):Stop(1);
+j = Start(2):Spacing(2):Stop(2);
+k = Start(3):Spacing(3):Stop(3);
+[I, J, K] = meshgrid(i, j, k);
+I = reshape(I, numel(i)*numel(j), 1);
+J = reshape(J, numel(i)*numel(j), 1);
+K = reshape(K, numel(i)*numel(j), 1);
+fprintf(fid, '%14.6f%14.6f%14.6f\n', [I'; J'; K']);
+
+% Generating the grid (by brute force)...
+%for i = Start(1):Spacing(1):Stop(1)
+%    for j = Start(2):Spacing(2):Stop(2)
+%        for k = Start(3):Spacing(3):Stop(3)
+%            fprintf(fid, '%14.6f%14.6f%14.6f\n', i, j, k);
+%        end
+%    end
+%end
 
 % Finishing
 fclose(fid);

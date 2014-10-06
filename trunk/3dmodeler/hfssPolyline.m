@@ -38,29 +38,51 @@
 %
 % Copyright 2004, Vijay Ramasami (rvc@ku.edu)
 % ----------------------------------------------------------------------------
-function hfssPolyline(fid, Name, Points, Units, segmentType, Color, ...
-                     Transparency)
 
+% ----------------------------------------------------------------------------
+% CHANGELOG
+%
+% ??-????-2014: *Initial release (VR).
+% 07-Augu-2014: *Fix representation of polylines (DRP).
+% 07-Augu-2014: *Added option for closed polyline (DRP).
+% ----------------------------------------------------------------------------
+
+% ----------------------------------------------------------------------------
+% Modified by Daniel Rodriguez Prado
+% danysan@gmail.com / drprado@tsc.uniovi.es
+% 07 August 2014
+% ----------------------------------------------------------------------------
+
+function hfssPolyline(fid, Name, Points, Units, Closed, segmentType, ...
+                     Color, Transparency)
 if (nargin < 5)
+    Closed = [];
 	segmentType = [];
 	Color = [];
 	Transparency = [];
 elseif (nargin < 6)
+    segmentType = [];
 	Color = [];
 	Transparency = [];
-else
+elseif (nargin < 7)
+    Color = [];
 	Transparency = [];
-end;
+elseif (nargin < 8)
+    Transparency = [];
+end
 
+if isempty(Closed)
+    Closed = 'false';
+end
 if isempty(segmentType)
 	segmentType = 'Line';
-end;
+end
 if isempty(Color)
 	Color = [0, 0, 0];
-end;
+end
 if isempty(Transparency)
 	Transparency = 0.8;
-end;
+end
 
 nPoints = length(Points(:, 1));
 
@@ -69,7 +91,7 @@ fprintf(fid, '\n');
 fprintf(fid, 'oEditor.CreatePolyline _\n');
 fprintf(fid, '\tArray("NAME:PolylineParameters", ');
 fprintf(fid, '"IsPolylineCovered:=", true, ');
-fprintf(fid, '"IsPolylineClosed:=", false, _\n');
+fprintf(fid, '"IsPolylineClosed:=", %s, _\n', Closed);
 
 % Enter the Points.
 fprintf(fid, '\t\tArray("NAME:PolylinePoints", _\n');
@@ -87,10 +109,16 @@ fprintf(fid, '\t\t\t), _ \n');
 
 % Create Segments.
 fprintf(fid, '\t\tArray("NAME:PolylineSegments", _\n');
+for iP = 1:nPoints-2
+    fprintf(fid, '\t\t\tArray("NAME:PLSegment", ');
+    fprintf(fid, '"SegmentType:=",  "%s", ', segmentType);
+    fprintf(fid, '"StartIndex:=", %d, ', iP-1);
+    fprintf(fid, '"NoOfPoints:=", 2), _\n');
+end
 fprintf(fid, '\t\t\tArray("NAME:PLSegment", ');
 fprintf(fid, '"SegmentType:=",  "%s", ', segmentType);
-fprintf(fid, '"StartIndex:=", 0, ');
-fprintf(fid, '"NoOfPoints:=", %d) _\n', nPoints);
+fprintf(fid, '"StartIndex:=", %d, ', iP);
+fprintf(fid, '"NoOfPoints:=", 2) _\n');
 fprintf(fid, '\t\t\t) _\n');
 fprintf(fid, '\t\t), _\n');
 

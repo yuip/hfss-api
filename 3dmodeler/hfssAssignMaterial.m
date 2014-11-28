@@ -29,6 +29,7 @@
 %
 % ??-????-????: *Initial release.
 % 22-Sept-2012: *Added warning and fix OR operator.
+% 28-Nove-2014: *Fix uppercase bug with copper and pec.
 % ----------------------------------------------------------------------------
 
 % ----------------------------------------------------------------------------
@@ -61,9 +62,9 @@ fprintf(fid, '\t\t"MaterialName:=", "%s", _\n', Material);
 
 % if the material is copper, we should set solve inside to be false and for
 % other materials (in general) is should be true.
-if (strcmp(Material, 'copper') || strcmp(Material, 'pec'))
+if (strcmpi(Material, 'copper') || strcmpi(Material, 'pec'))
 	fprintf(fid, '\t\t"SolveInside:=", false)\n');
-    msg = ['A warning might appear in HFSS due to material assigment ',...
+    msg = ['A warning might appear in HFSS due to material assignment ',...
            'change for object ', Name];
     warning('hfssAPI:hfssAssignMaterial', msg);
     fprintf('\n');

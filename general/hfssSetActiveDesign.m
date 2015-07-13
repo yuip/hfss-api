@@ -1,6 +1,16 @@
 % ----------------------------------------------------------------------------
-% function hfssSetDesign(fid, designName, [designType = 'driven modal'])
+% function hfssSetActiveDesign(fid, designName, [designType = 'driven modal'])
 % 
+% Written by:
+% ----------
+% James L. McDonald
+% jlm88byu@gmail.com
+% 26 March 2005
+%
+% Modified by:
+% ------------
+% Rounak Singh Narde (rounaksingh17@gmail.com or rn5949@rit.edu)
+%
 % Description :
 % -------------
 % Create the necessary VB Script to insert an HFSS Design into the Project 
@@ -27,13 +37,7 @@
 % hfssInsertDesign(fid, 'Dipole_SingleElement');
 % ----------------------------------------------------------------------------
 
-% ----------------------------------------------------------------------------
-% Written by James L. McDonald
-% jlm88byu@gmail.com
-% 26 March 2005
-% ----------------------------------------------------------------------------
-
-function hfssSetDesign(fid, designName)
+function hfssSetActiveDesign(fid, designName)
 
 % arguments processor.
 if (nargin < 2)

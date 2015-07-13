@@ -44,7 +44,14 @@
 
 function hfssOpenProject(fid, hfssProjectFile)
 
+if verLessThan('matlab', '7.12')
+% Code for earlier versions of Matlab than Matlab 11a
 [Path, projectName, Ext, Ver] = fileparts(hfssProjectFile);
+else
+% Code for later versions of Matlab than Matlab 11a
+[Path, projectName, Ext] = fileparts(hfssProjectFile);
+end
+
 
 % Check extension.
 if (~strcmp(Ext, '.hfss'))

@@ -48,12 +48,12 @@
 % Copyright 2004, Vijay Ramasami (rvc@ku.edu)
 % ----------------------------------------------------------------------------
 
-function hfssAssignPE(fid, Name, ObjectList, infGND)
+function hfssAssignPE(fid, Name, Type, ObjectList, infGND)
 
 % arguments processor.
-if (nargin < 3)
+if (nargin < 4)
 	error('Insufficient # of arguments !');
-elseif (nargin < 4)
+elseif (nargin < 5)
 	infGND = [];
 end;
 
@@ -71,19 +71,34 @@ fprintf(fid, 'Set oModule = oDesign.GetModule("BoundarySetup")\n');
 fprintf(fid, 'oModule.AssignPerfectE _\n');
 fprintf(fid, 'Array("NAME:%s", _\n', Name);
 
+% Type 0 means arguments are names of objects. 
+if (Type==0)
+    fprintf(fid, '"Objects:=", _\n'); 
+    fprintf(fid, 'Array(');
+    for iObj = 1:nObjects,
+        fprintf(fid, '"%s"', ObjectList{iObj});
+        if (iObj ~= nObjects)
+            fprintf(fid, ',');
+        end;
+    end;
+elseif (Type==1)
+    fprintf(fid, '"Faces:=", _\n'); 
+    fprintf(fid, 'Array(');
+    for iObj = 1:nObjects,
+        fprintf(fid, '%s', ObjectList{iObj});
+        if (iObj ~= nObjects)
+            fprintf(fid, ',');
+        end;
+    end;
+end
+
+fprintf(fid, '), _ \n');
+
 % is infinite GND ?
 if (infGND)
-	fprintf(fid, '"InfGroundPlane:=", true, _\n');
+	fprintf(fid, '"InfGroundPlane:=", true _ \n');
 else
-	fprintf(fid, '"InfGroundPlane:=", false, _\n');
+	fprintf(fid, '"InfGroundPlane:=", false _ \n');
 end;
 
-fprintf(fid, '"Objects:=", _\n'); 
-fprintf(fid, 'Array(');
-for iObj = 1:nObjects,
-	fprintf(fid, '"%s"', ObjectList{iObj});
-	if (iObj ~= nObjects)
-		fprintf(fid, ',');
-	end;
-end;
-fprintf(fid, '))\n');
+fprintf(fid, ')\n');

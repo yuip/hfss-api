@@ -1,8 +1,6 @@
-HFSS-MATLAB-SCRIPTING-API
-=========================
+#HFSS-MATLAB-SCRIPTING-API
 
-Introdution
------------
+##Introdution
 
 HFSS-MATLAB-API is a library toolbox to control Ansoft HFSS from MATLAB using 
 the HFSS Scripting Interface. This tool provides a set of MATLAB functions to 
@@ -13,24 +11,18 @@ manner, it can be run in HFSS to generate the 3D model, solve it and export
 the data. You create your entire design in MATLAB and basically use HFSS to 
 solve it.
 
-Files:
-------
+##Files
 All the files are organized in the following directories.
 
-3dmodeler/ - contains m-files that generate VBScripts for the 3D-Modeler.
-analysis/ - contains m-files for Analysis (Setup/Solve/Export).
-boundary/ - contains m-files for setting up boundaries.
 doc/ - contains the HTML documentation.
 examples/ - contains example usage m-files.
-general/ - contains files for operations such as File Open/Save/Close, and 
-           Project Create/Save/Make Active etc.,
-contrib/ - contains files contributed by several users. Please refer to the 
-           individual files to know more about them.
-
+src/general/ - contains files for operations such as File Open/Save/Close, and Project Create/Save/Make Active etc.,
+src/3dmodeler/ - contains m-files that generate VBScripts for the 3D-Modeler.
+src/analysis/ - contains m-files for Analysis (Setup/Solve/Export).
+src/boundary/ - contains m-files for setting up boundaries.
 For questions and comments, please contact me.
 
-Author:
--------
+##Original Author:
 Vijay Ramasami,
 RSL, Univ. of Kansas,
 Lawrence, KS, 66046.

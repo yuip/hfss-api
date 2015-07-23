@@ -1,0 +1,3 @@
+% Gitignore file -- To commit an empty output folder to repo
+
+!.gitignore

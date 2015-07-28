@@ -1,35 +1,4 @@
 % ----------------------------------------------------------------------------
-% function hfssExportModelToSM3(fid, FilePath, MajorVersion, MinorVersion)
-% 
-% Written by:
-% -----------
-% Rounak Singh Narde (rn5949@rit.edu)
-%
-% Description :
-% -------------
-% Create the VB Script necessary to export the 3D model to Ansoft 3D model
-% file. 
-%
-% Parameters :
-% ------------
-% fid           - file identifier of the HFSS script file.
-% FilePath      - FilePath with filename and extension(.sm3)
-% MajorVersion  - Major Version for sm3 file. (default=22)
-% MinorVersion  - Minor Version for sm3 file. (default=0)
-%
-% Example :
-% ---------
-% fid = fopen('myantenna.vbs', 'wt');
-% ... 
-% % Export 3D model to a sm3 file
-% hfssExportModelToSM3(fid, 'C:\Users\test1234\Documents\exportToMe.sm3');
-% 
-% or
-% hfssExportModelToSM3(fid, 'C:\Users\test1234\Documents\exportToMe.sm3',
-% 21,0);
-% ----------------------------------------------------------------------------
-
-% ----------------------------------------------------------------------------
 % This file is part of HFSS-MATLAB-API.
 %
 % HFSS-MATLAB-API is free software; you can redistribute it and/or modify it 
@@ -46,10 +15,30 @@
 % Foobar; if not, write to the Free Software Foundation, Inc., 59 Temple 
 % Place, Suite 330, Boston, MA  02111-1307  USA
 %
-% Copyright 2004, Vijay Ramasami (rvc@ku.edu)
+% Copyright 2015, Rounak Singh Narde (rounaksingh17@gmail.com)
 % ----------------------------------------------------------------------------
 function hfssExportModelToSM3(fid, FilePath, MajorVersion, MinorVersion)
-    
+    % Create the VB Script necessary to export the 3D model to Ansoft 3D model
+    % file. If Major and Minor versions are optional arguments. The default SM3 
+    % file version is 21.0
+    %
+    % Parameters :
+    % fid:          file identifier of the HFSS script file.
+    % FilePath:     FilePath with filename and extension(.sm3)
+    % MajorVersion: (optional)Major Version for sm3 file. (default=22)
+    % MinorVersion: (optional)Minor Version for sm3 file. (default=0)
+    %
+    % Example: Export 3D model to a sm3 file or sm3 file version 21.0
+    % @code
+    % fid = fopen('myantenna.vbs', 'wt');
+    % ... 
+    % hfssExportModelToSM3(fid, 'C:\Users\test1234\Documents\exportToMe.sm3');
+    % hfssExportModelToSM3(fid, 'C:\Users\test1234\Documents\exportToMe.sm3',21,0);
+    % @endcode
+    % 
+    % @author Rounak Singh Narde, rounaksingh17@gmail.com, rn5949@rit.edu
+    %
+
     % arguments processor.
     if (nargin < 2)
         error('Insufficient # of arguments !');

@@ -1,27 +1,4 @@
 % ----------------------------------------------------------------------------
-% function hfssConnect(fid, Names)
-% 
-% Description :
-% -------------
-% Creates VB Script necessary to connect two HFSS objects using a surface.
-%
-% Parameters :
-% ------------
-% fid   - file identifier of the HFSS script file.
-% Names - a cell array of strings that represent the surface-like objects that
-%         need to be connected to form a solid structure.
-% 
-% Note :
-% ------
-%
-% Example :
-% ---------
-% fid = fopen('myantenna.vbs', 'wt');
-% ... 
-% hfssConnect(fid, {'topLayer', 'bottomLayer'});
-% ----------------------------------------------------------------------------
-
-% ----------------------------------------------------------------------------
 % This file is part of HFSS-MATLAB-API.
 %
 % HFSS-MATLAB-API is free software; you can redistribute it and/or modify it 
@@ -41,15 +18,27 @@
 % Copyright 2004, Vijay Ramasami (rvc@ku.edu)
 % ----------------------------------------------------------------------------
 function hfssConnect(fid, Names)
+	% Creates VB Script necessary to connect two HFSS objects using a surface.
+	%
+	% Parameters :
+	% fid:		file identifier of the HFSS script file.
+	% Names:	a cell array of strings that represent the surface-like objects that need to be connected to form a solid structure.
+	% 
+	% Example:
+	% @code
+	% fid = fopen('myantenna.vbs', 'wt');
+	% ... 
+	% hfssConnect(fid, {'topLayer', 'bottomLayer'});
+	% @endcode
 
-fprintf(fid, '\n');
-fprintf(fid, 'oEditor.Connect _\n');
-fprintf(fid, 'Array("NAME:Selections", _\n');
-fprintf(fid, '"Selections:=", _\n');
+	fprintf(fid, '\n');
+	fprintf(fid, 'oEditor.Connect _\n');
+	fprintf(fid, 'Array("NAME:Selections", _\n');
+	fprintf(fid, '"Selections:=", _\n');
 
-nObjects = length(Names);
-fprintf(fid, '"');
-for iO = 1:nObjects-1,
-	fprintf(fid, '%s,', Names{iO});
-end;
-fprintf(fid, '%s")\n', Names{nObjects});
+	nObjects = length(Names);
+	fprintf(fid, '"');
+	for iO = 1:nObjects-1,
+		fprintf(fid, '%s,', Names{iO});
+	end;
+	fprintf(fid, '%s")\n', Names{nObjects});

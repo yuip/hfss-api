@@ -1,26 +1,4 @@
 % ----------------------------------------------------------------------------
-% function hfssSolveSetup(fid, SetupName)
-% 
-% Description :
-% -------------
-% Creates the VB script to solve a given solution setup.
-% 
-% Parameters :
-% ------------
-% fid       - file identifier of the HFSS script file.
-% SetupName - name of the setup to be solved.
-%
-% Note :
-% ------
-%
-% Example :
-% ---------
-% fid = fopen('myantenna.vbs', 'wt');
-% ... 
-% hfssSolveSetup(fid, 'Setup750MHz');
-% ----------------------------------------------------------------------------
-
-% ----------------------------------------------------------------------------
 % This file is part of HFSS-MATLAB-API.
 %
 % HFSS-MATLAB-API is free software; you can redistribute it and/or modify it 
@@ -39,9 +17,20 @@
 %
 % Copyright 2004, Vijay Ramasami (rvc@ku.edu)
 % ----------------------------------------------------------------------------
-
 function hfssSolveSetup(fid, SetupName)
+	% Creates the VB script to solve a given solution setup.
+	% 
+	% Parameters :
+	% fid:			file identifier of the HFSS script file.
+	% SetupName:	name of the setup to be solved.
+	%
+	% Example :
+	% @code
+	% fid = fopen('myantenna.vbs', 'wt');
+	% ... 
+	% hfssSolveSetup(fid, 'Setup750MHz');
+	% @endcode
 
-fprintf(fid, '\n');
-fprintf(fid, 'oDesign.Solve _\n');
-fprintf(fid, '    Array("%s") \n', SetupName);
+	fprintf(fid, '\n');
+	fprintf(fid, 'oDesign.Solve _\n');
+	fprintf(fid, '    Array("%s") \n', SetupName);

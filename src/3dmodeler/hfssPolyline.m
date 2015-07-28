@@ -1,24 +1,3 @@
-% -------------------------------------------------------------------------- %
-% function hfssPolyline(fid, Name, Points, Units)
-% Description:
-% ------------
-%
-% Parameters:
-% -----------
-% Name - Name Attribute for the PolyLine.
-% Points - Points as 3-Tuples, ex: Points = [0, 0, 1; 0, 1, 0; 1, 0 1];
-%          Note: size(Points) must give [nPoints, 3]
-% Units - can be either:
-%         'mm' - millimeter.
-%         'in' - inches.
-%         'mil' - mils.
-%         'meter' - meter (note: don't use 'm').
-%          or anything that Ansoft HFSS supports.
-%
-% Example:
-% --------
-% -------------------------------------------------------------------------- %
-
 % ----------------------------------------------------------------------------
 % This file is part of HFSS-MATLAB-API.
 %
@@ -39,6 +18,25 @@
 % Copyright 2004, Vijay Ramasami (rvc@ku.edu)
 % ----------------------------------------------------------------------------
 
+function hfssPolyline(fid, Name, Points, Units, Closed, segmentType, ...
+                     Color, Transparency)
+% Creates VBscript for generating a polyline in HFSS.
+%
+% Parameters:
+% fid: 		file identifier of the HFSS script file.
+% Name:		Name Attribute for the PolyLine.
+% Points:	Points as 3-Tuples, ex: Points = [0, 0, 1; 0, 1, 0; 1, 0 1];
+%          Note: size(Points) must give [nPoints, 3]
+% Units:	can be either:
+%         'mm' - millimeter.
+%         'in' - inches.
+%         'mil' - mils.
+%         'meter' - meter (note: don't use 'm').
+%          or anything that Ansoft HFSS supports.
+%
+% @author Daniel Rodriguez Prado, danysan@gmail.com / drprado@tsc.uniovi.es
+% @ date 07 August 2014
+
 % ----------------------------------------------------------------------------
 % CHANGELOG
 %
@@ -47,14 +45,6 @@
 % 07-Augu-2014: *Added option for closed polyline (DRP).
 % ----------------------------------------------------------------------------
 
-% ----------------------------------------------------------------------------
-% Modified by Daniel Rodriguez Prado
-% danysan@gmail.com / drprado@tsc.uniovi.es
-% 07 August 2014
-% ----------------------------------------------------------------------------
-
-function hfssPolyline(fid, Name, Points, Units, Closed, segmentType, ...
-                     Color, Transparency)
 if (nargin < 5)
     Closed = [];
 	segmentType = [];

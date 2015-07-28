@@ -29,15 +29,16 @@ function hfssExportNetworkData(fid, fileName, setupName, sweepName, ...
 	%             		be exported.
 	% sweepName:		the name of the Frequency Sweep whose solution data needs to 
 	%             		be exported.
-	% [expFileType]:	(optional), the output file format (the default is an 
+	% varargin:	
+	%				1. [expFileType] - (optional), the output file format (the default is an 
 	%                 	m-file). Specify as:
-	%                 	* 'h' - HFSS 8.x format (.szg)
-	%                 	* 't' - Tab delimited spreadsheet format (.tab)
-	%				  	* 's' - Touchstone SnP format (.sNp)
-	%				  	* 'c' - CitiFile (.cit)
-	%				  	* 'm' - MATLAB File (.m ) - default.
-	%                 	* 'z' - Terminal Z0 spreadsheet.
-	% [renormZ]:		(optional), the re-normalizing impedance (if different from
+	%                 		* 'h' - HFSS 8.x format (.szg)
+	%                 		* 't' - Tab delimited spreadsheet format (.tab)
+	%				  		* 's' - Touchstone SnP format (.sNp)
+	%				  		* 'c' - CitiFile (.cit)
+	%				  		* 'm' - MATLAB File (.m ) - default.
+	%                 		* 'z' - Terminal Z0 spreadsheet.
+	% 				2. [renormZ] -	(optional), the re-normalizing impedance (if different from
 	%                  	50 Ohms). The default is (ofcourse) 50.
 	% 
 	% @note function hfssExportNetworkData(fid, fileName, setupName, sweepName, ...

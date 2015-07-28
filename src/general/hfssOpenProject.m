@@ -25,7 +25,7 @@ function hfssOpenProject(fid, hfssProjectFile)
 	% 
 	% Parameters :
 	% fid:		file identifier for the VBScript file.
-	% hfssFile:	the (existing) HFSS project file to be opened. The file 
+	% hfssProjectFile:	the (existing) HFSS project file to be opened. The file 
 	%            specification must include the FULL FILE PATH and the file 
 	%            extension.
 	%

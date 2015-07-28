@@ -20,8 +20,6 @@ function hfssVariableChange(fid, variable, value, units)
 	% @author James L. McDonald, jlm88byu@gmail.com
 	%
 	% @date 26 March 2005
-	% ----------------------------------------------------------------------------
-
 
 	% Preamble.
 	fprintf(fid, '\n');

@@ -7,36 +7,37 @@ function hfssCreateReport(fid, ReportName, Type, Display, Solution,...
     % fid:          file identifier of the HFSS script file.
     % ReportName:   name of the report.
     % Type:         type of the report (integer 1-6). Possible values are:
-    %                1: "Modal S Parameters"
-    %                2: "Terminal S Parameters"
-    %                3: "Eigenmode Parameters"
-    %                4: "Fields"
-    %                5: "Far Fields"
-    %                6: "Near Fields"
-    %                7: "Emission Test"
-    % Display:      if Type is 1-3, then Display's possible values are:
-    %                1: "Rectangular Plot"
-    %                2: "Polar Plot"
-    %                3: "Radiation Pattern"
-    %                4: "Smith Chart"
-    %                5: "Data Table"
-    %                6: "3D Rectangular Plot"
-    %                7: "3D Polar Plot"
-    %               if Type is 4, then the possible values are:
-    %                1: "Rectangular Plot"
-    %                2: "Polar Plot"
-    %                3: "Radiation Pattern"
-    %                5: "Data Table"
-    %                6: "3D Rectangular Plot"
-    %               if Type is 5-6, then the possible values are:
-    %                1: "Rectangular Plot"
-    %                3: "Radiation Pattern" (Polar)
-    %                5: "Data Table"
-    %                6: "3D Rectangular Plot"
-    %                7: "3D Polar Plot"
-    %               if Type is 7, then the possible values are:
-    %                1: "Rectangular Plot"
-    %                5: "Data Table"
+    %                * 1: "Modal S Parameters"
+    %                * 2: "Terminal S Parameters"
+    %                * 3: "Eigenmode Parameters"
+    %                * 4: "Fields"
+    %                * 5: "Far Fields"
+    %                * 6: "Near Fields"
+    %                * 7: "Emission Test"
+    % Display:      
+    %               * if Type is 1-3, then Display's possible values are:
+    %                   * 1: "Rectangular Plot"
+    %                   * 2: "Polar Plot"
+    %                   * 3: "Radiation Pattern"
+    %                   * 4: "Smith Chart"
+    %                   * 5: "Data Table"
+    %                   * 6: "3D Rectangular Plot"
+    %                   * 7: "3D Polar Plot"
+    %               * if Type is 4, then the possible values are:
+    %                   * 1: "Rectangular Plot"
+    %                   * 2: "Polar Plot"
+    %                   * 3: "Radiation Pattern"
+    %                   * 5: "Data Table"
+    %                   * 6: "3D Rectangular Plot"
+    %               * if Type is 5-6, then the possible values are:
+    %                   * 1: "Rectangular Plot"
+    %                   * 3: "Radiation Pattern" (Polar)
+    %                   * 5: "Data Table"
+    %                   * 6: "3D Rectangular Plot"
+    %                   * 7: "3D Polar Plot"
+    %               * if Type is 7, then the possible values are:
+    %                   * 1: "Rectangular Plot"
+    %                   * 5: "Data Table"
     % Solution:     name of the solution given to hfssInsertSolution.
     % Sweep:        name of the frequency sweep given to hfssInterpolatingSweep.
     %              This can be an empty string, in which case it will be
@@ -84,8 +85,9 @@ function hfssCreateReport(fid, ReportName, Type, Display, Solution,...
     % @endcode
     %
     % @author Daniel R. Prado, danysan@gmail.com / drprado@tsc.uniovi.es
+    %
     % @date 23 September 2012
-    % ----------------------------------------------------------------------------
+    
 
     % ----------------------------------------------------------------------------
     % CHANGELOG

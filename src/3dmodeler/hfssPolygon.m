@@ -23,6 +23,7 @@ function hfssPolygon(fid, Name, Points, Units, varargin)
 	% as to make way for cables, wires, etc.,).
 	%
 	% Parameters:
+	% fid:		file identifier of the HFSS script file.
 	% Name:		Name Attribute for the PolyLine.
 	% Points:	Points as 3-Tuples, ex: Points = [0, 0, 1; 0, 1, 0; 1, 0 1];
 	%          Note: size(Points) must give [nPoints, 3]
@@ -32,7 +33,7 @@ function hfssPolygon(fid, Name, Points, Units, varargin)
 	%         'mil' - mils.
 	%         'meter' - meter (note: don't use 'm').
 	%          or anything that Ansoft HFSS supports.
-	% [Circle], [Radius], [Axis]: optional holes to be punched into the polyline. 
+	% varargin: (optional) ([Circle], [Radius], [Axis]) Holes to be punched into the polyline. 
 	%           Please specify as Center ([x, y, z]), Radius (scalar), Axis 
 	%           ('X', 'Y' or 'Z') , ... etc., The script will create circles
 	%           specified using the given parameters and subtract them from the 

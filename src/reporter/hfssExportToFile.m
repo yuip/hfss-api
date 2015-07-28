@@ -11,10 +11,8 @@ function hfssExportToFile(fid, ReportName, FileName, Type)
 	%               * tab: Tab-separated file
 	%               * dat: Ansoft plot data file
 	%
-	% @note In HFSS's scripting help (scripting.pdf), the example given is:
-	%   oDesign.ExportToFile "Plot1", "c:\report1.dat"
-	% However, it is wrong, since it should use oModule, instead of
-	% oDesign.
+	% @note In HFSS's scripting help (scripting.pdf), the example given is -
+	% oDesign.ExportToFile "Plot1", "c:\report1.dat". However, it is wrong, since it should use oModule, instead of oDesign.
 	%
 	% Example :
 	% @code
@@ -23,8 +21,8 @@ function hfssExportToFile(fid, ReportName, FileName, Type)
 	% @endcode
 	%
 	% @author Daniel R. Prado, danysan@gmail.com / drprado@tsc.uniovi.es
+	%
 	% @date 29 September 2012
-	% ----------------------------------------------------------------------------
 
 	% ----------------------------------------------------------------------------
 	% CHANGELOG

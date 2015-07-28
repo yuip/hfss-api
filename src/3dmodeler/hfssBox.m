@@ -17,7 +17,6 @@
 %
 % Copyright 2004, Vijay Ramasami (rvc@ku.edu)
 % ----------------------------------------------------------------------------
-
 function hfssBox(fid, Name, Start, Size, Units, varargin)
 	% Creates a box in HFSS
 	%
@@ -32,12 +31,12 @@ function hfssBox(fid, Name, Start, Size, Units, varargin)
 	% Start:		starting location of the box (specify as [x, y, z]).
 	% Size:			size of the box (specify as [sx, sy, sz]).
 	% Units:		units of the box (specify using either 'in', 'mm', 'meter' or anything else defined in HFSS).
-	% Center: 		(Optional) center of the hole to be punched through the box. It can lie anywhere within or on the surface of the box.
-	% Radius:		(Optional) radius of the hole to be punched through the box.
-	% Axis:			(Optional) axis of the hole to be punched through the box.
+	% varargin: 	Center,Radius,Axis  
+	%					* Center - (Optional) center of the hole to be punched through the box. It can lie anywhere within or on the surface of the box.
+	% 					* Radius - (Optional) radius of the hole to be punched through the box.
+	% 					* Axis - (Optional) axis of the hole to be punched through the box.
 	% 
-	% @note Full function call is function hfssBox(fid, Name, Start, Size, Units, [Center1], [Radius1], ...
-	%                  [Axis1], [Center2], [Radius2], [Axis2], ...)
+	% @note Full function call is function hfssBox(fid, Name, Start, Size, Units, [Center1], [Radius1], [Axis1], [Center2], [Radius2], [Axis2])
 	%
 	% @note If you happen to specify a hole that lies outside the box, it will have
 	% no effect. The script will run without interruption. 

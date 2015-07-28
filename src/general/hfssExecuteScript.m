@@ -36,8 +36,12 @@ function Status = hfssExecuteScript(hfssExePath, ScriptFile, iconMode,...
     %                when wrong to exit the script gracefully.
     % 
     % @note
-    % 1. The hfssExePath must contain the PROPER and COMPLETE executable path of the HFSS program. If you followed the usual installation instructions for installing HFSS, then this will be: 'C:\"Program Files"\Ansoft\HFSS9\hfss.exe'
-    %    (The quotes (" ... ") are required for directory names that have spaces in them.)
+    % 1. The hfssExePath must contain the PROPER and COMPLETE executable path of the HFSS program. 
+    %    If you followed the usual installation instructions for installing HFSS, then this will be: 
+    %       
+    %       'C:/"Program Files"/Ansoft/HFSS9/hfss.exe'
+    %       
+    %       (The quotes (" ... ") are required for directory names that have spaces in them.)
     % 2. Don't forget to specify the complete path for the script file either. 
     %    Also, make sure that the script file is "closed" (using fclose()) before
     %    calling this function for proper results.

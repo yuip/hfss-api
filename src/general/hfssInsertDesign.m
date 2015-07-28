@@ -1,33 +1,4 @@
 % ----------------------------------------------------------------------------
-% function hfssInsertDesign(fid, designName, [designType = 'driven modal'])
-% 
-% Description :
-% -------------
-% Create the necessary VB Script to insert an HFSS Design into the Project 
-% and set it as the active design.
-%
-% Parameters :
-% ------------
-% fid        - file identifier of the HFSS script file.
-% designName - name of the new design to be inserted.
-% designType - (Optional String) choose from the following:
-%              1. 'driven modal' (default)
-%			   2. 'driven terminal'
-%			   3. 'eigenmode'
-% 
-% Note :
-% ------
-% This function is usually called after a call to either hfssNewProject()
-% or hfssOpenProject(), but this is not necessary.
-%
-% Example :
-% ---------
-% fid = fopen('myantenna.vbs', 'wt');
-% ...
-% hfssInsertDesign(fid, 'Dipole_SingleElement');
-% ----------------------------------------------------------------------------
-
-% ----------------------------------------------------------------------------
 % This file is part of HFSS-MATLAB-API.
 %
 % HFSS-MATLAB-API is free software; you can redistribute it and/or modify it 
@@ -47,30 +18,50 @@
 % Copyright 2004, Vijay Ramasami (rvc@ku.edu)
 % ----------------------------------------------------------------------------
 function hfssInsertDesign(fid, designName, designType)
+	% Create the necessary VB Script to insert an HFSS Design into the Project 
+	% and set it as the active design.
+	%
+	% Parameters :
+	% fid:			file identifier of the HFSS script file.
+	% designName:	name of the new design to be inserted.
+	% designType:	(Optional String) choose from the following:
+	%              1. 'driven modal' (default)
+	%			   2. 'driven terminal'
+	%			   3. 'eigenmode'
+	% 
+	% @note This function is usually called after a call to either hfssNewProject()
+	% or hfssOpenProject(), but this is not necessary.
+	%
+	% Example :
+	% @code
+	% fid = fopen('myantenna.vbs', 'wt');
+	% ...
+	% hfssInsertDesign(fid, 'Dipole_SingleElement');
+	% @endcode
 
-% arguments processor.
-if (nargin < 2)
-	error('Insufficient number of arguments !');
-elseif (nargin < 3)
-	designType = [];
-end;
+	% arguments processor.
+	if (nargin < 2)
+		error('Insufficient number of arguments !');
+	elseif (nargin < 3)
+		designType = [];
+	end;
 
-% default arguments.
-if isempty(designType)
-	designType = 'driven modal';
-end;
+	% default arguments.
+	if isempty(designType)
+		designType = 'driven modal';
+	end;
 
-% create the necessary script.
-fprintf(fid, '\n');
-fprintf(fid, 'oProject.InsertDesign "HFSS", ');
-fprintf(fid, '"%s", ', designName);
-switch (lower(designType))
-	case 'driven terminal', 
-		fprintf(fid, '"DrivenTerminal", ""\n');
-	case 'driven modal'
-		fprintf(fid, '"DrivenModal", ""\n');
-	case 'eigenmode'
-		fprintf(fid, '"Eigenmode", ""\n');
-end;
-fprintf(fid, 'Set oDesign = oProject.SetActiveDesign("%s")\n', designName);
-fprintf(fid, 'Set oEditor = oDesign.SetActiveEditor("3D Modeler")\n');
+	% create the necessary script.
+	fprintf(fid, '\n');
+	fprintf(fid, 'oProject.InsertDesign "HFSS", ');
+	fprintf(fid, '"%s", ', designName);
+	switch (lower(designType))
+		case 'driven terminal', 
+			fprintf(fid, '"DrivenTerminal", ""\n');
+		case 'driven modal'
+			fprintf(fid, '"DrivenModal", ""\n');
+		case 'eigenmode'
+			fprintf(fid, '"Eigenmode", ""\n');
+	end;
+	fprintf(fid, 'Set oDesign = oProject.SetActiveDesign("%s")\n', designName);
+	fprintf(fid, 'Set oEditor = oDesign.SetActiveEditor("3D Modeler")\n');

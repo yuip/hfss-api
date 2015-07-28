@@ -1,29 +1,4 @@
 % ----------------------------------------------------------------------------
-% function hfssCloseActiveProject(fid)
-% 
-% Description :
-% -------------
-% Create the VB Script necessary to close the active project. The unsaved 
-% changes made so far will be IGNORED.
-%
-% Parameters :
-% ------------
-% fid     - file identifier of the HFSS script file.
-% 
-% Note :
-% ------
-% To repeat, the unsaved changes will be ignored. Use hfssSaveProject() 
-% before this if you wish to retain all the changes that you did.
-%
-% Example :
-% ---------
-% fid = fopen('myantenna.vbs', 'wt');
-% ... 
-% hfssCloseActiveProject(fid);
-%
-% ----------------------------------------------------------------------------
-
-% ----------------------------------------------------------------------------
 % This file is part of HFSS-MATLAB-API.
 %
 % HFSS-MATLAB-API is free software; you can redistribute it and/or modify it 
@@ -42,9 +17,23 @@
 %
 % Copyright 2004, Vijay Ramasami (rvc@ku.edu)
 % ----------------------------------------------------------------------------
-
 function hfssCloseActiveProject(fid)
+	% Create the VB Script necessary to close the active project. The unsaved 
+	% changes made so far will be IGNORED.
+	%
+	% Parameters :
+	% fid:		file identifier of the HFSS script file.
+	% 
+	% @note To repeat, the unsaved changes will be ignored. Use hfssSaveProject() 
+	% before this if you wish to retain all the changes that you did.
+	%
+	% Example :
+	% @code
+	% fid = fopen('myantenna.vbs', 'wt');
+	% ... 
+	% hfssCloseActiveProject(fid);
+	% @endcode
 
-fprintf(fid, '\n');
-fprintf(fid, 'Set oProject = oDesktop.GetActiveProject()\n');
-fprintf(fid, 'oProject.Close\n');
+	fprintf(fid, '\n');
+	fprintf(fid, 'Set oProject = oDesktop.GetActiveProject()\n');
+	fprintf(fid, 'oProject.Close\n');

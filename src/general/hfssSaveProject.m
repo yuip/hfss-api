@@ -1,36 +1,4 @@
 % ----------------------------------------------------------------------------
-% function hfssSaveProject(fid, projectFile, [Overwrite = false])
-% 
-% Description :
-% -------------
-% This function creates the necessary VB script to save the active HFSS 
-% project onto a disk file. 
-%
-% Parameters :
-% ------------
-% fid         - file identifier of the HFSS script file.
-% projectFile - full file name of the project file into which the active HFSS
-%               project will be saved.
-% [Overwrite] - (boolean) if set to true will overwrite any existing file with
-%               the same name as that specified by projectFile.
-% 
-% 
-% Note :
-% ------
-% The active HFSS project MUST be saved prior to solving it. This is slightly
-% disadvantageous because we cannot create and solve projects "on-the-fly" -
-% i.e., in memory without creating a project file on the disk. One workaround
-% is to write the project to a temporary file and then delete the temporary
-% file after the required solution is obtained.
-%
-% Example :
-% ---------
-% fid = fopen('myantenna.vbs', 'wt');
-% ... 
-%
-% ----------------------------------------------------------------------------
-
-% ----------------------------------------------------------------------------
 % This file is part of HFSS-MATLAB-API.
 %
 % HFSS-MATLAB-API is free software; you can redistribute it and/or modify it 
@@ -49,28 +17,50 @@
 %
 % Copyright 2004, Vijay Ramasami (rvc@ku.edu)
 % ----------------------------------------------------------------------------
-
 function hfssSaveProject(fid, projectFile, Overwrite)
+	% This function creates the necessary VB script to save the active HFSS 
+	% project onto a disk file. 
+	%
+	% Parameters :
+	% fid:			file identifier of the HFSS script file.
+	% projectFile:	full file name of the project file into which the active HFSS
+	%               project will be saved.
+	% Overwrite:	(boolean, optional) if set to true will overwrite any existing file with
+	%               the same name as that specified by projectFile. Default is false.
+	% 
+	% 
+	% @note The active HFSS project MUST be saved prior to solving it. This is slightly
+	% disadvantageous because we cannot create and solve projects "on-the-fly" -
+	% i.e., in memory without creating a project file on the disk. One workaround
+	% is to write the project to a temporary file and then delete the temporary
+	% file after the required solution is obtained.
+	%
+	% Example :
+	% @code
+	% fid = fopen('myantenna.vbs', 'wt');
+	% ... 
+	% hfssSaveProject(fid, tmpPrjFile)
+	% @endcode
+	% ----------------------------------------------------------------------------
 
-% arguments processor.
-if (nargin < 2)
-	error('Insufficient # of arguments !');
-elseif (nargin < 3)
-	Overwrite = [];
-end;
+	% arguments processor.
+	if (nargin < 2)
+		error('Insufficient # of arguments !');
+	elseif (nargin < 3)
+		Overwrite = [];
+	end;
 
-% default arguments.
-if isempty(Overwrite)
-	Overwrite = false;
-end;
+	% default arguments.
+	if isempty(Overwrite)
+		Overwrite = false;
+	end;
 
-% create the script.
-fprintf(fid, '\n');
-fprintf(fid, 'oProject.SaveAs _\n');
-fprintf(fid, '    "%s", _\n', projectFile);
-if (Overwrite)
-    fprintf(fid, '    true\n');
-else
-    fprintf(fid, '    false\n');
-end;
-
+	% create the script.
+	fprintf(fid, '\n');
+	fprintf(fid, 'oProject.SaveAs _\n');
+	fprintf(fid, '    "%s", _\n', projectFile);
+	if (Overwrite)
+	    fprintf(fid, '    true\n');
+	else
+	    fprintf(fid, '    false\n');
+	end;

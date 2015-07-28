@@ -1,64 +1,4 @@
 % ----------------------------------------------------------------------------
-% function Status = hfssExecuteScript(hfssExePath, ScriptFile, 
-%                            [iconOpt = true], [runAndExit = true])
-% 
-% Description :
-% -------------
-% Runs Ansoft HFSS from within MATLAB with the '/RunScriptAndExit' (and the 
-% optional '/Iconic') options to execute a given VB Script file and then exit.
-%
-% Parameters :
-% ------------
-% hfssExePath  - the complete HFSS Executable path (see note for more info).
-% ScriptFile   - the complete path of the VB Script file to be executed by
-%                HFSS.
-% [iconOpt]    - (optional) if set to false, HFSS will run in the normal mode,
-%                else it will run in the "iconized" mode.
-% [runAndExit] - (optional) if set to true, HFSS will run the given script
-%                and exit, else if set to false, HFSS will run and script
-%                and wait for user input.
-% Status       - returns the status of the HFSS execution, in case it
-%                when wrong to exit the script gracefully.
-% 
-% Note :
-% ------
-% 1. The hfssExePath must contain the PROPER and COMPLETE executable path of
-%    the HFSS program. If you followed the usual installation instructions for
-%    installing HFSS, then this will be:
-%    'C:\"Program Files"\Ansoft\HFSS9\hfss.exe' 
-%    (The quotes (" ... ") are required for directory names that have spaces 
-%    in them.
-% 2. Don't forget to specify the complete path for the script file either. 
-%    Also, make sure that the script file is "closed" (using fclose()) before
-%    calling this function for proper results.
-% 3. Another important thing, make sure you run the script once with
-%    runAndExit set to false, so that you are completely sure that the
-%    script does not have any errors before running the [runAndExit =
-%    false] mode. If there are any errors in the script HFSS will silently
-%    exit and there will be no way to figure out if the script ran properly
-%    or not.
-%
-% Example :
-% ---------
-% fid = fopen('C:\temp\myAntenna.vbs', 'wt');
-% ... 
-% % Close the script prior to calling ExecuteScript.
-% fclose(fid);
-% % Execute the script.
-% hfssExecuteScript('C:\"Program Files"\Ansoft\HFSS9\hfss.exe',  ...
-%                   'C:\temp\myAntenna.vbs', ...
-%                    false);
-%
-% ----------------------------------------------------------------------------
-
-% ----------------------------------------------------------------------------
-% CHANGELOG
-%
-% ??-????-????: *Initial release.
-% 30-May -2013: *Fix typo.
-% ----------------------------------------------------------------------------
-
-% ----------------------------------------------------------------------------
 % This file is part of HFSS-MATLAB-API.
 %
 % HFSS-MATLAB-API is free software; you can redistribute it and/or modify it 
@@ -79,49 +19,94 @@
 % ----------------------------------------------------------------------------
 function Status = hfssExecuteScript(hfssExePath, ScriptFile, iconMode,...
     runAndExit)
+    % Runs Ansoft HFSS from within MATLAB with the '/RunScriptAndExit' (and the 
+    % optional '/Iconic') options to execute a given VB Script file and then exit.
+    %
+    % Parameters :
+    % hfssExePath:  the complete HFSS Executable path (see note for more info).
+    % ScriptFile:   the complete path of the VB Script file to be executed by
+    %                HFSS.
+    % iconMode:      (optional) if set to false, HFSS will run in the normal mode,
+    %                else it will run in the "iconized" mode.  Default value is true.
+    % runAndExit:   (optional) if set to true, HFSS will run the given script
+    %                and exit, else if set to false, HFSS will run and script
+    %                and wait for user input. Default value is true.
+    %
+    % @retval Status returns the status of the HFSS execution, in case it
+    %                when wrong to exit the script gracefully.
+    % 
+    % @note
+    % 1. The hfssExePath must contain the PROPER and COMPLETE executable path of the HFSS program. If you followed the usual installation instructions for installing HFSS, then this will be: 'C:\"Program Files"\Ansoft\HFSS9\hfss.exe'
+    %    (The quotes (" ... ") are required for directory names that have spaces in them.)
+    % 2. Don't forget to specify the complete path for the script file either. 
+    %    Also, make sure that the script file is "closed" (using fclose()) before
+    %    calling this function for proper results.
+    % 3. Another important thing, make sure you run the script once with
+    %    runAndExit set to false, so that you are completely sure that the
+    %    script does not have any errors before running the [runAndExit =
+    %    false] mode. If there are any errors in the script HFSS will silently
+    %    exit and there will be no way to figure out if the script ran properly
+    %    or not.
+    %
+    % Example :
+    % @code
+    % fid = fopen('C:\temp\myAntenna.vbs', 'wt');
+    % ... 
+    % fclose(fid);
+    % hfssExecuteScript('C:\"Program Files"\Ansoft\HFSS9\hfss.exe',  ...
+    %                   'C:\temp\myAntenna.vbs', ...
+    %                    false);
+    % @endcode
 
-% arguments processor.
-if (nargin < 2)
-	error('Insufficient number of arguments !');
-elseif (nargin < 3)
-	iconMode = [];
-    runAndExit = [];
-end;
+    % ----------------------------------------------------------------------------
+    % CHANGELOG
+    %
+    % ??-????-????: *Initial release.
+    % 30-May -2013: *Fix typo.
+    % ----------------------------------------------------------------------------
 
-% default arguments.
-if isempty(iconMode)
-	iconMode = true;
-end;
-if isempty(runAndExit)
-    runAndExit = true;
-end;
+    % arguments processor.
+    if (nargin < 2)
+    	error('Insufficient number of arguments !');
+    elseif (nargin < 3)
+    	iconMode = [];
+        runAndExit = [];
+    end;
 
-% Setup Iconic Mode.
-if (iconMode == true)
-	iconStr = '/Iconic';
-else
-	iconStr = '';
-end;
+    % default arguments.
+    if isempty(iconMode)
+    	iconMode = true;
+    end;
+    if isempty(runAndExit)
+        runAndExit = true;
+    end;
 
-% Setup Run and Exit Mode.
-if (runAndExit)
-    runStr = '/RunScriptAndExit';
-else
-    runStr = '/RunScript';
-end;
+    % Setup Iconic Mode.
+    if (iconMode == true)
+    	iconStr = '/Iconic';
+    else
+    	iconStr = '';
+    end;
 
-% Create the Command Path.
-cmdHFSS = [hfssExePath, ' ', iconStr, ' ', runStr, ' ' ,  ...
-           ScriptFile];
+    % Setup Run and Exit Mode.
+    if (runAndExit)
+        runStr = '/RunScriptAndExit';
+    else
+        runStr = '/RunScript';
+    end;
 
-% Execute the Command.
-fprintf('Running HFSS using:\n');
-fprintf('\t%s\n', cmdHFSS);
-[Status, ~] = system(cmdHFSS);
+    % Create the Command Path.
+    cmdHFSS = [hfssExePath, ' ', iconStr, ' ', runStr, ' ' ,  ...
+               ScriptFile];
 
-% Check for execution errors
-if (Status ~= 0)
-    msg = 'HFSS Execution returned an error status!';
-	warning('hfssAPI:hfssExecuteScript', msg);
-    fprintf('\n');
-end
+    % Execute the Command.
+    fprintf('Running HFSS using:\n');
+    fprintf('\t%s\n', cmdHFSS);
+    [Status, ~] = system(cmdHFSS);
+
+    % Check for execution errors
+    if (Status ~= 0)
+        msg = 'HFSS Execution returned an error status!';
+    	warning('hfssAPI:hfssExecuteScript', msg);
+        fprintf('\n');
+    end

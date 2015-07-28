@@ -1,23 +1,3 @@
-% -------------------------------------------------------------------------- %
-% function hfssSetActiveProject(fid, projectName)
-%
-% Written by:
-% -----------
-% Rounak Singh Narde (rounaksingh17@gmail.com or rn5949@rit.edu)
-%
-% Description :
-% -------------
-% This function creates the necessary VBScript initializations to use an
-% opened HFSS project. It is helpful when you generated a HFSS file using a
-% script and want to use another script to edit more. There is no need to
-% close the generated project, just the run the another script.
-%
-% Parameters:
-% -----------
-% fid         - file identifier of the VBScript File.
-% projectName     - Project Name to make active
-% -------------------------------------------------------------------------- %
-
 % ----------------------------------------------------------------------------
 % This file is part of HFSS-MATLAB-API.
 %
@@ -37,8 +17,22 @@
 %
 % Copyright 2004, Vijay Ramasami (rvc@ku.edu)
 % ----------------------------------------------------------------------------
-
 function hfssSetActiveProject(fid, projectName)
+	% This function creates the necessary VBScript initializations to use an
+	% opened HFSS project. 
+	%
+	% It is helpful when you generated a HFSS file using a
+	% script and want to use another script to edit more. There is no need to
+	% close the generated project, just the run the another script.
+	%
+	% Parameters:
+	% fid:			file identifier of the VBScript File.
+	% projectName:	Project Name to make active
+	%
+	% @author Rounak Singh Narde, rounaksingh17@gmail.com or rn5949@rit.edu
+
+	% -------------------------------------------------------------------------- %
+
     % arguments processor.
     if (nargin < 2)
         error('Insufficient number of arguments !');

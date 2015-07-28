@@ -1,21 +1,3 @@
-% -------------------------------------------------------------------------- %
-% function hfssInit(fid)
-% 
-% Written by: 
-% -----------
-% Rounak Singh Narde (rounaksingh17@gmail.com or rn5949@rit.edu)
-%
-% Description :
-% -------------
-% This function creates the necessary VBScript initializations for the
-% script. Initializations means the HFSS script preamble and other
-% important configurations.
-%
-% Parameters:
-% -----------
-% fid         - file identifier of the VBScript File.
-% -------------------------------------------------------------------------- %
-
 % ----------------------------------------------------------------------------
 % This file is part of HFSS-MATLAB-API.
 %
@@ -35,8 +17,20 @@
 %
 % Copyright 2004, Vijay Ramasami (rvc@ku.edu)
 % ----------------------------------------------------------------------------
-
 function hfssInit(fid)
+    % This function creates the necessary VBScript initializations for the
+    % script. 
+
+    % Initializations means the HFSS script preamble and other
+    % important configurations.
+    %
+    % Parameters:
+    % fid:  file identifier of the VBScript File.
+    %
+    % @author Rounak Singh Narde, rounaksingh17@gmail.com or rn5949@rit.edu
+    %
+    
+
     % Preamble.
     fprintf(fid, 'Dim oHfssApp\n');
     fprintf(fid, 'Dim oDesktop\n');

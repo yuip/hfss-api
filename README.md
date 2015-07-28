@@ -1,4 +1,4 @@
-#HFSS-MATLAB-SCRIPTING-API
+# HFSS-MATLAB-SCRIPTING-API
 
 ##Introdution
 
@@ -14,8 +14,8 @@ solve it.
 ##Files
 All the files are organized in the following directories.
 
-* doc/ - contains the HTML documentation.
-* examples/ - contains example usage m-files.
+* doc/ - contains the documentation and doxygen-mtocpp related files.
+* examples/ - contains example m-files.
 * src/general/ - contains files for operations such as File Open/Save/Close, and Project Create/Save/Make Active etc.,
 * src/3dmodeler/ - contains m-files that generate VBScripts for the 3D-Modeler.
 * src/analysis/ - contains m-files for Analysis (Setup/Solve/Export).

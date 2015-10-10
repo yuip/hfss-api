@@ -19,14 +19,14 @@
 % ----------------------------------------------------------------------------
 function hfssAssignPE(fid, Name, Type, ObjectList, infGND)
     % This function creates the VB Script necessary to assign a PEC boundary to 
-    % the given object(s).
+    % the given object(s) or fac.
     %
     % Parameters :
     % fid:      file identifier of the HFSS script file.
     % Name:     name of the PEC boundary. This will appear under "Boundaries" 
     %           in HFSS
     % Type:     type of list -- object(Type=0)  or face(Type=1).
-    % ObjectList:  a cell array of objects to which the PEC boundary condition will
+    % ObjectList:  a cell array of objects or faceID to which the PEC boundary condition will
     %           be applied.
     % infGND:   (boolean, optional) specify as true to make the PEC represent an infinite
     %           ground plane (default is false).
@@ -35,7 +35,11 @@ function hfssAssignPE(fid, Name, Type, ObjectList, infGND)
     % @code
     % fid = fopen('myantenna.vbs', 'wt');
     % ... 
-    % hfssAssignPE(fid, 'GNDplane', {'AntennaGND'}, true);
+    % % Applying Object boundary to object 'AntennaGND'
+    % hfssAssignPE(fid, 'GNDplane', 1, {'AntennaGND'}, true);
+    % ...
+    % % Applying PE boundary to faceID 7,8,9,11
+    % hfssAssignPE(fid,'PE1',1,{'7','8','9','11'});
     % @endcode
 
     % arguments processor.

@@ -21,8 +21,12 @@ All the files are organized in the following directories.
 * src/analysis/ - contains m-files for Analysis (Setup/Solve/Export).
 * src/boundary/ - contains m-files for setting up boundaries.
 
+## Tutorials and Examples
+The HFSS-API source code has been updated since the examples are written. The Example code requires update. For now, please use the example of **Diplexer** provided in the examples folder. I hope that example can tell you a lot about the basic script required to run the hfss-api. I will try to update the code and examples as soon as I get time. Thanks for understanding.
+
 ##Original Author:
 Vijay Ramasami,
-RSL, Univ. of Kansas,
-Lawrence, KS, 66046.
 E-Mail: rvijayc@gmail.com, rvc@ieee.org
+
+## Other Authors:
+Over the time, many other authors have contributed. 

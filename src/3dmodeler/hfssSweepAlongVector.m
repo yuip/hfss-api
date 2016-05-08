@@ -23,7 +23,7 @@ function hfssSweepAlongVector(fid, Object, Vector, Units, ...
 	% 07-Aug-2014: *Initial release.
 	% 06-Oct-2014: *Fixed help text.
 	% ----------------------------------------------------------------------------
-
+    
 	% arguments processor.
 	if (nargin < 4)
 		error('Not enough arguments !');
@@ -33,7 +33,11 @@ function hfssSweepAlongVector(fid, Object, Vector, Units, ...
 	elseif (nargin < 6)
 		DraftType = 'Round';
 	end;
-
+    
+    if ~iscell(Vector)
+        Vector=num2cell(Vector);
+    end
+    
 	% default arguments.
 	if isempty(DraftAngle)
 		DraftAngle = 0;
@@ -48,9 +52,9 @@ function hfssSweepAlongVector(fid, Object, Vector, Units, ...
 	fprintf(fid, '\tArray("NAME:Selections", "Selections:=", "%s", ', Object);
 	fprintf(fid, '"NewPartsModelFlag:=", "Model"), _\n');
 	fprintf(fid, '\tArray("NAME:VectorSweepParameters", _\n');
-	fprintf(fid, '\t\t"DraftAngle:=", "%fdeg", _\n', DraftAngle);
-	fprintf(fid, '\t\t"DraftType:=", "%s", _\n', DraftType);
+	hfssFprintf(fid, '\t\t"DraftAngle:=", "%fdeg", _\n', DraftAngle);
+	hfssFprintf(fid, '\t\t"DraftType:=", "%s", _\n', DraftType);
 	fprintf(fid, '\t\t"CheckFaceFaceIntersection:=", false, _ \n');
-	fprintf(fid, '\t\t"SweepVectorX:=", "%.4f%s", _\n', Vector(1), Units);
-	fprintf(fid, '\t\t"SweepVectorY:=", "%.4f%s", _\n', Vector(2), Units);
-	fprintf(fid, '\t\t"SweepVectorZ:=", "%.4f%s")\n', Vector(3), Units);
+	hfssFprintf(fid, '\t\t"SweepVectorX:=", "%m", _\n', Vector{1}, Units);
+	hfssFprintf(fid, '\t\t"SweepVectorY:=", "%m", _\n', Vector{2}, Units);
+	hfssFprintf(fid, '\t\t"SweepVectorZ:=", "%m")\n', Vector{3}, Units);

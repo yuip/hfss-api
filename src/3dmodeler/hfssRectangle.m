@@ -47,30 +47,34 @@ function hfssRectangle(fid, Name, Axis, Start, Width, Height, Units)
 	% represents X-direction size and Height represents the Y-direction size 
 	% and so on ...
 	
+    if ~iscell(Start)
+        Start=num2cell(Start);
+    end
+    
 	Transparency = 0.75;
 
 	% Preamble.
-	fprintf(fid, '\n');
-	fprintf(fid, 'oEditor.CreateRectangle _\n');
+	hfssFprintf(fid, '\n');
+	hfssFprintf(fid, 'oEditor.CreateRectangle _\n');
 
 	% Rectangle Parameters.
-	fprintf(fid, 'Array("NAME:RectangleParameters", _\n');
-	fprintf(fid, '"IsCovered:=", true, _\n');
-	fprintf(fid, '"XStart:=", "%f%s", _\n', Start(1), Units);
-	fprintf(fid, '"YStart:=", "%f%s", _\n', Start(2), Units);
-	fprintf(fid, '"ZStart:=", "%f%s", _\n', Start(3), Units);
+	hfssFprintf(fid, 'Array("NAME:RectangleParameters", _\n');
+	hfssFprintf(fid, '"IsCovered:=", true, _\n');
+	hfssFprintf(fid, '"XStart:=", "%m", _\n', Start{1}, Units);
+	hfssFprintf(fid, '"YStart:=", "%m", _\n', Start{2}, Units);
+	hfssFprintf(fid, '"ZStart:=", "%m", _\n', Start{3}, Units);
 
-	fprintf(fid, '"Width:=", "%f%s", _\n', Width, Units);
-	fprintf(fid, '"Height:=", "%f%s", _\n', Height, Units);
+	hfssFprintf(fid, '"Width:=", "%m", _\n', Width, Units);
+	hfssFprintf(fid, '"Height:=", "%m", _\n', Height, Units);
 
-	fprintf(fid, '"WhichAxis:=", "%s"), _\n', upper(Axis));
+	hfssFprintf(fid, '"WhichAxis:=", "%m"), _\n', upper(Axis));
 
 	% Rectangle Attributes.
-	fprintf(fid, 'Array("NAME:Attributes", _\n');
-	fprintf(fid, '"Name:=", "%s", _\n', Name);
-	fprintf(fid, '"Flags:=", "", _\n');
-	fprintf(fid, '"Color:=", "(132 132 193)", _\n');
-	fprintf(fid, '"Transparency:=", %d, _\n', Transparency);
-	fprintf(fid, '"PartCoordinateSystem:=", "Global", _\n');
-	fprintf(fid, '"MaterialName:=", "vacuum", _\n');
-	fprintf(fid, '"SolveInside:=", true)\n');
+	hfssFprintf(fid, 'Array("NAME:Attributes", _\n');
+	hfssFprintf(fid, '"Name:=", "%s", _\n', Name);
+	hfssFprintf(fid, '"Flags:=", "", _\n');
+	hfssFprintf(fid, '"Color:=", "(132 132 193)", _\n');
+	hfssFprintf(fid, '"Transparency:=", %d, _\n', Transparency);
+	hfssFprintf(fid, '"PartCoordinateSystem:=", "Global", _\n');
+	hfssFprintf(fid, '"MaterialName:=", "vacuum", _\n');
+	hfssFprintf(fid, '"SolveInside:=", true)\n');

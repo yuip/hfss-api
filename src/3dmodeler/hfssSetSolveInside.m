@@ -11,7 +11,7 @@ function hfssSetSolveInside(fid, Object, solveInsideFlag)
 	% @code
 	% fid = fopen('myantenna.vbs', 'wt');
 	% ...
-	% hfssRotate(fid, 'name', true);
+	% hfssSetSolveInside(fid, 'name', true);
 	% @endcode
 
 	fprintf(fid, 'oEditor.ChangeProperty _\n');

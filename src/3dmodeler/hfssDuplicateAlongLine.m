@@ -17,17 +17,18 @@
 %
 % Copyright 2004, Vijay Ramasami (rvc@ku.edu)
 % ----------------------------------------------------------------------------
-function hfssDuplicateAlongLine(fid, ObjectList, dVector, nClones, Units, dupBoundaries)
+function hfssDuplicateAlongLine(fid, ObjectList, dVector, nClones, Units, AttachToOriginalObject, dupBoundaries)
 	% Creates the VB Script necessary to clone (duplicate) a list of objects 
 	% along a line.
 	%
 	% Parameters :
-	% fid:				file identifier of the HFSS script file.
-	% ObjectList:		a cell-array of strings that represent the objects to be cloned.
-	% dVector:			(vector) the translation vector for the duplication process (specified as [dx, dy, dz]).
-	% nClones:			Number of clones to be created.
-	% Units:			specified as either 'mm', 'meter', 'in' or anything else defined in HFSS.
-	% dupBoundaries:	(optional, boolean) set to false if you wish NOT to duplicate boundaries along with the geometry.
+	% fid:                      file identifier of the HFSS script file.
+	% ObjectList:               a cell-array of strings that represent the objects to be cloned.
+	% dVector:                  (vector) the translation vector for the duplication process (specified as [dx, dy, dz]).
+	% nClones:                  Number of clones to be created.
+	% Units:                    specified as either 'mm', 'meter', 'in' or anything else defined in HFSS.
+    % AttachToOriginalObject:   (optional, boolean, default=false) To attach the duplicated objects with the original object.
+	% dupBoundaries:            (optional, boolean, default=true) set to false if you wish NOT to duplicate boundaries along with the geometry.
 	% 
 	% @note If you have used this 3D modeler feature before, then you will probably
 	% realize that if the original object (to be cloned) has the name 'Name',
@@ -45,6 +46,9 @@ function hfssDuplicateAlongLine(fid, ObjectList, dVector, nClones, Units, dupBou
 	if (nargin < 5)
 		error('Insufficient number of arguments !');
 	elseif (nargin < 6)
+		AttachToOriginalObject = false;
+        dupBoundaries = [];
+    elseif (nargin < 7)
 		dupBoundaries = [];
 	end;
 
@@ -52,7 +56,29 @@ function hfssDuplicateAlongLine(fid, ObjectList, dVector, nClones, Units, dupBou
 	if isempty(dupBoundaries)
 		dupBoundaries = true;
 	end;
-
+	
+    % String Variable for AttachToOriginalObject
+   	CreateNewObjects = 'true';
+	    
+    if ~iscell(dVector)
+         dVector=num2cell(dVector);
+    end
+    
+    % AttachToOriginalObject & Number of clones(nclones)
+    % If nclones is variable name(or string), then AttachToOriginalObject
+    % should be true. Therefore, there should be a check for this
+    % condition.
+    if ~isnumeric(nClones) && ~AttachToOriginalObject
+       error('Variable ''AttachToOriginalObject'' must be true, if number of clones are variable.');
+    end
+    
+    % Change CreateNewObjects as per AttachToOriginalObject
+    if AttachToOriginalObject
+        CreateNewObjects='false';
+    else
+        CreateNewObjects='true';
+    end
+    
 	nObjects = length(ObjectList);
 
 	% Preamble.
@@ -72,10 +98,11 @@ function hfssDuplicateAlongLine(fid, ObjectList, dVector, nClones, Units, dupBou
 
 	% Duplication Vectors.
 	fprintf(fid, 'Array("NAME:DuplicateToAlongLineParameters", _\n');
-	fprintf(fid, '"XComponent:=", "%f%s", _\n', dVector(1), Units);
-	fprintf(fid, '"YComponent:=", "%f%s", _\n', dVector(2), Units);
-	fprintf(fid, '"ZComponent:=", "%f%s", _\n', dVector(3), Units);
-	fprintf(fid, '"NumClones:=", %d), _\n', nClones);
+    fprintf(fid, '"CreateNewObjects:=", %s, _\n', CreateNewObjects);
+	hfssFprintf(fid, '"XComponent:=", "%m", _\n', dVector{1}, Units);
+	hfssFprintf(fid, '"YComponent:=", "%m", _\n', dVector{2}, Units);
+	hfssFprintf(fid, '"ZComponent:=", "%m", _\n', dVector{3}, Units);
+	hfssFprintf(fid, '"NumClones:=", "%m"), _\n', nClones);
 
 	% Duplicate Boundaries with Geometry or not.
 	fprintf(fid, 'Array("NAME:Options", _\n');

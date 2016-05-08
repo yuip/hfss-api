@@ -19,7 +19,7 @@ function hfssSetVariable(fid, variable, value, units)
 	% @author Rounak Singh, rounaksingh17@gmail.com
 	%
 	% @date 28 September 2015
-
+    
 	% Preamble.
 	fprintf(fid, '\n');
 
@@ -33,4 +33,4 @@ function hfssSetVariable(fid, variable, value, units)
 	fprintf(fid, 'Array("NAME:%s", _\n', variable);
     fprintf(fid, '"PropType:=", "VariableProp", _\n');
     fprintf(fid, '"UserDef:=", true, _\n');
-    fprintf(fid, '"Value:=", "%f%s"))))\n', value, units);
+    hfssFprintf(fid, '"Value:=", "%m"))))\n', value, units);

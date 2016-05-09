@@ -5,10 +5,10 @@
 % 3) If you have a HFSS version 15 or less, please change the hfss file
 % extension to '.hfss'
 % 4) This file don't assign excitation and don't create any solution setup
-% So, generated hfss file need those to run simulation
+% You will have to assign them to run the file.
 %
-% IMPORTANT NOTE: Please check there is no space in the filename and
-% filepath. This program doesn't work if there is any spaces in filename
+% IMPORTANT NOTE: Please make sure there is no space in any filenames and
+% filepaths. This program doesn't work if there is any spaces in filename
 % and filepath.
 
 
@@ -65,8 +65,6 @@ W_ANT=3.8;
 %L_ANT=48.0573;
 L_ANT=8;
 
-% Port2=
-% Port3=
 
 % Generating HFSS files
 % File name to save as hfss file

@@ -23,7 +23,7 @@ function hfssCylinder(fid, Name, Axis, Center, Radius, Height, Units)
 	% Parameters :
 	% fid:		file identifier of the HFSS script file.
 	% Name:		name of the cylinder (in HFSS).
-	% Center:	center of the cylinder (specify as [x, y, z]). This is also the 
+	% Center:	center of the cylinder (specify as [x, y, z] or {'x','y','z'}). This is also the 
 	%           starting point of the cylinder.
 	% Axis:		axis of the cylinder (specify as 'X', 'Y', or 'Z').
 	% Radius:	radius of the cylinder (scalar).
@@ -37,15 +37,19 @@ function hfssCylinder(fid, Name, Axis, Center, Radius, Height, Units)
 	% hfssCylinder(fid, 'Cyl1', 'Z', [0, 0, 0], 0.1, 10, 'in');\
 	% @endcode
 
+    if ~iscell(Center)
+        Center=num2cell(Center);
+    end
+
 	% Cylinder Parameters.
 	fprintf(fid, '\n');
 	fprintf(fid, 'oEditor.CreateCylinder _\n');
 	fprintf(fid, 'Array("NAME:CylinderParameters", _\n');
-	fprintf(fid, '"XCenter:=", "%f%s", _\n', Center(1), Units);
-	fprintf(fid, '"YCenter:=", "%f%s", _\n', Center(2), Units);
-	fprintf(fid, '"ZCenter:=", "%f%s", _\n', Center(3), Units);
-	fprintf(fid, '"Radius:=", "%f%s", _\n', Radius, Units);
-	fprintf(fid, '"Height:=", "%f%s", _\n', Height, Units);
+	hfssFprintf(fid, '"XCenter:=", "%m", _\n', Center{1}, Units);
+	hfssFprintf(fid, '"YCenter:=", "%m", _\n', Center{2}, Units);
+	hfssFprintf(fid, '"ZCenter:=", "%m", _\n', Center{3}, Units);
+	hfssFprintf(fid, '"Radius:=", "%m", _\n', Radius, Units);
+	hfssFprintf(fid, '"Height:=", "%m", _\n', Height, Units);
 	fprintf(fid, '"WhichAxis:=", "%s"), _\n', upper(Axis));
 
 	% Cylinder Properties.

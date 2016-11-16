@@ -17,7 +17,7 @@
 %
 % Copyright 2004, Vijay Ramasami (rvc@ku.edu)
 % ----------------------------------------------------------------------------
-function hfssSaveProject(fid, projectFile, Overwrite)
+function hfssSaveProject(fid, varargin)
 	% This function creates the necessary VB script to save the active HFSS 
 	% project onto a disk file. 
 	%
@@ -42,25 +42,39 @@ function hfssSaveProject(fid, projectFile, Overwrite)
 	% hfssSaveProject(fid, tmpPrjFile)
 	% @endcode
 	% ----------------------------------------------------------------------------
-
+    projectFile=[];
+    Overwrite=[];
+    
 	% arguments processor.
 	if (nargin < 2)
-		error('Insufficient # of arguments !');
+		projectFile=[];
+        Overwrite = [];
 	elseif (nargin < 3)
-		Overwrite = [];
+        projectFile=varargin{1};
+        Overwrite = [];
+    elseif (nargin < 4)
+        projectFile=varargin{1};
+        Overwrite = varargin{2};
+    elseif (nargin < 5)
+        error('More than expected arguments.');
 	end;
 
 	% default arguments.
 	if isempty(Overwrite)
 		Overwrite = false;
 	end;
-
-	% create the script.
-	fprintf(fid, '\n');
-	fprintf(fid, 'oProject.SaveAs _\n');
-	fprintf(fid, '    "%s", _\n', projectFile);
-	if (Overwrite)
-	    fprintf(fid, '    true\n');
-	else
-	    fprintf(fid, '    false\n');
-	end;
+    
+    if isempty(projectFile)
+        fprintf(fid,'\n');
+        fprintf(fid, 'oProject.Save\n');
+    else
+        % create the script.
+        fprintf(fid, '\n');
+        fprintf(fid, 'oProject.SaveAs _\n');
+        fprintf(fid, '    "%s", _\n', projectFile);
+        if (Overwrite)
+            fprintf(fid, '    true\n');
+        else
+            fprintf(fid, '    false\n');
+        end;
+    end

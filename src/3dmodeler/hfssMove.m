@@ -36,7 +36,11 @@ function hfssMove(fid, ObjectList, tVector, Units)
 	% @endcode
 
 	nObjects = length(ObjectList);
-
+    
+    if ~iscell(tVector)
+        tVector=num2cell(tVector);
+    end
+    
 	% Preamble.
 	fprintf(fid, '\n');
 	fprintf(fid, 'oEditor.Move _\n');
@@ -54,6 +58,7 @@ function hfssMove(fid, ObjectList, tVector, Units)
 
 	% Transalation Vector.
 	fprintf(fid, 'Array("NAME:TranslateParameters", _\n');
-	fprintf(fid, '"TranslateVectorX:=", "%f%s", _\n', tVector(1), Units);
-	fprintf(fid, '"TranslateVectorY:=", "%f%s", _\n', tVector(2), Units);
-	fprintf(fid, '"TranslateVectorZ:=", "%f%s")\n', tVector(3), Units);
+    
+	hfssFprintf(fid, '"TranslateVectorX:=", "%m", _\n', tVector{1}, Units);
+	hfssFprintf(fid, '"TranslateVectorY:=", "%m", _\n', tVector{2}, Units);
+	hfssFprintf(fid, '"TranslateVectorZ:=", "%m")\n', tVector{3}, Units);

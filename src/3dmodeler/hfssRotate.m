@@ -1,11 +1,11 @@
-function hfssRotate(fid, ObjectList, Axis, Degrees)
+function hfssRotate(fid, ObjectList, Axis, Angle)
 	% Creates the VB Script necessary to rotate a given set of objects.
 	%
 	% Parameters :
 	% fid:			file identifier of the HFSS script file.
 	% ObjectList:	a cell array of objects that need to be rotated.
 	% Axis:			axis of the rotation.
-	% Degrees:		value of the rotation in degrees.
+	% Angle:		Variable or value of the rotation in degrees.
 	% 
 	% Example :
 	% @code
@@ -24,7 +24,11 @@ function hfssRotate(fid, ObjectList, Axis, Degrees)
 	% ----------------------------------------------------------------------------
 
 	nObjects = length(ObjectList);
-
+    
+    if ~iscell(Angle)
+        Angle=num2cell(Angle);
+    end
+    
 	% Preamble.
 	fprintf(fid, '\n');
 	fprintf(fid, 'oEditor.Rotate _\n');
@@ -43,4 +47,4 @@ function hfssRotate(fid, ObjectList, Axis, Degrees)
 	% Transalation Vector.
 	fprintf(fid, 'Array("NAME:RotateParameters", _\n');
 	fprintf(fid, '"RotateAxis:=", "%s", _\n', upper(Axis));
-	fprintf(fid, '"RotateAngle:=", "%fdeg")\n', Degrees);
+	hfssFprintf(fid, '"RotateAngle:=", "%m")\n', Angle{1},'deg');

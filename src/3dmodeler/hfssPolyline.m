@@ -17,7 +17,7 @@
 %
 % Copyright 2004, Vijay Ramasami (rvc@ku.edu)
 % ----------------------------------------------------------------------------
-function hfssPolyline(fid, Name, Points, Units, Closed, segmentType, ...
+function hfssPolyline(fid, Name, Points, Units, segmentType, Closed,...
                      Color, Transparency)
 	% Creates VBscript for generating a polyline in HFSS.
 	%
@@ -32,8 +32,11 @@ function hfssPolyline(fid, Name, Points, Units, Closed, segmentType, ...
 	%         'mil' - mils.
 	%         'meter' - meter (note: don't use 'm').
 	%          or anything that Ansoft HFSS supports.
-	% Closed:
-	% segmentType:
+	% segmentType: can be either:
+    %         'Spline' - 
+    %         'Line' -
+    % Closed: If the polyline is closed curve, then 'true' else 'false'.
+	% 
 	% Color:
 	% Transparency:
 	%
@@ -50,12 +53,12 @@ function hfssPolyline(fid, Name, Points, Units, Closed, segmentType, ...
 	% ----------------------------------------------------------------------------
 
 	if (nargin < 5)
-	    Closed = [];
-		segmentType = [];
+	    segmentType = [];
+        Closed = [];
 		Color = [];
 		Transparency = [];
 	elseif (nargin < 6)
-	    segmentType = [];
+	    Closed = [];
 		Color = [];
 		Transparency = [];
 	elseif (nargin < 7)
@@ -63,13 +66,13 @@ function hfssPolyline(fid, Name, Points, Units, Closed, segmentType, ...
 		Transparency = [];
 	elseif (nargin < 8)
 	    Transparency = [];
-	end
+    end
 
+    if isempty(segmentType)
+		segmentType = 'Line';
+	end
 	if isempty(Closed)
 	    Closed = 'false';
-	end
-	if isempty(segmentType)
-		segmentType = 'Line';
 	end
 	if isempty(Color)
 		Color = [0, 0, 0];

@@ -1,5 +1,5 @@
 function hfssCreateRelativeCS(fid, Name, Origin, Units)
-	% Create a relative coordinate system "origin" point relative to the
+	% Create a relative(offset ) coordinate system "origin" point relative to the
 	% Global Coordinate System.
 	%
 	% Parameters :
@@ -25,16 +25,20 @@ function hfssCreateRelativeCS(fid, Name, Origin, Units)
 	if (nargin < 4)
 		error('Insufficient number of arguments !');
 	end;
-
+    
+    if ~iscell(Origin)
+        Origin=num2cell(Origin);
+    end
+    
 	% Preamble.
 	fprintf(fid, '\n');
 	fprintf(fid, 'oEditor.CreateRelativeCS _\n');
 
 	% CS Parameters
 	fprintf(fid, 'Array("NAME:RelativeCSParameters", _\n');
-	fprintf(fid, '"OriginX:=", "%.4f%s", _\n', Origin(1), Units);
-	fprintf(fid, '"OriginY:=", "%.4f%s", _\n', Origin(2), Units);
-	fprintf(fid, '"OriginZ:=", "%.4f%s", _\n', Origin(3), Units);
+	hfssFprintf(fid, '"OriginX:=", "%m", _\n', Origin{1}, Units);
+	hfssFprintf(fid, '"OriginY:=", "%m", _\n', Origin{2}, Units);
+	hfssFprintf(fid, '"OriginZ:=", "%m", _\n', Origin{3}, Units);
 	fprintf(fid, '"XAxisXvec:=", "1%s", _\n', Units);
 	fprintf(fid, '"XAxisYvec:=", "0%s", _\n', Units);
 	fprintf(fid, '"XAxisZvec:=", "0%s", _\n', Units);

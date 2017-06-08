@@ -110,9 +110,9 @@ function hfssImportDXF(fid, fileName, modelName, varargin)
     fprintf(fid, '\t\tArray("NAME:LayerInfo", _\n\t\t  ');
     fprintf(fid, '\t\t\tArray("NAME:0", _\n\t\t\t\t\t\t  ');
     fprintf(fid, '"source:=", "0", _\n\t\t\t\t\t\t  ');
-    fprintf(fid, '"display_source:=", "%s", _\n\t\t\t\t\t\t  ', modelName);
+    fprintf(fid, '"display_source:=", "0", _\n\t\t\t\t\t\t  ');
     fprintf(fid, '"import:=", true, _\n\t\t\t\t\t\t  ');
-    fprintf(fid, '"dest:=", "0", _\n\t\t\t\t\t\t  ');
+    fprintf(fid, '"dest:=", "%s", _\n\t\t\t\t\t\t  ', modelName);
     fprintf(fid, '"dest_selected:=", false, _\n\t\t\t\t\t\t  ');
     fprintf(fid, '"layer_type:=", "signal") _\n\t\t\t\t  ');
     fprintf(fid, ') _\n\t\t)');

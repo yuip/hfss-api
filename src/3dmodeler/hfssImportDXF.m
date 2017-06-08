@@ -117,3 +117,5 @@ function hfssImportDXF(fid, fileName, modelName, varargin)
     fprintf(fid, '"layer_type:=", "signal") _\n\t\t\t\t  ');
     fprintf(fid, ') _\n\t\t)');
     
+    hfssRename(fid, [modelName, '_1'], modelName); 
+    

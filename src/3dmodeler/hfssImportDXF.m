@@ -20,11 +20,12 @@ function hfssImportDXF(fid, fileName, modelName, varargin)
     % 'mileNaut', 'mileTerr', 'mm','nm', 
     % 'pm', 'uin', 'um', 'yd'
 	% 
+    % @note Full function call is function hfssImportDXF(fid, fileName, modelName, units, twoDim)
 	%
 	% Example:
 	% @code
 	% fid = fopen('myantenna.vbs', 'wt');
-    % hfssImportDXF(fid, 'C:\myModel.dxf', 'MyDXFModel');
+    % hfssImportDXF(fid, 'C:\myModel.dxf', 'MyDXFModel', 'mm', true);
 	% @endcode
     
     if nargin < 4
@@ -115,3 +116,4 @@ function hfssImportDXF(fid, fileName, modelName, varargin)
     fprintf(fid, '"dest_selected:=", false, _\n\t\t\t\t\t\t  ');
     fprintf(fid, '"layer_type:=", "signal") _\n\t\t\t\t  ');
     fprintf(fid, ') _\n\t\t)');
+    

@@ -42,15 +42,16 @@
 % ----------------------------------------------------------------------------
 % CHANGELOG
 %
-% ??-????-2014: *Initial release (VR).
-% 07-Augu-2014: *Fix representation of polylines (DRP).
-% 07-Augu-2014: *Added option for closed polyline (DRP).
+% ??-???-2014: *Initial release (VR).
+% 07-Aug-2014: *Fix representation of polylines (DRP).
+% 07-Aug-2014: *Added option for closed polyline (DRP).
+% 01-Sep-2020: *Fixed closed polyline assignment (DRP).
 % ----------------------------------------------------------------------------
 
 % ----------------------------------------------------------------------------
 % Modified by Daniel Rodriguez Prado
 % danysan@gmail.com / drprado@tsc.uniovi.es
-% 07 August 2014
+% 01 September 2020
 % ----------------------------------------------------------------------------
 
 function hfssPolyline(fid, Name, Points, Units, Closed, segmentType, ...
@@ -91,11 +92,15 @@ fprintf(fid, '\n');
 fprintf(fid, 'oEditor.CreatePolyline _\n');
 fprintf(fid, '\tArray("NAME:PolylineParameters", ');
 fprintf(fid, '"IsPolylineCovered:=", true, ');
-fprintf(fid, '"IsPolylineClosed:=", %s, _\n', Closed);
+if (Closed == true)
+    fprintf(fid, '"IsPolylineClosed:=", true, _\n');
+else
+    fprintf(fid, '"IsPolylineClosed:=", false, _\n');
+end
 
 % Enter the Points.
 fprintf(fid, '\t\tArray("NAME:PolylinePoints", _\n');
-for iP = 1:nPoints-1,
+for iP = 1:nPoints-1
 	fprintf(fid, '\t\t\tArray("NAME:PLPoint", ');
 	fprintf(fid, '"X:=", "%.4f%s", ', Points(iP, 1), Units);
 	fprintf(fid, '"Y:=", "%.4f%s", ', Points(iP, 2), Units);

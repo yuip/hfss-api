@@ -1,8 +1,6 @@
 % ----------------------------------------------------------------------------
-% function hfssAssignFloquetPort(fid, Name, ObjName, Deembed, Phi,
-%                                Theta, iAStart, iAEnd, iBStart, iBEnd,
-%                                Units, [Ref])
-%                                
+% function hfssAssignFloquetPort(fid, Name, ObjName, Deembed, Phi, Theta,
+%                                iAStart, iAEnd, iBStart, iBEnd, Units, [Ref])
 % 
 % Description :
 % -------------
@@ -27,7 +25,7 @@
 %           [x, y, z].
 % Units   - specify as 'meter', 'in', 'cm' (defined in HFSS).
 % Ref     - (boolean, optional) enables 3D Refinement for Floquet modes.
-%           Defaults to false.
+%           Defaults to true.
 %
 % Note :
 % ------
@@ -37,16 +35,18 @@
 % ---------
 % fid = fopen('myantenna.vbs', 'wt');
 % ... 
-% hfssAssignMaster(fid, 'FloquetPort', 'Sheet', 0, 0, [-width/2, 0, 0], ...
-%	               [width/2, 0, 0], [0, -height/2, 0], [0, height/2, 0], ...
-%                  'meter');
+% hfssAssignFloquetPort(fid, 'FloquetPort', 'Sheet', 0, 0, 0, [-width/2, 0, 0], ...
+%	                   [width/2, 0, 0], [0, -height/2, 0], [0, height/2, 0], ...
+%                      'meter');
 %
 % ----------------------------------------------------------------------------
 
 % ----------------------------------------------------------------------------
 % CHANGELOG
 %
-% 21-May-2013: *Initial release.
+% 21-May-2013: *Initial release (PAG).
+% 01-Sep-2020: *Fixed example (DRP).
+%              *3D refinement enabled by default (DRP).
 % ----------------------------------------------------------------------------
 
 % ----------------------------------------------------------------------------
@@ -61,7 +61,7 @@ function hfssAssignFloquetPort(fid, Name, ObjName, Deembed, ...
 if (nargin < 11)
 	error('Insufficient # of arguments !');
 elseif (nargin < 12)
-    Ref = false;
+    Ref = true;
 end
 
 if Ref

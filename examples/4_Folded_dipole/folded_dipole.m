@@ -1,15 +1,15 @@
 % This example script creates a folded dipole array design in HFSS.
-clc; clear all; close all;
+clc; clear variables; close all;
 
 % Add paths to the required m-files.
 addpath('../../');
 hfssIncludePaths('../../');
 
 % HFSS Executable Path.
-hfssExePath = 'E:\HFSSv15\HFSS15.0\Win64\hfss.exe';
+hfssExePath = 'D:\Programas\HFSS\AnsysEM19.3\Win64\ansysedt.exe';
 
 % Script and project files.
-tmpPrjFile = [pwd, '\tmpFoldedDipole.hfss'];
+tmpPrjFile = [pwd, '\tmpFoldedDipole.aedt'];
 tmpScriptFile = [pwd, '\tmpFoldedDipole.vbs'];
 
 % Temporary script file to output script commands.

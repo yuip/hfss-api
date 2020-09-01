@@ -1,10 +1,10 @@
-clc; clear all; close all;
+clc; clear variables; close all;
 
 % HFSS Executable Path.
-hfssExePath = 'E:\HFSSv15\HFSS15.0\Win64\hfss.exe';
+hfssExePath = 'D:\Programas\HFSS\AnsysEM19.3\Win64\ansysedt.exe';
 
 % Script and project files.
-tmpPrjFile = [pwd, '\temHornEPlaneArraySnow.hfss'];
+tmpPrjFile = [pwd, '\temHornEPlaneArraySnow.aedt'];
 tmpScriptFile = [pwd, '\temHornMacro.vbs'];
 
 snow = true;
@@ -53,7 +53,7 @@ elseif strcmp(arrayDirection, 'E-Plane')
 	maxAntY = 2*yP(end);
 else
 	error('Array direction is unknown !');
-end;
+end
 AirY = maxAntY + wSolve;
 AirZ = maxAntZ + wSolve;
 AirXfront = xP(end) + wSolve/2;
@@ -77,8 +77,8 @@ hfssAddMaterial(fid, 'Snow', 1.7, 0, 0);
 hfssAssignMaterial(fid, 'SnowBox', 'Snow');
 
 % Create two polylines and connect
-hfssPolyline(fid, 'HornEdge1', [xP, yP, zP], 'mm', 'Spline');
-hfssPolyline(fid, 'HornEdge2', [xP, -yP, zP], 'mm', 'Spline');
+hfssPolyline(fid, 'HornEdge1', [xP, yP, zP], 'mm', false, 'Spline');
+hfssPolyline(fid, 'HornEdge2', [xP, -yP, zP], 'mm', false, 'Spline');
 hfssConnect(fid, {'HornEdge1', 'HornEdge2'});
 hfssRename(fid, 'HornEdge1', 'HornPlate1');
 
@@ -131,7 +131,7 @@ hfssAssignMaterial(fid, 'PortCap', 'pec');
 
 % Move and duplicate antennas to create a array.
 if (nElements > 1)
-	if strcmp(arrayDirection, 'H-Plane')
+    if strcmp(arrayDirection, 'H-Plane')
 		tVector = [0, -(nElements-1)*dAnt/2, 0];
 		dVector = [0, dAnt, 0];
 	elseif strcmp(arrayDirection, 'E-Plane')
@@ -139,12 +139,12 @@ if (nElements > 1)
 		dVector = [0, 0, dAnt];
 	else
 		error('Array direction unknown !');
-	end;
+    end
 	ObjList = {'HornPlate1', 'HornPlate1_1', 'PortCircle', ...
         'coaxInner', 'coaxOuterCover', 'coaxOuter', 'PortCap'};
 	hfssMove(fid, ObjList, tVector, 'mm');
 	hfssDuplicateAlongLine(fid, ObjList, dVector, nElements, 'mm');
-end;
+end
 
 % Insert a solution
 hfssInsertSolution(fid, 'Setup120MHz', 0.120);

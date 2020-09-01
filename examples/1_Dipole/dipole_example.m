@@ -6,7 +6,7 @@
 % is optimized so that the simulated resonance frequency and the desired
 % resonance frequency are close.
 
-clc; clear all; close all;
+clc; clear variables; close all;
 
 % Add paths to the required m-files.
 addpath('../../'); % add manually the API root directory.
@@ -32,12 +32,12 @@ AirZ = Wv/2;
 % Temporary Files. These files can be deleted after the optimization
 % is complete. We have to specify the complete path for all of them.
 % With pwd we save them in the current directory.
-tmpPrjFile    = [pwd, '\tmpDipole.hfss'];
+tmpPrjFile    = [pwd, '\tmpDipole.aedt'];
 tmpDataFile   = [pwd, '\tmpData.m'];
 tmpScriptFile = [pwd, '\dipole_example.vbs'];
 
 % HFSS Executable Path.
-hfssExePath = 'E:\HFSSv15\HFSS15.0\Win64\hfss.exe';
+hfssExePath = 'D:\Programas\HFSS\AnsysEM19.3\Win64\ansysedt.exe';
 
 % Plot Colors.
 pltCols = ['b', 'r', 'k', 'g', 'm', 'c', 'y'];

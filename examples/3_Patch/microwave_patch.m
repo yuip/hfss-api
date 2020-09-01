@@ -1,15 +1,15 @@
 % Script to generate a MxN patch antenna array.
-clc; clear all; close all;
+clc; clear variables; close all;
 
 % Add paths to the required m-files.
 addpath('../../');
 hfssIncludePaths('../../');
 
 % HFSS Executable Path.
-hfssExePath = 'E:\HFSSv15\HFSS15.0\Win64\hfss.exe';
+hfssExePath = 'D:\Programas\HFSS\AnsysEM19.3\Win64\ansysedt.exe';
 
 % Script and project files.
-tmpPrjFile = [pwd, '\tmpMicrowavePatch.hfss'];
+tmpPrjFile = [pwd, '\tmpMicrowavePatch.aedt'];
 tmpScriptFile = [pwd, '\tempPatch.vbs'];
 
 % Frequency.

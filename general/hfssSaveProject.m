@@ -57,12 +57,12 @@ if (nargin < 2)
 	error('Insufficient # of arguments !');
 elseif (nargin < 3)
 	Overwrite = [];
-end;
+end
 
 % default arguments.
 if isempty(Overwrite)
 	Overwrite = false;
-end;
+end
 
 % create the script.
 fprintf(fid, '\n');
@@ -72,5 +72,4 @@ if (Overwrite)
     fprintf(fid, '    true\n');
 else
     fprintf(fid, '    false\n');
-end;
-
+end

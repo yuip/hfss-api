@@ -87,24 +87,24 @@ nHoles = length(varargin)/3;
 
 % For each Hole Request create cylinder that satisfies the request and then 
 % subtract it from the Box.
-for iH = 1:nHoles,
+for iH = 1:nHoles
 	Center = varargin{3*(iH-1) + 1};
 	Radius = varargin{3*(iH-1) + 2};
 	Axis   = upper(varargin{3*(iH-1) + 3});
-		
+    
 	switch(Axis)
-		case 'X', 
+		case 'X'
 			Center(1) = Start(1);
 			Length = Size(1);
-		case 'Y', 
+		case 'Y'
 			Center(2) = Start(2);
 			Length = Size(2);
-		case 'Z', 
+		case 'Z' 
 			Center(3) = Start(3);
 			Length = Size(3);
-	end;
+	end
 	
 	hfssCylinder(fid, strcat(Name, '_subhole', num2str(iH)), Axis, ... 
 	             Center, Radius, Length, Units);
 	hfssSubtract(fid, Name, strcat(Name, '_subhole', num2str(iH)));
-end;	                   
+end	                   

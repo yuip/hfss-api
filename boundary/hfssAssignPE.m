@@ -55,12 +55,12 @@ if (nargin < 3)
 	error('Insufficient # of arguments !');
 elseif (nargin < 4)
 	infGND = [];
-end;
+end
 
 % default arguments.
 if isempty(infGND)
 	infGND = false;
-end;
+end
 
 % # of objects.
 nObjects = length(ObjectList);
@@ -76,14 +76,14 @@ if (infGND)
 	fprintf(fid, '"InfGroundPlane:=", true, _\n');
 else
 	fprintf(fid, '"InfGroundPlane:=", false, _\n');
-end;
+end
 
 fprintf(fid, '"Objects:=", _\n'); 
 fprintf(fid, 'Array(');
-for iObj = 1:nObjects,
+for iObj = 1:nObjects
 	fprintf(fid, '"%s"', ObjectList{iObj});
 	if (iObj ~= nObjects)
 		fprintf(fid, ',');
-	end;
-end;
+	end
+end
 fprintf(fid, '))\n');

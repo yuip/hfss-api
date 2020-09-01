@@ -1,6 +1,6 @@
 % ----------------------------------------------------------------------------
-% function hfssAssignSlave(fid, Name, ObjName, iUStart, iUEnd, Units, 
-%                               [ReverseV])
+% function hfssAssignSlave(fid, Name, ObjName, iUStart, iUEnd, Units,
+%                              Master, [ReverseV])
 % 
 % Description :
 % -------------
@@ -17,21 +17,23 @@
 % iUEnd   - (vector) ending point of the U vector. Specify as
 %           [x, y, z].
 % Units   - specify as 'meter', 'in', 'cm' (defined in HFSS).
+% Master  - name of the master boundary to which it is assigned.
 % [ReverseV] - (boolean, optional) reverses vector V (defaults to 
 %                true if the U vector points +y, and to false elsewise)
 % Example :
 % ---------
 % fid = fopen('myantenna.vbs', 'wt');
 % ... 
-% hfssAssignMaster(fid, 'Master', 'Sheet', [-width/2, 0, 0], ...
-%	                 [width/2, 0, 0], 'meter', false);
+% hfssAssignSlave(fid, 'Slave', 'Sheet', [-width/2, 0, 0], ...
+%	                 [width/2, 0, 0], 'meter', 'Master', false);
 %
 % ----------------------------------------------------------------------------
 
 % ----------------------------------------------------------------------------
 % CHANGELOG
 %
-% 21-May-2013: *Initial release.
+% 21-May-2013: *Initial release (PAG).
+% 01-Sep-2020: *Fixed example (DRP).
 % ----------------------------------------------------------------------------
 
 % ----------------------------------------------------------------------------

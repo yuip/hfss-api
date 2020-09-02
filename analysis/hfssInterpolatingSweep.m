@@ -68,18 +68,18 @@ elseif (nargin < 7)
 	iTol = [];
 elseif (nargin < 8)
 	iTol = [];
-end;
+end
 
 % process default arguments.
 if isempty(nPoints)
 	nPoints = 1000;
-end;
+end
 if isempty(nMaxSols)
 	nMaxSols = 101;
-end;
+end
 if isempty(iTol)
 	iTol = 0.5;
-end;
+end
 
 % create script.
 fprintf(fid, '\n');

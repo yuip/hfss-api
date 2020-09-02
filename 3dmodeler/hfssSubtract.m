@@ -74,26 +74,26 @@ fprintf(fid, '"Blank Parts:=", _\n');
 if (iscell(blankParts))
 	nBlank = length(blankParts);
 	fprintf(fid, '"');
-	for iB = 1:nBlank-1,
+	for iB = 1:nBlank-1
 		fprintf(fid, '%s,', blankParts{iB});
-	end;
+	end
 	fprintf(fid, '%s", _\n', blankParts{nBlank});
 else
 	fprintf(fid, '"%s", _\n', blankParts);
-end;
+end
 
 % Add the Tool Parts.
 fprintf(fid, '"Tool Parts:=", _\n');
 if (iscell(toolParts))
 	nTool = length(toolParts);
 	fprintf(fid, '"');
-	for iB = 1:nTool-1,
+	for iB = 1:nTool-1
 		fprintf(fid, '%s,', toolParts{iB});
-	end;
+	end
 	fprintf(fid, '%s"), _\n', toolParts{nTool});
 else
 	fprintf(fid, '"%s"), _\n', toolParts);
-end;
+end
 
 % Post-Amble.
 fprintf(fid, 'Array("NAME:SubtractParameters", _\n');

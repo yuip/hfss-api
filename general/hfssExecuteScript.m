@@ -86,29 +86,29 @@ if (nargin < 2)
 elseif (nargin < 3)
 	iconMode = [];
     runAndExit = [];
-end;
+end
 
 % default arguments.
 if isempty(iconMode)
 	iconMode = true;
-end;
+end
 if isempty(runAndExit)
     runAndExit = true;
-end;
+end
 
 % Setup Iconic Mode.
 if (iconMode == true)
 	iconStr = '/Iconic';
 else
 	iconStr = '';
-end;
+end
 
 % Setup Run and Exit Mode.
 if (runAndExit)
     runStr = '/RunScriptAndExit';
 else
     runStr = '/RunScript';
-end;
+end
 
 % Create the Command Path.
 cmdHFSS = [hfssExePath, ' ', iconStr, ' ', runStr, ' ' ,  ...

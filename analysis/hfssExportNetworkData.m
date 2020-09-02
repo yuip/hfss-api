@@ -66,14 +66,14 @@ if (length(varargin) > 0)
 	expFileType = varargin{1};
 else
 	expFileType = 'm';
-end;
+end
 
 % Renormalizing Impedance.
 if (length(varargin) > 1)
 	renormZ = varargin{2};
 else
 	renormZ = 50.0;
-end;
+end
 
 % Export File Type Switch.
 switch (expFileType)
@@ -84,7 +84,7 @@ switch (expFileType)
 	case 'm', expType = 7;
 	case 'z', expType = 8;
 	otherwise, error('Export File Type Unknown !');
-end;
+end
 
 % The usual fprintf()'s
 fprintf(fid, '\n');
@@ -97,4 +97,3 @@ fprintf(fid, '        "%s", _\n', fileName);
 fprintf(fid, '        Array("All"),  _\n');
 fprintf(fid, '        true, _\n');
 fprintf(fid, '        %.2f \n', renormZ);
-

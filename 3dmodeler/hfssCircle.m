@@ -48,10 +48,10 @@ function hfssCircle(fid, Name, Axis, Center, Radius, Units, coverLines)
 
 if (nargin < 7)
 	coverLines = [];
-end;
+end
 if isempty(coverLines)
 	coverLines = true;
-end;
+end
 
 % Preamble.
 fprintf(fid, 'oEditor.CreateCircle _\n');
@@ -62,7 +62,7 @@ if (coverLines)
 	fprintf(fid, '"IsCovered:=", true, _\n');
 else
 	fprintf(fid, '"IsCovered:=", false, _\n');
-end;
+end
 fprintf(fid, '"XCenter:=", "%f%s", _\n', Center(1), Units);
 fprintf(fid, '"YCenter:=", "%f%s", _\n', Center(2), Units);
 fprintf(fid, '"ZCenter:=", "%f%s", _\n', Center(3), Units);

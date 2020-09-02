@@ -3,13 +3,13 @@ function hfssUncoveredCylinder(fid, Name, Axis, Center, Radius, Height, Units)
 Center1 = Center;
 Center2 = Center;
 switch(Axis)
-	case 'X', 
+	case 'X'
 		Center2(1) = Center2(1) + Height;
-	case 'Y',
+	case 'Y'
 		Center2(2) = Center2(2) + Height;
-	case 'Z',
+	case 'Z'
 		Center2(3) = Center2(3) + Height;
-end;
+end
 
 % create circles
 cName1 = strcat(Name, '_Edge1');

@@ -38,7 +38,7 @@ function hfssSetDesign(fid, designName)
 % arguments processor.
 if (nargin < 2)
 	error('Insufficient number of arguments !');
-end;
+end
 
 % create the necessary script.
 fprintf(fid, '\n');

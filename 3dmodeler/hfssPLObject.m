@@ -80,43 +80,43 @@ Axis = upper(Axis);
 
 switch(Axis)
 	
-	case 'X',
+	case 'X'
 		Points(:, 1) = startP;
 		hfssPolyline(fid, Name, Points, Units);
 		Points(:, 1) = endP;
 		hfssPolyline(fid, strcat(Name, '_end'), Points, Units);
 		hfssConnect(fid, Name, strcat(Name, '_end'));
 	
-	case 'Y',
+	case 'Y'
 		Points(:, 2) = startP;
 		hfssPolyline(fid, Name, Points, Units);
 		Points(:, 2) = endP;
 		hfssPolyline(fid, strcat(Name, '_end'), Points, Units);
 		hfssConnect(fid, Name, strcat(Name, '_end'));
 	
-	case 'Z',
+	case 'Z'
 		Points(:, 3) = startP;
 		hfssPolyline(fid, Name, Points, Units);
 		Points(:, 3) = endP;
 		hfssPolyline(fid, strcat(Name, '_end'), Points, Units);
 		hfssConnect(fid, Name, strcat(Name, '_end'));
-end;
+end
 
 % Put Holes in the required Spots.
 nHoles = length(varargin)/2;
 
 % For each hole request, create a cylinder and subtract it from the 
 % original object.
-for iH = 1:nHoles,
+for iH = 1:nHoles
 	Center = varargin{2*(iH-1) + 1};
 	Radius = varargin{2*iH};
 	switch(Axis)
 		case 'X', Center(1) = startP;
 		case 'Y', Center(2) = startP;
 		case 'Z', Center(3) = startP;
-	end;
+	end
 	Height = endP - startP;
 	hfssCylinder(fid, strcat(Name, '_holesub', num2str(iH)), Axis, ...
 	             Center, Radius, Height, Units);
 	hfssSubtract(fid, Name, strcat(Name, '_holesub', num2str(iH)));
-end;
+end

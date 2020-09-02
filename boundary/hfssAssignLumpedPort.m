@@ -66,16 +66,16 @@ elseif (nargin < 7)
 	Reactance = [];
 elseif (nargin < 8)
 	Reactance = [];
-end;
+end
 
 % Setup default arguments.
 if isempty(Resistance)
 	Resistance = 50.0;
-end;
+end
 
 if isempty(Reactance)
 	Reactance = 0.0;
-end;
+end
 
 % The usual fprintf stuff.
 fprintf(fid, '\n');
@@ -100,4 +100,3 @@ fprintf(fid, '      "Resistance:=", "%fOhm", _\n', Resistance);
 fprintf(fid, '      "Reactance:=", "%fOhm", _\n', Reactance);
 fprintf(fid, '      "Objects:=", Array("%s") _\n', ObjName);
 fprintf(fid, '      )\n');
-

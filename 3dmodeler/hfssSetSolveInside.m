@@ -9,7 +9,7 @@ if (solveInsideFlag)
 	fprintf(fid, '\t\t\t\tArray("NAME:Solve Inside", "Value:=", true) _\n');
 else
 	fprintf(fid, '\t\t\t\tArray("NAME:Solve Inside", "Value:=", false) _\n');
-end;
+end
 fprintf(fid, '\t\t\t\t) _\n');
 fprintf(fid, '\t\t\t) _\n');
 fprintf(fid, '\t\t) \n');

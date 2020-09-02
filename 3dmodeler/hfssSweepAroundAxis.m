@@ -49,15 +49,15 @@ elseif (nargin < 5)
 	DraftType = 'Round';
 elseif (nargin < 6)
 	DraftType = 'Round';
-end;
+end
 
 % default arguments.
 if isempty(DraftAngle)
 	DraftAngle = 0;
-end;
+end
 if isempty(DraftType)
 	DraftType = 'Round';
-end;
+end
 
 fprintf(fid, '\n');
 

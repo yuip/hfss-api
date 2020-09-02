@@ -3,10 +3,10 @@ function hfssDuplicateMirror(fid, ObjectList, Base, Normal, Units, ...
 
 if (nargin < 6)
 	dupBoundaries = [];
-end;
+end
 if isempty(dupBoundaries)
 	dupBoundaries = true;
-end;
+end
 
 nObjects = length(ObjectList);
 
@@ -14,12 +14,12 @@ fprintf(fid, 'oEditor.DuplicateMirror _\n');
 fprintf(fid, '\tArray("NAME:Selections", "Selections:=", "');
 
 % Object Selections.
-for iObj = 1:nObjects,
+for iObj = 1:nObjects
 	fprintf(fid, '%s', ObjectList{iObj});
 	if (iObj ~= nObjects)
 		fprintf(fid, ',');
-	end;
-end;
+	end
+end
 fprintf(fid, '"), _\n');
 
 fprintf(fid, '\tArray("NAME:DuplicateToMirrorParameters", _\n');
@@ -34,4 +34,4 @@ if (dupBoundaries == true)
 	fprintf(fid, '\tArray("NAME:Options", "DuplicateBoundaries:=", true) \n\n');
 else
 	fprintf(fid, '\tArray("NAME:Options", "DuplicateBoundaries:=", false) \n\n');
-end;
+end

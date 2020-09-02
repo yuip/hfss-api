@@ -54,12 +54,12 @@ fprintf(fid, 'Array("NAME:Selections", _\n');
 
 % Object Selections.
 fprintf(fid, '"Selections:=", "');
-for iObj = 1:nObjects,
+for iObj = 1:nObjects
 	fprintf(fid, '%s', ObjectList{iObj});
 	if (iObj ~= nObjects)
 		fprintf(fid, ',');
-	end;
-end;
+    end
+end
 fprintf(fid, '"), _\n');
 
 % Transalation Vector.

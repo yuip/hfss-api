@@ -58,18 +58,17 @@
 function hfssDuplicateAlongLine(fid, ObjectList, dVector, nClones, Units, ...
 				dupBoundaries)
 
-
 % arguments processor.
 if (nargin < 5)
 	error('Insufficient number of arguments !');
 elseif (nargin < 6)
 	dupBoundaries = [];
-end;
+end
 
 % default arguments.
 if isempty(dupBoundaries)
 	dupBoundaries = true;
-end;
+end
 
 nObjects = length(ObjectList);
 
@@ -80,12 +79,12 @@ fprintf(fid, 'Array("NAME:Selections", _\n');
 
 % Object Selections.
 fprintf(fid, '"Selections:=", "');
-for iObj = 1:nObjects,
+for iObj = 1:nObjects
 	fprintf(fid, '%s', ObjectList{iObj});
 	if (iObj ~= nObjects)
 		fprintf(fid, ',');
-	end;
-end;
+	end
+end
 fprintf(fid, '"), _\n');
 
 % Duplication Vectors.
@@ -101,4 +100,4 @@ if (dupBoundaries)
 	fprintf(fid, '"DuplicateBoundaries:=", true)\n');
 else
 	fprintf(fid, '"DuplicateBoundaries:=", false)\n');
-end;
+end

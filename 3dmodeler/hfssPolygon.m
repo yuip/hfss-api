@@ -66,7 +66,7 @@ fprintf(fid, '"IsPolylineClosed:=", true, _\n');
 
 % Enter the Points.
 fprintf(fid, 'Array("NAME:PolylinePoints", _\n');
-for iP = 1:nPoints-1,
+for iP = 1:nPoints-1
 	fprintf(fid, 'Array("NAME:PLPoint", ');
 	fprintf(fid, '"X:=", "%.4f%s", ', Points(iP, 1), Units);
 	fprintf(fid, '"Y:=", "%.4f%s", ', Points(iP, 2), Units);
@@ -79,12 +79,12 @@ fprintf(fid, '"Z:=", "%.4f%s")), _\n', Points(nPoints, 3), Units);
 
 % Create Segments.
 fprintf(fid, 'Array("NAME:PolylineSegments", _\n');
-for iP = 1:nPoints-2,
+for iP = 1:nPoints-2
 	fprintf(fid, 'Array("NAME:PLSegment", ');
 	fprintf(fid, '"SegmentType:=", "Line", ');
 	fprintf(fid, '"StartIndex:=", %d, ', iP-1);
 	fprintf(fid, '"NoOfPoints:=", 2), _\n');
-end;
+end
 fprintf(fid, 'Array("NAME:PLSegment", ');
 fprintf(fid, '"SegmentType:=", "Line", ');
 fprintf(fid, '"StartIndex:=", %d, ', (iP-1)+1);
@@ -104,12 +104,12 @@ fprintf(fid, '"SolveInside:=", true)\n');
 nHoles = length(varargin);
 if (mod(nHoles, 3) ~= 0)
 	error('Error in # of arguments for specifying optional holes');
-end;
+end
 nHoles = nHoles/3;
 
 % For each hole request, create a circle and subtract it from the 
 % original object.
-for iH = 1:nHoles,
+for iH = 1:nHoles
 	Center = varargin{3*(iH-1) + 1};
 	Radius = varargin{3*(iH-1) + 2};
 	hAxis  = varargin{3*(iH-1) + 3};
@@ -117,4 +117,4 @@ for iH = 1:nHoles,
 	hfssCircle(fid, strcat(Name, '_holesub', num2str(iH)), hAxis, ...
 	             Center, Radius, Units);
 	hfssSubtract(fid, Name, strcat(Name, '_holesub', num2str(iH)));
-end;
+end

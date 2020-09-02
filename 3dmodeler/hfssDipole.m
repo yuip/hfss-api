@@ -40,7 +40,6 @@
 function hfssDipole(fid, Name, Axis, Center, Length, Size, gapLen, ...
                     Units, Type, StrpAxis)
 
-
 % arguments processor.
 if (nargin < 8)
 	error('Not enough Arguments !');
@@ -49,106 +48,106 @@ elseif (nargin < 9)
 	StrpAxis = [];
 elseif (nargin < 10)
 	StrpAxis = [];
-end;
+end
 
 % default arguments.
 if isempty(Type)
 	Type = 'c';
-end;
+end
 if isempty(StrpAxis)
 	switch (Axis)
-		case 'X',
+		case 'X'
 			StrpAxis = 'Y';
-		case 'Y',
+		case 'Y'
 			StrpAxis = 'Z';
-		case 'Z',
+		case 'Z'
 			StrpAxis = 'X';
-	end;
-end;
+	end
+end
 
 if (StrpAxis == Axis)
 	error('The Strip Axis and the Antenna Axis cannot be the same !!');
-end;
+end
 
 Name1 = strcat(Name, '1');
 Name2 = strcat(Name, '2');
 
-switch Axis,
-	case 'X',
+switch Axis
+	case 'X'
 		Start1c = Center + [gapLen/2, 0, 0];
 		Start2c = Center - [gapLen/2, 0, 0];
 		Start1b = Center + [gapLen/2, -Size/2, -Size/2];
 		Start2b = Center - [gapLen/2, +Size/2, +Size/2];
 		bSize1   = [+(Length - gapLen)/2, Size, Size];
 		bSize2   = [-(Length - gapLen)/2, Size, Size];
-	case 'Y',
+	case 'Y'
 		Start1c = Center + [0, gapLen/2, 0];
 		Start2c = Center - [0, gapLen/2, 0];
 		Start1b = Center + [-Size/2, gapLen/2, -Size/2];
 		Start2b = Center - [+Size/2, gapLen/2, +Size/2];
 		bSize1   = [Size, +(Length - gapLen)/2, Size];
 		bSize2   = [Size, -(Length - gapLen)/2, Size];
-	case 'Z',
+	case 'Z'
 		Start1c = Center + [0, 0, gapLen/2];
 		Start2c = Center - [0, 0, gapLen/2];
 		Start1b = Center + [-Size/2, -Size/2, -gapLen/2];
 		Start2b = Center - [+Size/2, +Size/2, -gapLen/2];
 		bSize1   = [Size, Size, +(Length - gapLen)/2];
 		bSize2   = [Size, Size, -(Length - gapLen)/2];
-end;
+end
 
 switch(Type)
-	case 'c',
+	case 'c'
 		hfssCylinder(fid, Name1, Axis, Start1c, Size/2, ...
 		             (Length - gapLen)/2, Units);
 		hfssCylinder(fid, Name2, Axis, Start2c, Size/2, ...
 		            -(Length - gapLen)/2, Units);
-	case 'r',
+	case 'r'
 		hfssBox(fid, Name1, Start1b, bSize1, Units);
 		hfssBox(fid, Name2, Start2b, bSize2, Units);
-	case 's',
+	case 's'
 		% A Whole new ball game altogether here.
-		switch Axis
-			case 'X',
-				switch StrpAxis
-					case 'Y',
+        switch Axis
+			case 'X'
+                switch StrpAxis
+					case 'Y'
 						sStart1 = Center + [gapLen/2, 0, -Size/2];
 						sStart2 = Center - [gapLen/2, 0, +Size/2];
 						Width1 = Size; Width2 = Size;
 						Height1 = Length - gapLen/2; Height2 = -Height1;
-					case 'Z',
+					case 'Z'
 						sStart1 = Center + [gapLen/2, -Size/2, 0];
 						sStart2 = Center - [gapLen/2, +Size/2, 0];
 						Width1 = Length - gapLen/2; Width2 = - Width1;
 						Height1 = Size; Height2 = Size;
-				end;
-			case 'Y',
-				switch StrpAxis
-					case 'Z',
+                end
+			case 'Y'
+                switch StrpAxis
+					case 'Z'
 						sStart1 = Center + [-Size/2, gapLen/2, 0];
 						sStart2 = Center - [+Size/2, gapLen/2, 0];
 						Width1 = Size; Width2 = Size;
 						Height1 = Length - gapLen/2; Height2 = -Height1;
-					case 'X',
+					case 'X'
 						sStart1 = Center + [0, gapLen/2, -Size/2];
 						sStart2 = Center - [0, gapLen/2, +Size/2];
 						Width1 = Length - gapLen/2; Width2 = -Width1;
 						Height1 = Size; Height2 = Size;
-				end;
-			case 'Z',
-				switch StrpAxis
-					case 'Y',
+                end
+			case 'Z'
+                switch StrpAxis
+					case 'Y'
 						sStart1 = Center + [-Size/2, 0,gapLen/2];
 						sStart2 = Center - [+Size/2, 0,gapLen/2];
 						Width1 = Length - gapLen/2; Width2 = - Width1;
 						Height1 = Size; Height2 = Size;
-					case 'X',
+					case 'X'
 						sStart1 = Center + [0, -Size/2, gapLen/2];
 						sStart2 = Center - [0, +Size/2, gapLen/2];
 						Width1 = Size; Width2 = Size;
 						Height1 = Length - gapLen/2; Height2 = - Height1;
-				end;
-		end;
+                end
+        end
 		hfssRectangle(fid, Name1, StrpAxis, sStart1, Width1, Height1, Units);
 		hfssRectangle(fid, Name2, StrpAxis, sStart2, Width2, Height2, Units);
-end;		
+end

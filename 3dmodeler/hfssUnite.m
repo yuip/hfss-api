@@ -61,18 +61,17 @@ if (iscell(varargin{1}))
 	Objects = varargin{1};
 else
 	Objects = varargin;
-end;
+end
 
 % Total # of Objects.
 nObjects = length(Objects);
 
 % Add the Objects.
 fprintf(fid, '"');
-for iP = 1:nObjects-1,
+for iP = 1:nObjects-1
 	fprintf(fid, '%s,', Objects{iP});
-end;
+end
 fprintf(fid, '%s"), _\n', Objects{nObjects});
 
 % Postamble.
 fprintf(fid, 'Array("NAME:UniteParameters", "KeepOriginals:=", false)\n');
-

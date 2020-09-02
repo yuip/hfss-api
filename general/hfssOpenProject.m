@@ -49,7 +49,7 @@ function hfssOpenProject(fid, hfssProjectFile)
 % Check extension.
 if (~strcmp(Ext, '.hfss'))
 	warning('File Extension is not .hfss !');
-end;
+end
 
 % Preamble.
 fprintf(fid, 'Dim oHfssApp\n');

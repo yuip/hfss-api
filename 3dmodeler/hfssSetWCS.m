@@ -32,7 +32,7 @@ function hfssSetWCS(fid, Name)
 % arguments processor.
 if (nargin < 2)
 	error('Insufficient number of arguments !');
-end;
+end
 
 % Preamble.
 fprintf(fid, '\n');

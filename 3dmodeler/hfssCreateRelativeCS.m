@@ -38,7 +38,7 @@ function hfssCreateRelativeCS(fid, Name, Origin, Units)
 % arguments processor.
 if (nargin < 4)
 	error('Insufficient number of arguments !');
-end;
+end
 
 % Preamble.
 fprintf(fid, '\n');

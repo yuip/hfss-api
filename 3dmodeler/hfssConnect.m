@@ -49,7 +49,7 @@ fprintf(fid, '"Selections:=", _\n');
 
 nObjects = length(Names);
 fprintf(fid, '"');
-for iO = 1:nObjects-1,
+for iO = 1:nObjects-1
 	fprintf(fid, '%s,', Names{iO});
-end;
+end
 fprintf(fid, '%s")\n', Names{nObjects});

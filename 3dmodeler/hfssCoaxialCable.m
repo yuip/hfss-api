@@ -58,10 +58,10 @@ Names = cellstr(char(Names{iR}));
 nCylinders = length(Radii);
 
 % First create the N-1 hollow cylinders.
-for iR = nCylinders:-1:2,
+for iR = nCylinders:-1:2
 	hfssHollowCylinder(fid, Names{iR}, Axis, Center, Radii(iR-1), ...
 	                   Radii(iR), Height, Units);
-end;
+end
 
 % Finally create the inner cylinder.
 hfssCylinder(fid, Names{1}, Axis, Center, Radii(1), Height, Units);

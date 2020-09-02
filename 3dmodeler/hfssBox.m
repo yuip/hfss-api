@@ -107,4 +107,4 @@ for iH = 1:nHoles
 	hfssCylinder(fid, strcat(Name, '_subhole', num2str(iH)), Axis, ... 
 	             Center, Radius, Length, Units);
 	hfssSubtract(fid, Name, strcat(Name, '_subhole', num2str(iH)));
-end	                   
+end

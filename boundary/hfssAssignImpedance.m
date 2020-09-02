@@ -76,4 +76,3 @@ function hfssAssignImpedance(fid, ImpedanceName, SheetObject, Resistance, Reacta
     fprintf(fid, '"InfGroundPlane:=", %s)\n', InfGroundPlane);
 
 end
-                            

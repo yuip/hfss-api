@@ -67,12 +67,12 @@ if (nargin < 7)
 	error('Insufficient number of arguments !');
 elseif (nargin < 8)
 	Padding = [];
-end;
+end
 
 % default arguments. 
 if isempty(Padding)
 	Padding = 's';
-end;
+end
 
 % # of Wires to connect.
 nWires = length(hValues);
@@ -82,25 +82,25 @@ Axes = upper(Axes);
 
 % Any Necessary Padding.
 switch(Padding)
-	case 'p',  % Simple Padding.
+	case 'p'  % Simple Padding.
 		% Increase the Length of the all the wires (except the last)
 		% by a value equal to the radius.
 		hValues(1:nWires-1) = hValues(1:nWires-1) + Radius;
-end;
+end
 
 % Place Holder for All the Cylinder Names.
 CylNames = cell(nWires, 1);
 SprNames =  cell(nWires-1, 1);
 
 % Create All the Cylinders.
-for iW = 1: nWires,
+for iW = 1: nWires
 	% Use the given name for the default cylinder and create 'indexed'
 	% names for the others.
 	if (iW == 1)
 		CylNames{iW} = Name;
 	else 
 		CylNames{iW} = strcat(Name, num2str(iW));
-	end;
+	end
 	
 	% Create the Cylinder.
 	hfssCylinder(fid, CylNames{iW}, Axes(iW), Center, Radius, ... 
@@ -108,25 +108,25 @@ for iW = 1: nWires,
 		     
 	% Update the Center.
 	switch (Axes(iW))
-		case 'X',
+		case 'X'
 			Center(1) = Center(1) + hValues(iW);
-		case 'Y',
+		case 'Y'
 			Center(2) = Center(2) + hValues(iW);
-		case 'Z', 
+		case 'Z'
 			Center(3) = Center(3) + hValues(iW);
-	end;
+	end
 
 	% if a sphere is required as a pad, draw it.
 	% do this for all except the last wire.
-	if ((Padding == 's') & (iW ~= nWires))
-		if (iW == 1)
+	if ((Padding == 's') && (iW ~= nWires))
+        if (iW == 1)
 			SprNames{iW} = strcat(Name, '_SprConn');
-		else 
+        else 
 			SprNames{iW} = strcat(Name, '_SprConn', num2str(iW));
-		end;
+        end
 		hfssSphere(fid, SprNames{iW}, Center, Radius, Units);
-	end;
-end;
+	end
+end
 
 % Finally Unite Everything.
 hfssUnite(fid, CylNames);

@@ -1,7 +1,8 @@
 clc; clear variables; close all;
 
 % HFSS Executable Path.
-hfssExePath = 'D:\Programas\HFSS\AnsysEM19.3\Win64\ansysedt.exe';
+%hfssExePath = 'D:\Programas\HFSS\AnsysEM19.3\Win64\ansysedt.exe';
+hfssExePath = '"C:\Program Files\AnsysEM\AnsysEM19.3\Win64\ansysedt.exe"';
 
 % Script and project files.
 tmpPrjFile = [pwd, '\temHornEPlaneArraySnow.aedt'];

@@ -1,5 +1,5 @@
 % ----------------------------------------------------------------------------
-% function function hfssSetVariable(fid, variable, value, units)
+% function function hfssSetVariable(fid, variable, value, [units])
 % 
 % Description :
 % -------------
@@ -9,22 +9,25 @@
 % ------------
 % fid      - file identifier of the HFSS script file.
 % variable - The name of the variable to be created.
-% value    - The value for the variable (DOUBLE).
-% units    - units of the variable (specify using either 'in', 'mm',
-%            'meter' or anything else defined in HFSS).
+% value    - The value for the variable (DOUBLE or CHAR).
+% units    - (Optional) units of the variable (specify using either 'in',
+%            'mm', 'meter' or anything else defined in HFSS).
 %
 % Example :
 % ---------
 % fid = fopen('myantenna.vbs', 'wt');
 % ... 
-% hfssSetVariable(fid, 'radius', 5, 'cm')
+% hfssSetVariable(fid, 'radius', 5, 'cm');
+% hfssSetVariable(fid, 'diameter', '2*radius');
 %
 % ----------------------------------------------------------------------------
 
 % ----------------------------------------------------------------------------
 % CHANGELOG
 %
-% 28-Sep-2015: *Initial release.
+% 28-Sep-2015: *Initial release (RS).
+% 02-Sep-2020: *Allows to assign a variable as a function of other
+%               variables (DRP).
 % ----------------------------------------------------------------------------
 
 % ----------------------------------------------------------------------------
@@ -46,4 +49,8 @@ function hfssSetVariable(fid, variable, value, units)
 	fprintf(fid, 'Array("NAME:%s", _\n', variable);
     fprintf(fid, '"PropType:=", "VariableProp", _\n');
     fprintf(fid, '"UserDef:=", true, _\n');
-    fprintf(fid, '"Value:=", "%f%s"))))\n', value, units);
+    if ischar(value)
+        fprintf(fid, '"Value:=", "%s"))))\n', value);
+    else
+        fprintf(fid, '"Value:=", "%f%s"))))\n', value, units);
+    end

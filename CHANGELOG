@@ -1,3 +1,13 @@
+v0.5 (...)
+[...]
+	-Added hfssAssignImpedance (thanks Rounak Singh Narde).
+	-Added hfssSetVariable (thanks Rounak Singh Narde).
+	-Fixed examples to lastest AnsysEM version.
+	-Fixed closed polyline assignment.
+	-Floquet port: 3D refinement enabled by default.
+	-Fixes in hfssAssignSlave documentation.
+	-Removed miscellaneous semicolons and commas.
+
 v0.4 (06-October-2014)
 [Nothing lasts forever]
     - Added new function hfssSweepAlongVector.

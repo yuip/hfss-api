@@ -1,12 +1,17 @@
 v0.5 (...)
 [...]
-	-Added hfssAssignImpedance (thanks Rounak Singh Narde).
-	-Added hfssSetVariable (thanks Rounak Singh Narde).
+	-Added the following new functions:
+		(boundary) hfssAssignImpedance(...) (thanks Rounak Singh Narde).
+		(boundary) hfssEditFloquetPort(...)
+		(general)  hfssSetVariable(...) (thanks Rounak Singh Narde).
+		(general)  hfssAssignSizeVariable(...)
+		(general)  hfssAssignPositionVariable(...)
+	-hfssSetVariable now allows to assign a variable as a function of other variables.
 	-Fixed examples to lastest AnsysEM version.
 	-Fixed closed polyline assignment.
 	-Floquet port: 3D refinement enabled by default.
 	-Fixes in hfssAssignSlave documentation.
-	-Removed miscellaneous semicolons and commas.
+	-Removed miscellaneous semicolons and commas from some files.
 
 v0.4 (06-October-2014)
 [Nothing lasts forever]

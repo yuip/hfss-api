@@ -4,6 +4,7 @@ v0.5 (...)
 		(boundary) hfssAssignImpedance(...) (thanks Rounak Singh Narde).
 		(boundary) hfssEditFloquetPort(...)
 		(analysis) hfssSweepAnalysis(...)
+		(analysis) hfssSolveSweepAnalysis(...)
 		(general)  hfssSetVariable(...) (thanks Rounak Singh Narde).
 		(general)  hfssAssignSizeVariable(...)
 		(general)  hfssAssignPositionVariable(...)

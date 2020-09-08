@@ -25,6 +25,7 @@
 % CHANGELOG
 %
 % 02-Sep-2020: *Initial release.
+% 08-Sep-2020: *Added Box type.
 % ----------------------------------------------------------------------------
 
 % ----------------------------------------------------------------------------
@@ -45,6 +46,8 @@ function hfssAssignPositionVariable(fid, Name, type, variables)
     switch type
         case 'Rectangle'
             fprintf(fid, '"%s:CreateRectangle:1"), _\n', Name);
+        case 'Box'
+            fprintf(fid, '"%s:CreateBox:1"), _\n', Name);
         otherwise
             error('Type not supported!');
     end

@@ -1,6 +1,6 @@
 % ----------------------------------------------------------------------------
 % function hfssAssignSlave(fid, Name, ObjName, iUStart, iUEnd, Units,
-%                              Master, [ReverseV])
+%                              Master, [Phi], [Theta], [ReverseV])
 % 
 % Description :
 % -------------
@@ -8,24 +8,27 @@
 %
 % Parameters :
 % ------------
-% fid     - file identifier of the HFSS script file.
-% Name    - name of the slave boundary (appears under 'Boundaries' in HFSS).
-% ObjName - name of the (sheet-like) object to which the slave boundary is to 
-%           be assigned.
-% iUStart - (vector) starting point of the U vector. Specify as
-%           [x, y, z].
-% iUEnd   - (vector) ending point of the U vector. Specify as
-%           [x, y, z].
-% Units   - specify as 'meter', 'in', 'cm' (defined in HFSS).
-% Master  - name of the master boundary to which it is assigned.
+% fid        - file identifier of the HFSS script file.
+% Name       - name of the slave boundary (appears under 'Boundaries' in
+%              HFSS).
+% ObjName    - name of the (sheet-like) object to which the slave boundary
+%              is to be assigned.
+% iUStart    - (vector) starting point of the U vector. Specify as
+%              [x, y, z].
+% iUEnd      - (vector) ending point of the U vector. Specify as
+%              [x, y, z].
+% Units      - specify as 'meter', 'in', 'cm' (defined in HFSS).
+% Master     - name of the master boundary to which it is assigned.
+% [Phi]      - (degrees, optional) scan angle phi (defauls to 0deg).
+% [Theta]    - (degrees, optional) scan angle theta (defaults to 0deg).
 % [ReverseV] - (boolean, optional) reverses vector V (defaults to 
-%                true if the U vector points +y, and to false elsewise)
+%              true if the U vector points +y, and to false elsewise)
 % Example :
 % ---------
 % fid = fopen('myantenna.vbs', 'wt');
 % ... 
 % hfssAssignSlave(fid, 'Slave', 'Sheet', [-width/2, 0, 0], ...
-%	                 [width/2, 0, 0], 'meter', 'Master', false);
+%	                 [width/2, 0, 0], 'meter', 'Master', 0, 0, false);
 %
 % ----------------------------------------------------------------------------
 
@@ -34,6 +37,7 @@
 %
 % 21-May-2013: *Initial release (PAG).
 % 01-Sep-2020: *Fixed example (DRP).
+% 08-Sep-2020: *Added phi and theta as input variables (DRP).
 % ----------------------------------------------------------------------------
 
 % ----------------------------------------------------------------------------
@@ -41,17 +45,25 @@
 % pabloalcongarcia@gmail.com / palcon@tsc.uniovi.es
 % 21 May 2013
 % ----------------------------------------------------------------------------
-function hfssAssignSlave(fid, Name, ObjName, iUStart, iUEnd, Units, Master, ReverseV)
+function hfssAssignSlave(fid, Name, ObjName, iUStart, iUEnd, Units, ...
+    Master, Phi, Theta, ReverseV)
 
 % arguments processor.
-if (nargin < 7)
-	error('Insufficient # of arguments !');
-elseif (nargin < 8)
+if (nargin < 10)
     if iUEnd(2)~=iUStart(2)
         ReverseV = true;
     else
         ReverseV = false;
     end
+end
+if (nargin < 9)
+    Theta = 0;
+end
+if (nargin < 8)
+    Phi = 0;
+end
+if (nargin < 7)
+	error('Insufficient # of arguments !');
 end
 
 if ReverseV
@@ -76,5 +88,6 @@ fprintf(fid, '\t\t"UPos:=", Array("%f%s", "%f%s", "%f%s") _\n', ...
 fprintf(fid, '\t\t), _\n');
 fprintf(fid, '\t"ReverseV:=", %s, _\n', ReverseV);
 fprintf(fid, '\t"Master:=", "%s", _\n', Master);
-fprintf(fid, '\t"UseScanAngles:=", true, "Phi:=", "0deg", "Theta:=", "0deg" _\n');
+fprintf(fid, '\t"UseScanAngles:=", true, _\n');
+fprintf(fid, '\t\t"Phi:=", "%fdeg", "Theta:=", "%fdeg" _\n', Phi, Theta);
 fprintf(fid, '\t)\n');

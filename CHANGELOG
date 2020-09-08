@@ -8,6 +8,7 @@ v0.5 (...)
 		(general)  hfssSetVariable(...) (thanks Rounak Singh Narde).
 		(general)  hfssAssignSizeVariable(...)
 		(general)  hfssAssignPositionVariable(...)
+	-Added phi and theta (scan angle) as input variables in hfssAssignSlave.
 	-hfssSetVariable now allows to assign a variable as a function of other variables.
 	-Fixed examples to lastest AnsysEM version.
 	-Fixed closed polyline assignment.

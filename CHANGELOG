@@ -1,5 +1,5 @@
 v0.5 (...)
-[...]
+[What year is this?]
 	-Added the following new functions:
 		(boundary) hfssAssignImpedance(...) (thanks Rounak Singh Narde).
 		(boundary) hfssEditFloquetPort(...)
@@ -11,6 +11,7 @@ v0.5 (...)
 		(general)  hfssAssignPositionVariable(...)
 	-Added phi and theta (scan angle) as input variables in hfssAssignSlave.
 	-hfssSetVariable now allows to assign a variable as a function of other variables.
+	-hfssSetColor can set a color to several objects simultaneously.
 	-Fixed examples to lastest AnsysEM version.
 	-Fixed closed polyline assignment.
 	-Floquet port: 3D refinement enabled by default.

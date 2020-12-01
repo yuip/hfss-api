@@ -1,22 +1,23 @@
 v0.5 (...)
 [What year is this?]
-	-Added the following new functions:
-		(boundary) hfssAssignImpedance(...) (thanks Rounak Singh Narde).
-		(boundary) hfssEditFloquetPort(...)
-		(boundary) hfssEditSlave(...)
-		(analysis) hfssSweepAnalysis(...)
-		(analysis) hfssSolveSweepAnalysis(...)
-		(general)  hfssSetVariable(...) (thanks Rounak Singh Narde).
-		(general)  hfssAssignSizeVariable(...)
-		(general)  hfssAssignPositionVariable(...)
-	-Added phi and theta (scan angle) as input variables in hfssAssignSlave.
-	-hfssSetVariable now allows to assign a variable as a function of other variables.
-	-hfssSetColor can set a color to several objects simultaneously.
-	-Fixed examples to lastest AnsysEM version.
-	-Fixed closed polyline assignment.
-	-Floquet port: 3D refinement enabled by default.
-	-Fixes in hfssAssignSlave documentation.
-	-Removed miscellaneous semicolons and commas from some files.
+    -Added the following new functions:
+        (boundary) hfssAssignImpedance(...) (thanks Rounak Singh Narde).
+        (boundary) hfssEditFloquetPort(...)
+        (boundary) hfssEditSlave(...)
+        (analysis) hfssSweepAnalysis(...)
+        (analysis) hfssSolveSweepAnalysis(...)
+        (general)  hfssSetVariable(...) (thanks Rounak Singh Narde).
+        (general)  hfssAssignSizeVariable(...)
+        (general)  hfssAssignPositionVariable(...)
+    -Added phi and theta (scan angle) as input variables in hfssAssignSlave.
+    -hfssSetVariable now allows to assign a variable as a function of other variables.
+    -hfssAssignFloquetPort now allows to invert the order to the TE-TM modes.
+    -hfssSetColor can set a color to several objects simultaneously.
+    -Fixed examples to lastest AnsysEM version.
+    -Fixed closed polyline assignment.
+    -Floquet port: 3D refinement enabled by default.
+    -Fixes in hfssAssignSlave documentation.
+    -Removed miscellaneous semicolons and commas from some files.
 
 v0.4 (06-October-2014)
 [Nothing lasts forever]
@@ -29,28 +30,28 @@ v0.4 (06-October-2014)
 
 v0.3 (17-September-2013)
 [Better late than never]
-	- Added the following functions to boundary/ (thanks Pablo):
-		hfssAssignMaster(...)
-		hfssAssignSlave(...)
-		hfssAssignFloquetPort(...)
-	- Created global CHANGELOG file.
-	- Added long-missing function hfssCalcStack(...) to fieldsCalculator/.
-	- Added function hfssRemovePaths(...) to root directory.
-	- Added relative path functionality to hfssIncludePaths(...) in root directory.
-	- Fixed and reworked examples files and directories.
+    - Added the following functions to boundary/ (thanks Pablo):
+        hfssAssignMaster(...)
+        hfssAssignSlave(...)
+        hfssAssignFloquetPort(...)
+    - Created global CHANGELOG file.
+    - Added long-missing function hfssCalcStack(...) to fieldsCalculator/.
+    - Added function hfssRemovePaths(...) to root directory.
+    - Added relative path functionality to hfssIncludePaths(...) in root directory.
+    - Fixed and reworked examples files and directories.
     - Added hfssThickenSheet function to 3dmodeler/ (thanks to Franz Schroeder)
 
 v0.2 (28-May-2013)
 [This is the first version with public download. Sorry for the cryptic changelog.
 If you want to see the exact changes, please check the code until revision 32 at
 http://code.google.com/p/hfss-api/source/list]
-	- Added a bunch of new functions.
-	- Fixed a few bugs.
+    - Added a bunch of new functions.
+    - Fixed a few bugs.
 
 v0.12 (15-March-2005)
 [Original version taken from:
 https://www.cresis.ku.edu/~rvc/projects/hfssapi/doc/hfss-matlab-api.html]
-	- Added the following functions:
-		hfssSweepAlongAxis(...)
-		hfssSetTransparency(...)
-	- Added a folded dipole example M-file in the examples directory.
+    - Added the following functions:
+        hfssSweepAlongAxis(...)
+        hfssSetTransparency(...)
+    - Added a folded dipole example M-file in the examples directory.

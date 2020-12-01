@@ -1,6 +1,7 @@
 % ----------------------------------------------------------------------------
 % function hfssAssignFloquetPort(fid, Name, ObjName, Deembed, Phi, Theta,
-%                                iAStart, iAEnd, iBStart, iBEnd, Units, [Ref])
+%                                iAStart, iAEnd, iBStart, iBEnd, Units, 
+%                                [Ref], [invTETM])
 % 
 % Description :
 % -------------
@@ -26,6 +27,8 @@
 % Units   - specify as 'meter', 'in', 'cm' (defined in HFSS).
 % Ref     - (boolean, optional) enables 3D Refinement for Floquet modes.
 %           Defaults to true.
+% invTETM - (boolean, optional) inverts the definition of the TE-TM modes.
+%           Defaults to false, such that TE is mode 1 and TM is mode 2.
 %
 % Note :
 % ------
@@ -47,6 +50,7 @@
 % 21-May-2013: *Initial release (PAG).
 % 01-Sep-2020: *Fixed example (DRP).
 %              *3D refinement enabled by default (DRP).
+% 01-Dec-2020: *Option to allow to invert TE-TM modes (DRP).
 % ----------------------------------------------------------------------------
 
 % ----------------------------------------------------------------------------
@@ -55,19 +59,30 @@
 % 21 May 2013
 % ----------------------------------------------------------------------------
 function hfssAssignFloquetPort(fid, Name, ObjName, Deembed, ...
-         Phi, Theta, iAStart, iAEnd, iBStart, iBEnd, Units, Ref)
+         Phi, Theta, iAStart, iAEnd, iBStart, iBEnd, Units, Ref, invTETM)
 
 % arguments processor.
 if (nargin < 11)
 	error('Insufficient # of arguments !');
 elseif (nargin < 12)
-    Ref = true;
+    Ref     = true;
+    invTETM = false;
+elseif (nargin < 13)
+    invTETM = false;
 end
 
 if Ref
     Ref = 'true';
 else
     Ref = 'false';
+end
+
+if invTETM
+    mode1 = 'TM';
+    mode2 = 'TE';
+else
+    mode1 = 'TE';
+    mode2 = 'TM';
 end
 
 % Preamble.
@@ -104,13 +119,13 @@ fprintf(fid, '\tArray("NAME:ModesList", _\n');
 fprintf(fid, '\t\tArray("NAME:Mode", "ModeNumber:=",1, _\n');
 fprintf(fid, '\t\t\t"IndexM:=", 0, "IndexN:=", 0, "KC2:=", 0, _\n');
 fprintf(fid, '\t\t\t"PropagationState:=", "Propagating", _\n');
-fprintf(fid, '\t\t\t"Attenuation:=", 0, "PolarizationState:=", "TE", _\n');
+fprintf(fid, '\t\t\t"Attenuation:=", 0, "PolarizationState:=", "%s", _\n', mode1);
 fprintf(fid, '\t\t\t"AffectsRefinement:=", %s _\n', Ref);
 fprintf(fid, '\t\t\t), _\n');
 fprintf(fid, '\t\tArray("NAME:Mode", "ModeNumber:=",2, _\n');
 fprintf(fid, '\t\t\t"IndexM:=", 0, "IndexN:=", 0, "KC2:=", 0, _\n');
 fprintf(fid, '\t\t\t"PropagationState:=", "Propagating", _\n');
-fprintf(fid, '\t\t\t"Attenuation:=", 0, "PolarizationState:=", "TM", _\n');
+fprintf(fid, '\t\t\t"Attenuation:=", 0, "PolarizationState:=", "%s", _\n', mode2);
 fprintf(fid, '\t\t\t"AffectsRefinement:=", %s _\n', Ref);
 fprintf(fid, '\t\t\t) _\n');
 fprintf(fid, '\t\t) _\n');

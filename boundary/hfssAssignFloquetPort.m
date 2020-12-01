@@ -30,9 +30,15 @@
 % invTETM - (boolean, optional) inverts the definition of the TE-TM modes.
 %           Defaults to false, such that TE is mode 1 and TM is mode 2.
 %
-% Note :
-% ------
+% Notes :
+% -------
 % It sets up only the default specular pair of nodes.
+% 
+% If the port is later edited with the hfssEditFloquetPort, for instance,
+% to establish a new deembed distance, the definition of modes is reset to
+% the default value, and thus invalidating the invTETM option when is set
+% to true. To overcome this limitation, use hfssEditFloquetPort with option
+% 'PolarizationState' to restore the desired order of the modes.
 %
 % Example :
 % ---------

@@ -34,6 +34,7 @@
 % CHANGELOG
 %
 % 08-Sep-2020: *Initial release (DRP).
+% 22-Dec-2020: *Fix optional units argument (DRP).
 % ----------------------------------------------------------------------------
 
 % ----------------------------------------------------------------------------
@@ -42,18 +43,22 @@
 % 08 September 2020
 % ----------------------------------------------------------------------------
 function hfssEditSlave(fid, Name, Master, variable, values, units)
+    if (nargin < 6)
+        units = [];
+    end
+    
     % Check some variables.
     if (~iscell(values))
         values = num2cell(values);
     end
-    if (~iscell(units))
+    if (~isempty(units) && ~iscell(units))
         units = num2cell(units);
     end
     
     if (numel(values) ~= 2)
         error('Need to provide two values for (phi, theta)');
     end
-    if (numel(units) ~= 2)
+    if (~isempty(units) && numel(units) ~= 2)
         error('Need to provide two units for (phi, theta)');
     end
     ph = values{1};

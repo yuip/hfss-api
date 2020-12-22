@@ -1,4 +1,4 @@
-% ----------------------------------------------------------------------------
+% -------------------------------------------------------------------------
 % function hfssSweepAnalysis(fid, Name, Analysis, Type, Variables, Data,
 %                            Units, [Sync])
 % 
@@ -11,9 +11,12 @@
 % fid       - file identifier of the HFSS script file.
 % Name      - name of the sweep analysis to be created.
 % Analysis  - name of the associated analysis setup.
-% Type      - cell array with sweep types. Supported: 'LIN' and 'LINC'.
-%                "LIN Start Stop Step" -> Start:Step:Stop
-%                "LINC Start Stop Count" -> linspace(Start, Stop, Count)
+% Type      - cell array with sweep types. Supported:
+%                SINGLE: array of single values.
+%                LIN:    follows the structure "LIN Start Stop Step", i.e.
+%                        Start:Step:Stop
+%                LINC:   follows the structure "LINC Start Stop Count",
+%                        i.e. linspace(Start, Stop, Count)
 % Variables - cell array with the name of the variable of which the sweep
 %             will be performed.
 % Data      - cell array containing numerical values of [Start, Stop,
@@ -32,24 +35,29 @@
 % hfssSweepAnalysis(fid, 'ParSetup2', 'MySetup', {'LIN', 'LIN'}, ...
 %     {'pB', 'pA'}, {[0.1, 3.5, 0.2], [0.1, 3.5, 0.2]}, 'mm', {1, 1});
 %
-% ----------------------------------------------------------------------------
+% hfssSweepAnalysis(fid, 'ParSetup3', 'MySetup', {'Single', 'LIN'}, ...
+%     {'pC', 'pD'}, {[pi, exp(1), -sqrt(2)], [0.1, 3.5, 0.2]}, 'rad', ...
+%     {1, 1});
+%
+% -------------------------------------------------------------------------
 
-% ----------------------------------------------------------------------------
+% -------------------------------------------------------------------------
 % CHANGELOG
 %
 % 03-Sep-2020: *Initial release (only LIN sweep type supported).
 % 09-Sep-2020: *LINC sweep type supported.
 %              *Sync is now a cell array, allowing to syncronize variables
 %               in different groups.
-% ----------------------------------------------------------------------------
+% 22-Dec-2020: *Array of single value support through SINGLE keyword.
+% -------------------------------------------------------------------------
 
-% ----------------------------------------------------------------------------
+% -------------------------------------------------------------------------
 % Written by Daniel R. Prado
 % danysan@gmail.com / drprado@tsc.uniovi.es
 % 03 September 2020
-% ----------------------------------------------------------------------------
-function hfssSweepAnalysis(fid, Name, Analysis, Type, Variables, Data, Units, ...
-                           Sync)
+% -------------------------------------------------------------------------
+function hfssSweepAnalysis(fid, Name, Analysis, Type, Variables, Data, ...
+                           Units, Sync)
 
 % Arguments processor.
 if (nargin < 7)
@@ -92,6 +100,12 @@ for n = 1:numel(Variables)
     fprintf(fid, '\t\tArray("NAME:SweepDefinition", _\n');
     fprintf(fid, '\t\t"Variable:=", "%s", _\n', Variables{n});
     switch Type{n}
+        case 'SINGLE'
+            strUnits  = repmat('deg ', numel(Data{n}), 1);
+            strData   = num2str(Data{n});
+            strAux    = [strData, strUnits];
+            str       = strtrim(reshape(strAux.', 1, numel(strAux)));
+            fprintf(fid, ['\t\t"Data:=", "', str, '", _\n']);
         case 'LIN'
             fprintf(fid, '\t\t"Data:=", "LIN %f%s %f%s %f%s", _\n', ...
                 Data{n}(1), Units, Data{n}(2), Units, Data{n}(3), Units);

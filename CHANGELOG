@@ -2,6 +2,7 @@ v0.6 (unreleased)
 [I don't know how long this will last]
     -Added support for arrays of single values in hfssSweepAnalysis.
     -Fix optional units argument in hfssEditSlave.
+    -Improved documentation.
 
 v0.5 (09-December-2020)
 [What year is this?]

@@ -1,5 +1,5 @@
 % ----------------------------------------------------------------------------
-% hfssSubtract(fid, blankParts, toolParts)
+% hfssSubtract(fid, blankParts, toolParts, Clone)
 %
 % Description:
 % ------------
@@ -11,12 +11,15 @@
 % fid        - file identifier of the HFSS script file.
 % blankParts - a cell array of strings that contain the blank parts.
 % toolParts  - a cell array of strings that contain the tool parts.
+% Clone      - a string with value 'false' or 'true' to decide if original parts
+%              are kept.
 %
 % Example :
 % ---------
 % fid = fopen('myantenna.vbs', 'wt');
 % ... 
 % hfssSubtract(fid, {'BigPlate'}, {'SmallPlate'});
+% hfssSubtract(fid, {'BigPlate'}, {'SmallPlate'}, 'true');
 %
 % ----------------------------------------------------------------------------
 
@@ -43,8 +46,9 @@
 % ----------------------------------------------------------------------------
 % CHANGELOG
 %
-% ??-????-2014: *Initial release (VR).
-% 07-Augu-2014: *Added option to clone parts (DRP).
+% ??-???-2014: *Initial release (VR).
+% 07-Aug-2014: *Added option to clone parts (DRP).
+% 12-Jan-2021: *Documented Clone option (DRP)
 % ----------------------------------------------------------------------------
 
 % ----------------------------------------------------------------------------

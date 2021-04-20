@@ -1,19 +1,24 @@
 % -------------------------------------------------------------------------- %
-% function hfssPolyline(fid, Name, Points, Units)
+% function hfssPolyline(fid, Name, Points, Units, [Closed], [segmentType], ...
+%                       [Color], [Transparency])
 % Description:
 % ------------
 %
 % Parameters:
 % -----------
-% Name - Name Attribute for the PolyLine.
+% Name   - Name Attribute for the PolyLine.
 % Points - Points as 3-Tuples, ex: Points = [0, 0, 1; 0, 1, 0; 1, 0 1];
-%          Note: size(Points) must give [nPoints, 3]
-% Units - can be either:
-%         'mm' - millimeter.
-%         'in' - inches.
-%         'mil' - mils.
-%         'meter' - meter (note: don't use 'm').
-%          or anything that Ansoft HFSS supports.
+%          Note: size(Points) must give [nPoints, 3].
+% Units  - units of the segments (specify using either 'in', 'mm', 'meter' 
+%          or anything else defined in HFSS).
+% Closed  - (Optional; bool) Closes the polyline to form a sheet. By
+%           default is false.
+% segmentType - (Optional) Defines the cross-section of the segment. Only
+%               'Line' is supported. By default is 'Line'.
+% Color       - (Optional) Defines the RGB color with a 3-tuple [R, G, B].
+%               By default is set to [0, 0, 0] (black).
+% Transparency - (Optional) Defines the transparency of the line. By
+%                default is set to 0.8.
 %
 % Example:
 % --------
@@ -42,20 +47,21 @@
 % ----------------------------------------------------------------------------
 % CHANGELOG
 %
-% ??-???-2014: *Initial release (VR).
+% ??-???-????: *Initial release (VR).
 % 07-Aug-2014: *Fix representation of polylines (DRP).
 % 07-Aug-2014: *Added option for closed polyline (DRP).
 % 01-Sep-2020: *Fixed closed polyline assignment (DRP).
+% 20-Apr-2021: *Added missing documentation (DRP).
 % ----------------------------------------------------------------------------
 
 % ----------------------------------------------------------------------------
 % Modified by Daniel Rodriguez Prado
-% danysan@gmail.com / drprado@tsc.uniovi.es
-% 01 September 2020
+% danysan@gmail.com
+% 20 Apr 2021
 % ----------------------------------------------------------------------------
 
 function hfssPolyline(fid, Name, Points, Units, Closed, segmentType, ...
-                     Color, Transparency)
+                      Color, Transparency)
 if (nargin < 5)
     Closed = [];
 	segmentType = [];

@@ -25,6 +25,13 @@
 % ----------------------------------------------------------------------------
 
 % ----------------------------------------------------------------------------
+% CHANGELOG
+%
+% ??-???-2004: *Initial release (VR).
+% 21-Apr-2021: *Fix rotation of just one element with string name (DRP).
+% ----------------------------------------------------------------------------
+
+% ----------------------------------------------------------------------------
 % This file is part of HFSS-MATLAB-API.
 %
 % HFSS-MATLAB-API is free software; you can redistribute it and/or modify it 
@@ -44,6 +51,10 @@
 % Copyright 2004, Vijay Ramasami (rvc@ku.edu)
 % ----------------------------------------------------------------------------
 function hfssMove(fid, ObjectList, tVector, Units)
+
+if (~iscell(ObjectList)) % Fixes rotation when there is only one string.
+    ObjectList = {ObjectList};
+end
 
 nObjects = length(ObjectList);
 

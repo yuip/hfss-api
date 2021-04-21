@@ -25,15 +25,20 @@
 % ----------------------------------------------------------------------------
 % CHANGELOG
 %
-% 23-Sept-2012: *Initial release.
+% 23-Sep-2012: *Initial release (DRP).
+% 21-Apr-2021: *Fix rotation of just one element with string name (DRP).
 % ----------------------------------------------------------------------------
 
 % ----------------------------------------------------------------------------
-% Written by Daniel R. Prado
-% danysan@gmail.com / drprado@tsc.uniovi.es
+% Written by Daniel Rodriguez Prado
+% danysan@gmail.com
 % 23 September 2012
 % ----------------------------------------------------------------------------
 function hfssRotate(fid, ObjectList, Axis, Degrees)
+
+if (~iscell(ObjectList)) % Fixes rotation when there is only one string.
+    ObjectList = {ObjectList};
+end
 
 nObjects = length(ObjectList);
 

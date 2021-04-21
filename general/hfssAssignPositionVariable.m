@@ -9,7 +9,8 @@
 % ------------
 % fid      - File identifier of the HFSS script file.
 % Name     - Name of the object to which the variable will be assigned.
-% type     - Type of object.
+% type     - Type of object. Currently supported: 'Rectangle', 'Box' and
+%            'SweepAlongVector'.
 % Axis     - Axis where the variable is assigned.
 % variable - The name of the variable to be assigned.
 %
@@ -24,13 +25,14 @@
 % ----------------------------------------------------------------------------
 % CHANGELOG
 %
-% 02-Sep-2020: *Initial release.
-% 08-Sep-2020: *Added Box type.
+% 02-Sep-2020: *Initial release (DRP).
+% 08-Sep-2020: *Added Box type (DRP).
+% 21-Apr-2021: *Added support for type SweepAlongVector (DRP).
 % ----------------------------------------------------------------------------
 
 % ----------------------------------------------------------------------------
-% Written by Daniel R. Prado
-% danysan@gmail.com / drprado@tsc.uniovi.es
+% Written by Daniel Rodriguez Prado
+% danysan@gmail.com
 % 02 September 2020
 % ----------------------------------------------------------------------------
 function hfssAssignPositionVariable(fid, Name, type, variables)
@@ -48,12 +50,21 @@ function hfssAssignPositionVariable(fid, Name, type, variables)
             fprintf(fid, '"%s:CreateRectangle:1"), _\n', Name);
         case 'Box'
             fprintf(fid, '"%s:CreateBox:1"), _\n', Name);
+        case 'SweepAlongVector'
+            fprintf(fid, '"%s:SweepAlongVector:1"), _\n', Name);
         otherwise
             error('Type not supported!');
     end
     
 	fprintf(fid, 'Array("NAME:ChangedProps", _\n');
-    fprintf(fid, 'Array("NAME:Position", _\n');
+    
+    switch type
+        case 'SweepAlongVector'
+            fprintf(fid, 'Array("NAME:Vector", _\n');
+        otherwise
+            fprintf(fid, 'Array("NAME:Position", _\n');
+    end
+    
     fprintf(fid, '"X:=", "%s", _\n', variables{1});
     fprintf(fid, '"Y:=", "%s", _\n', variables{2});
     fprintf(fid, '"Z:=", "%s"))))\n', variables{3});

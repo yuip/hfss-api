@@ -52,6 +52,8 @@
 % 07-Aug-2014: *Added option for closed polyline (DRP).
 % 01-Sep-2020: *Fixed closed polyline assignment (DRP).
 % 20-Apr-2021: *Added missing documentation (DRP).
+% 21-Apr-2021: *Changed default color and transparency to that of the
+%               hfssRectangle function (DRP).
 % ----------------------------------------------------------------------------
 
 % ----------------------------------------------------------------------------
@@ -85,10 +87,10 @@ if isempty(segmentType)
 	segmentType = 'Line';
 end
 if isempty(Color)
-	Color = [0, 0, 0];
+	Color = [132, 132, 193];
 end
 if isempty(Transparency)
-	Transparency = 0.8;
+	Transparency = 0.75;
 end
 
 nPoints = length(Points(:, 1));

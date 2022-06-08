@@ -54,8 +54,9 @@
 % ----------------------------------------------------------------------------
 % CHANGELOG
 %
-% ??-????-????: *Initial release.
-% 30-May -2013: *Fix typo.
+% ??-???-????: *Initial release.
+% 30-May-2013: *Fix typo.
+% 08-Jun-2022: *Fix command path (arwsl)
 % ----------------------------------------------------------------------------
 
 % ----------------------------------------------------------------------------
@@ -111,8 +112,8 @@ else
 end
 
 % Create the Command Path.
-cmdHFSS = [hfssExePath, ' ', iconStr, ' ', runStr, ' ' ,  ...
-           ScriptFile];
+cmdHFSS = ['"', hfssExePath, '" ', iconStr, ' ', runStr, ' "' ,  ...
+           ScriptFile, '"'];
 
 % Execute the Command.
 fprintf('Running HFSS using:\n');

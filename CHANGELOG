@@ -6,6 +6,9 @@ v0.6 (unreleased)
     -Added support for SweepAlongVector in hfssPositionVariable.
     -Fix optional units argument in hfssEditSlave.
     -Fix rotation/move of one element when specified with a string.
+    -Fix command path in hfssExecuteScript (thanks arwsl).
+    -Fix fileparts output in hfssOpenProject.
+    -Remove warning when a file with extension .aedt is opened.
     -Improved documentation.
 
 v0.5 (09-December-2020)

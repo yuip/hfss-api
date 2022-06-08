@@ -23,6 +23,14 @@
 % -------------------------------------------------------------------------- %
 
 % ----------------------------------------------------------------------------
+% CHANGELOG
+%
+% ??-???-????: *Initial release.
+% 08-Jun-2022: *Fix fileparts output.
+%              *Does not show warning with .aedt extension.
+% ----------------------------------------------------------------------------
+
+% ----------------------------------------------------------------------------
 % This file is part of HFSS-MATLAB-API.
 %
 % HFSS-MATLAB-API is free software; you can redistribute it and/or modify it 
@@ -44,11 +52,11 @@
 
 function hfssOpenProject(fid, hfssProjectFile)
 
-[Path, projectName, Ext, Ver] = fileparts(hfssProjectFile);
+[~, projectName, Ext] = fileparts(hfssProjectFile);
 
 % Check extension.
-if (~strcmp(Ext, '.hfss'))
-	warning('File Extension is not .hfss !');
+if (~strcmp(Ext, '.hfss') && ~strcmp(Ext, '.aedt'))
+	warning('File Extension is not .hfss or .aedt !');
 end
 
 % Preamble.

@@ -9,3 +9,4 @@
 examples/1_Dipole/tmpData1.m
 examples/1_Dipole/tmpData.m
 *.asv
+private/

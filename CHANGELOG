@@ -2,6 +2,7 @@ v0.6 (unreleased)
 [I don't know how long this will last]
     -Added the following new functions:
         (general) hfssAssignPointVariable(...)
+        (general) hfssEnableAutoSave(...)
     -Added support for arrays of single values in hfssSweepAnalysis.
     -Added support for SweepAlongVector in hfssPositionVariable.
     -Fix optional units argument in hfssEditSlave.

@@ -27,9 +27,10 @@
 % ----------------------------------------------------------------------------
 % CHANGELOG
 %
-% ??-????-????: *Initial release.
-% 22-Sept-2012: *Added warning and fix OR operator.
-% 28-Nove-2014: *Fix uppercase bug with copper and pec.
+% ??-???-????: *Initial release.
+% 22-Sep-2012: *Added warning and fix OR operator.
+% 28-Nov-2014: *Fix uppercase bug with copper and pec.
+% 06-Sep-2024: *Added gold as high conductivity material.
 % ----------------------------------------------------------------------------
 
 % ----------------------------------------------------------------------------
@@ -60,9 +61,8 @@ fprintf(fid, '\t\t"Selections:=", "%s"), _\n', Name);
 fprintf(fid, '\tArray("NAME:Attributes", _\n');
 fprintf(fid, '\t\t"MaterialName:=", "%s", _\n', Material);
 
-% if the material is copper, we should set solve inside to be false and for
-% other materials (in general) is should be true.
-if (strcmpi(Material, 'copper') || strcmpi(Material, 'pec'))
+% if the material has high conductivity, we should set solve inside to be false.
+if (strcmpi(Material, 'copper') || strcmpi(Material, 'pec') || strcmpi(Material, 'gold'))
 	fprintf(fid, '\t\t"SolveInside:=", false)\n');
     msg = ['A warning might appear in HFSS due to material assignment ',...
            'change for object ', Name];

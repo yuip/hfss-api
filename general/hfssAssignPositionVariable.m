@@ -28,6 +28,7 @@
 % 02-Sep-2020: *Initial release (DRP).
 % 08-Sep-2020: *Added Box type (DRP).
 % 21-Apr-2021: *Added support for type SweepAlongVector (DRP).
+% 06-Sep-2024: *Added support for type DuplicateAlongLine (DRP).
 % ----------------------------------------------------------------------------
 
 % ----------------------------------------------------------------------------
@@ -52,6 +53,8 @@ function hfssAssignPositionVariable(fid, Name, type, variables)
             fprintf(fid, '"%s:CreateBox:1"), _\n', Name);
         case 'SweepAlongVector'
             fprintf(fid, '"%s:SweepAlongVector:1"), _\n', Name);
+        case 'DuplicateAlongLine'
+            fprintf(fid, '"%s:DuplicateAlongLine:1"), _\n', Name);
         otherwise
             error('Type not supported!');
     end
@@ -60,6 +63,8 @@ function hfssAssignPositionVariable(fid, Name, type, variables)
     
     switch type
         case 'SweepAlongVector'
+            fprintf(fid, 'Array("NAME:Vector", _\n');
+        case 'DuplicateAlongLine'
             fprintf(fid, 'Array("NAME:Vector", _\n');
         otherwise
             fprintf(fid, 'Array("NAME:Position", _\n');

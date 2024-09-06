@@ -7,6 +7,7 @@ v0.6 (unreleased)
     -Added support for arrays of single values in hfssSweepAnalysis.
     -Added support for SweepAlongVector in hfssPositionVariable.
     -Added gold as high conductivity material in hfssAssignMaterial.
+    -Added support to DuplicateAlongLine in hfssAssignPositionVariable.
     -Fix optional units argument in hfssEditSlave.
     -Fix rotation/move of one element when specified with a string.
     -Fix command path in hfssExecuteScript (thanks arwsl).

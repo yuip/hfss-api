@@ -10,6 +10,7 @@ v0.6 (unreleased)
     -Fix rotation/move of one element when specified with a string.
     -Fix command path in hfssExecuteScript (thanks arwsl).
     -Fix fileparts output in hfssOpenProject.
+    -Fix the number of decimal places in the sweep vector (hfssSweepAlongVector).
     -Remove warning when a file with extension .aedt is opened.
     -Improved documentation.
 

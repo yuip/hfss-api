@@ -26,6 +26,7 @@
 %
 % 07-Aug-2014: *Initial release.
 % 06-Oct-2014: *Fixed help text.
+% 06-Sep-2024: *Don't limit to four decimal places the sweep vector. 
 % ----------------------------------------------------------------------------
 
 % ----------------------------------------------------------------------------
@@ -64,6 +65,6 @@ fprintf(fid, '\tArray("NAME:VectorSweepParameters", _\n');
 fprintf(fid, '\t\t"DraftAngle:=", "%fdeg", _\n', DraftAngle);
 fprintf(fid, '\t\t"DraftType:=", "%s", _\n', DraftType);
 fprintf(fid, '\t\t"CheckFaceFaceIntersection:=", false, _ \n');
-fprintf(fid, '\t\t"SweepVectorX:=", "%.4f%s", _\n', Vector(1), Units);
-fprintf(fid, '\t\t"SweepVectorY:=", "%.4f%s", _\n', Vector(2), Units);
-fprintf(fid, '\t\t"SweepVectorZ:=", "%.4f%s")\n', Vector(3), Units);
+fprintf(fid, '\t\t"SweepVectorX:=", "%f%s", _\n', Vector(1), Units);
+fprintf(fid, '\t\t"SweepVectorY:=", "%f%s", _\n', Vector(2), Units);
+fprintf(fid, '\t\t"SweepVectorZ:=", "%f%s")\n', Vector(3), Units);

@@ -31,6 +31,7 @@
 % 22-Sep-2012: *Added warning and fix OR operator.
 % 28-Nov-2014: *Fix uppercase bug with copper and pec.
 % 06-Sep-2024: *Added gold as high conductivity material.
+% 09-Sep-2024: *Warning display is optional, but enabled by default.
 % ----------------------------------------------------------------------------
 
 % ----------------------------------------------------------------------------
@@ -52,7 +53,11 @@
 %
 % Copyright 2004, Vijay Ramasami (rvc@ku.edu)
 % ----------------------------------------------------------------------------
-function hfssAssignMaterial(fid, Name, Material)
+function hfssAssignMaterial(fid, Name, Material, warn)
+
+if nargin < 4
+    warn = true;
+end
 
 fprintf(fid, '\n');
 fprintf(fid, 'oEditor.AssignMaterial _\n');
@@ -64,10 +69,12 @@ fprintf(fid, '\t\t"MaterialName:=", "%s", _\n', Material);
 % if the material has high conductivity, we should set solve inside to be false.
 if (strcmpi(Material, 'copper') || strcmpi(Material, 'pec') || strcmpi(Material, 'gold'))
 	fprintf(fid, '\t\t"SolveInside:=", false)\n');
-    msg = ['A warning might appear in HFSS due to material assignment ',...
-           'change for object ', Name];
-    warning('hfssAPI:hfssAssignMaterial', msg);
-    fprintf('\n');
+    if warn
+        msg = ['A warning might appear in HFSS due to material assignment ',...
+               'change for object ', Name];
+        warning('hfssAPI:hfssAssignMaterial', msg);
+        fprintf('\n');
+    end
 else
 	fprintf(fid, '\t\t"SolveInside:=", true)\n');
 end

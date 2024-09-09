@@ -14,6 +14,7 @@ v0.6 (unreleased)
     -Fix fileparts output in hfssOpenProject.
     -Fix the number of decimal places in the sweep vector (hfssSweepAlongVector).
     -Remove warning when a file with extension .aedt is opened.
+    -Warning display is optional in hfssAssignMaterial (enabled by default).
     -Improved documentation.
 
 v0.5 (09-December-2020)

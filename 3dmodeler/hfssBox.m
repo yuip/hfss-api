@@ -1,6 +1,6 @@
 % ----------------------------------------------------------------------------
-% function hfssBox(fid, Name, Start, Size, Units, [Center1], [Radius1], ...
-%                  [Axis1], [Center2], [Radius2], [Axis2], ...)
+% function hfssBox(fid, Name, Start, Size, Units, [Material], [Solve], [Center1], ...
+%                  [Radius1], [Axis1], [Center2], [Radius2], [Axis2], ...)
 % 
 % Description :
 % -------------
@@ -11,16 +11,19 @@
 %
 % Parameters :
 % ------------
-% fid     - file identifier of the HFSS script file.
-% Name    - name of the box (appears in HFSS).
-% Start   - starting location of the box (specify as [x, y, z]).
-% Size    - size of the box (specify as [sx, sy, sz]).
-% Units   - units of the box (specify using either 'in', 'mm', 'meter' or 
-%           anything else defined in HFSS).
-% Center  - (Optional) center of the hole to be punched through the box.
-%           It can lie anywhere within or on the surface of the box.
-% Radius  - (Optional) radius of the hole to be punched through the box.
-% Axis    - (Optional) axis of the hole to be punched through the box.
+% fid      - file identifier of the HFSS script file.
+% Name     - name of the box (appears in HFSS).
+% Start    - starting location of the box (specify as [x, y, z]).
+% Size     - size of the box (specify as [sx, sy, sz]).
+% Units    - units of the box (specify using either 'in', 'mm', 'meter' or 
+%            anything else defined in HFSS).
+% Material - (Optional) name of the material assigned to the box.
+% Solve    - (Optional) boolean to set the option SolveInside. It is true by
+%            default. Cannot be false with vacuum as material.
+% Center   - (Optional) center of the hole to be punched through the box.
+%            It can lie anywhere within or on the surface of the box.
+% Radius   - (Optional) radius of the hole to be punched through the box.
+% Axis     - (Optional) axis of the hole to be punched through the box.
 % 
 % Note :
 % ------
@@ -36,6 +39,14 @@
 %         baseLength, -baseThick], 'in', [cX1, cY1, cZ1], R1, 'Z',...
 %         [cX2, cY2, cZ2], R2, 'X');
 %
+% ----------------------------------------------------------------------------
+
+% ----------------------------------------------------------------------------
+% CHANGELOG
+%
+% ??-???-????: *Initial release.
+% 12-Sep-2024: *Added option to disable solve inside.
+%              *Added option to include material.
 % ----------------------------------------------------------------------------
 
 % ----------------------------------------------------------------------------
@@ -57,7 +68,21 @@
 %
 % Copyright 2004, Vijay Ramasami (rvc@ku.edu)
 % ----------------------------------------------------------------------------
-function hfssBox(fid, Name, Start, Size, Units, varargin)
+function hfssBox(fid, Name, Start, Size, Units, Material, Solve, varargin)
+
+if nargin < 6
+    Material = 'vacuum';
+end
+
+if nargin < 7
+    Solve = true;
+end
+
+if Solve
+    solve_inside = 'true';
+else
+    solve_inside = 'false';
+end
 
 % Preamble.
 fprintf(fid, '\n');
@@ -79,8 +104,8 @@ fprintf(fid, '"Flags:=", "", _\n');
 fprintf(fid, '"Color:=", "(132 132 193)", _\n');
 fprintf(fid, '"Transparency:=", 0.75, _\n');
 fprintf(fid, '"PartCoordinateSystem:=", "Global", _\n');
-fprintf(fid, '"MaterialName:=", "vacuum", _\n');
-fprintf(fid, '"SolveInside:=", true)\n');
+fprintf(fid, '"MaterialName:=", "%s", _\n', Material);
+fprintf(fid, '"SolveInside:=", %s)\n', solve_inside);
 
 % Add Holes.
 nHoles = length(varargin)/3;

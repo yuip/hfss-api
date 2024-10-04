@@ -19,6 +19,8 @@
 % ... 
 % hfssSetVariable(fid, 'radius', 5, 'cm');
 % hfssSetVariable(fid, 'diameter', '2*radius');
+% hfssSetVariable(fid, 'scale', 1);
+% hfssSetVariable(fid, 'var', '2.1*scale', 'mm');
 %
 % ----------------------------------------------------------------------------
 
@@ -28,12 +30,13 @@
 % 28-Sep-2015: *Initial release (RS).
 % 02-Sep-2020: *Allows to assign a variable as a function of other
 %               variables (DRP).
-% 04-Oct-2024: *Allow to have unitless variables.
+% 04-Oct-2024: *Allow to have unitless variables (DRP).
+%              *Allow to add units to string variables (DRP).
 % ----------------------------------------------------------------------------
 
 % ----------------------------------------------------------------------------
-% Written by Rounak Singh
-% rounaksingh17@gmail.com
+% Written by Rounak Singh, Daniel R. Prado
+% rounaksingh17@gmail.com / danysan@gmail.com / drprado@tsc.uniovi.es
 % 28 September 2015
 % ----------------------------------------------------------------------------
 function hfssSetVariable(fid, variable, value, units)
@@ -55,7 +58,7 @@ function hfssSetVariable(fid, variable, value, units)
     fprintf(fid, '"PropType:=", "VariableProp", _\n');
     fprintf(fid, '"UserDef:=", true, _\n');
     if ischar(value)
-        fprintf(fid, '"Value:=", "%s"))))\n', value);
+        fprintf(fid, '"Value:=", "%s %s"))))\n', value, units);
     else
         fprintf(fid, '"Value:=", "%f%s"))))\n', value, units);
     end

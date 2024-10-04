@@ -87,23 +87,26 @@
 %                  {'Phi', 'Theta', 'dB(DirTotal)'});
 % hfssCreateReport(fid, 'Return Loss', 1, 1, 'Solution1', 'Sweep1',...
 %                  [], 'Sweep', {'Freq'}, {'Freq',...
-%                  'db(S(LumpP1,LumpP1))'});
+%                  'db(S(LumpP1,LumpP1))', 'db(S(LumpP1,LumpP2))', ...
+%                  'db(S(LumpP2,LumpP2))'});
 % ----------------------------------------------------------------------------
 
 % ----------------------------------------------------------------------------
 % CHANGELOG
 %
-% 25-Sept-2012: *Initial release.
-% 29-Sept-2012: *Added 3D Radiation Patterns.
-% 16-Janu-2013: *Fixed a bug when VarObj had only one item and wasn't
-%                added to the script.
-%               *Added Sweep param.
-%               *Updated examples and added a new one.
+% 25-Sep-2012: *Initial release.
+% 29-Sep-2012: *Added 3D Radiation Patterns.
+% 16-Jan-2013: *Fixed a bug when VarObj had only one item and wasn't
+%               added to the script.
+%              *Added Sweep param.
+%              *Updated examples and added a new one.
+% 04-Oct-2024: *Added the possibility of plotting several graphs in one
+%               single report.
 % ----------------------------------------------------------------------------
 
 % ----------------------------------------------------------------------------
 % Written by Daniel R. Prado
-% danysan@gmail.com / drprado@tsc.uniovi.es
+% danysan@gmail.com / drprado.tsc@gmail.com
 % 23 September 2012
 % ----------------------------------------------------------------------------
 function hfssCreateReport(fid, ReportName, Type, Display, Solution,...
@@ -186,12 +189,14 @@ end
 fprintf(fid, 'Array(');
 if Display == 1 % Rectangular plot
     fprintf(fid, '"X Component:=", "%s", _\n', DataObj{1});
-    fprintf(fid, '"Y Component:=", Array("%s")), _\n', DataObj{2});
+    fprintf(fid, '"Y Component:=", Array( _\n');
+    ini = 2;
 elseif Display == 2 % Polar Plot
     error('Error in hfssCreateReport: display not supported');
 elseif Display == 3 % Radiation Pattern
     fprintf(fid, '"Ang Component:=", "%s", _\n', DataObj{1});
-    fprintf(fid, '"Mag Component:=", Array("%s")), _\n', DataObj{2});
+    fprintf(fid, '"Mag Component:=", Array( _\n');
+    ini = 2;
 elseif Display == 4 % Smith Chart
     error('Error in hfssCreateReport: display not supported');
 elseif Display == 5 % Data Table
@@ -199,12 +204,19 @@ elseif Display == 5 % Data Table
 elseif Display == 6 % 3D Rectangular Plot
     fprintf(fid, '"X Component:=", "%s", _\n', DataObj{1});
     fprintf(fid, '"Y Component:=", "%s", _\n', DataObj{2});
-    fprintf(fid, '"Z Component:=", Array("%s")), _\n', DataObj{3});
+    fprintf(fid, '"Z Component:=", Array( _\n');
+    ini = 3;
 elseif Display == 7 % 3D Polar Plot
     fprintf(fid, '"Phi Component:=", "%s", _\n', DataObj{1});
     fprintf(fid, '"Theta Component:=", "%s", _\n', DataObj{2});
-    fprintf(fid, '"Mag Component:=", Array("%s")), _\n', DataObj{3});
+    fprintf(fid, '"Mag Component:=", Array( _\n');
+    ini = 3;
 else
     error('Error in hfssCreateReport: Display = wrong value');
 end
+
+for m = ini:numel(DataObj)-1
+    fprintf(fid, '"%s", _\n', DataObj{m});
+end
+fprintf(fid, '"%s")), _\n', DataObj{end});
 fprintf(fid, 'Array()\n');

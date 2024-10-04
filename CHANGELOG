@@ -1,3 +1,7 @@
+v0.7 (Unreleased)
+[I guess I'm still using it]
+    -Added the possibility of plotting several graphs in one single report (hfssCreateReport).
+
 v0.6 (20-September-2024)
 [I don't know how long this will last]
     -Added the following new functions:

@@ -28,6 +28,7 @@
 % 28-Sep-2015: *Initial release (RS).
 % 02-Sep-2020: *Allows to assign a variable as a function of other
 %               variables (DRP).
+% 04-Oct-2024: *Allow to have unitless variables.
 % ----------------------------------------------------------------------------
 
 % ----------------------------------------------------------------------------
@@ -36,6 +37,10 @@
 % 28 September 2015
 % ----------------------------------------------------------------------------
 function hfssSetVariable(fid, variable, value, units)
+    if nargin < 4
+        units = '';
+    end
+
 	% Preamble.
 	fprintf(fid, '\n');
 

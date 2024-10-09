@@ -1,5 +1,7 @@
 v0.7 (Unreleased)
 [I guess I'm still using it]
+    -Added the following new functions:
+        (general) hfssSetDesignSettings(...)
     -Added the possibility of plotting several graphs in one single report (hfssCreateReport).
     -Allow to have unitless variables in hfssSetVariable.
     -Allow to add units to string variables in hfssSetVariable.
